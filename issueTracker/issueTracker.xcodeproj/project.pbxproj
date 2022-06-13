@@ -18,9 +18,16 @@
 		E0F09E0928576E66006B9F87 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E0428576E66006B9F87 /* BaseCollectionViewCell.swift */; };
 		E0F09E0E28576E9D006B9F87 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E0D28576E9D006B9F87 /* Coordinator.swift */; };
 		E0F09E1128576FED006B9F87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E1028576FED006B9F87 /* AppCoordinator.swift */; };
-		E0F09E1328577216006B9F87 /* IssueViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E1228577216006B9F87 /* IssueViewCoordinator.swift */; };
 		E0F09E1628577513006B9F87 /* IssueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E1528577513006B9F87 /* IssueListViewController.swift */; };
 		E0F09E1A28577559006B9F87 /* IssueListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E1928577559006B9F87 /* IssueListViewModel.swift */; };
+		E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E1C28577D97006B9F87 /* LoginViewController.swift */; };
+		E0F09E1F28577DA3006B9F87 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E1E28577DA3006B9F87 /* LoginViewModel.swift */; };
+		E0F09E23285784DC006B9F87 /* AuthViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E22285784DC006B9F87 /* AuthViewCoordinator.swift */; };
+		E0F09E2E285794AB006B9F87 /* HomeViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E2D285794AB006B9F87 /* HomeViewCoordinator.swift */; };
+		E0F09E30285795DA006B9F87 /* IssueListViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E2F285795DA006B9F87 /* IssueListViewCoordinator.swift */; };
+		E0F09E33285796D5006B9F87 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E32285796D5006B9F87 /* SplashViewController.swift */; };
+		E0F09E35285796E2006B9F87 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E34285796E2006B9F87 /* SplashViewModel.swift */; };
+		E0F09E37285796F0006B9F87 /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E36285796F0006B9F87 /* SplashViewCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,9 +46,16 @@
 		E0F09E0428576E66006B9F87 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		E0F09E0D28576E9D006B9F87 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E0F09E1028576FED006B9F87 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		E0F09E1228577216006B9F87 /* IssueViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueViewCoordinator.swift; sourceTree = "<group>"; };
 		E0F09E1528577513006B9F87 /* IssueListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewController.swift; sourceTree = "<group>"; };
 		E0F09E1928577559006B9F87 /* IssueListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewModel.swift; sourceTree = "<group>"; };
+		E0F09E1C28577D97006B9F87 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E0F09E1E28577DA3006B9F87 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		E0F09E22285784DC006B9F87 /* AuthViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewCoordinator.swift; sourceTree = "<group>"; };
+		E0F09E2D285794AB006B9F87 /* HomeViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCoordinator.swift; sourceTree = "<group>"; };
+		E0F09E2F285795DA006B9F87 /* IssueListViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewCoordinator.swift; sourceTree = "<group>"; };
+		E0F09E32285796D5006B9F87 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		E0F09E34285796E2006B9F87 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
+		E0F09E36285796F0006B9F87 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				E0F09DFF28576E48006B9F87 /* Base */,
-				E0F09E0F28576FDC006B9F87 /* Coordinator */,
 				E0F09E182857753C006B9F87 /* Views */,
 			);
 			path = Present;
@@ -174,20 +187,12 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		E0F09E0F28576FDC006B9F87 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				E0F09E1028576FED006B9F87 /* AppCoordinator.swift */,
-				E0F09E1228577216006B9F87 /* IssueViewCoordinator.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
 		E0F09E1428577503006B9F87 /* IssueList */ = {
 			isa = PBXGroup;
 			children = (
 				E0F09E1528577513006B9F87 /* IssueListViewController.swift */,
 				E0F09E1928577559006B9F87 /* IssueListViewModel.swift */,
+				E0F09E2F285795DA006B9F87 /* IssueListViewCoordinator.swift */,
 			);
 			path = IssueList;
 			sourceTree = "<group>";
@@ -195,9 +200,49 @@
 		E0F09E182857753C006B9F87 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E0F09E1428577503006B9F87 /* IssueList */,
+				E0F09E1028576FED006B9F87 /* AppCoordinator.swift */,
+				E0F09E31285796C7006B9F87 /* Splash */,
+				E0F09E1B28577D88006B9F87 /* Auth */,
+				E0F09E2C28579495006B9F87 /* Home */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E0F09E1B28577D88006B9F87 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E0F09E22285784DC006B9F87 /* AuthViewCoordinator.swift */,
+				E0F09E2B2857916C006B9F87 /* Login */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E0F09E2B2857916C006B9F87 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E0F09E1C28577D97006B9F87 /* LoginViewController.swift */,
+				E0F09E1E28577DA3006B9F87 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		E0F09E2C28579495006B9F87 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E0F09E2D285794AB006B9F87 /* HomeViewCoordinator.swift */,
+				E0F09E1428577503006B9F87 /* IssueList */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E0F09E31285796C7006B9F87 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				E0F09E36285796F0006B9F87 /* SplashViewCoordinator.swift */,
+				E0F09E32285796D5006B9F87 /* SplashViewController.swift */,
+				E0F09E34285796E2006B9F87 /* SplashViewModel.swift */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,16 +377,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0F09E2E285794AB006B9F87 /* HomeViewCoordinator.swift in Sources */,
+				E0F09E23285784DC006B9F87 /* AuthViewCoordinator.swift in Sources */,
 				E0F09E0E28576E9D006B9F87 /* Coordinator.swift in Sources */,
+				E0F09E35285796E2006B9F87 /* SplashViewModel.swift in Sources */,
+				E0F09E33285796D5006B9F87 /* SplashViewController.swift in Sources */,
 				E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */,
 				E0F09E1628577513006B9F87 /* IssueListViewController.swift in Sources */,
+				E0F09E37285796F0006B9F87 /* SplashViewCoordinator.swift in Sources */,
+				E0F09E1F28577DA3006B9F87 /* LoginViewModel.swift in Sources */,
 				E0F09E0928576E66006B9F87 /* BaseCollectionViewCell.swift in Sources */,
 				E0F09E0728576E66006B9F87 /* MVVM.swift in Sources */,
-				E0F09E1328577216006B9F87 /* IssueViewCoordinator.swift in Sources */,
+				E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */,
 				E0F09E0628576E66006B9F87 /* BaseViewController.swift in Sources */,
 				E0F09E0828576E66006B9F87 /* BaseView.swift in Sources */,
 				E0F09E1A28577559006B9F87 /* IssueListViewModel.swift in Sources */,
 				E0F09E1128576FED006B9F87 /* AppCoordinator.swift in Sources */,
+				E0F09E30285795DA006B9F87 /* IssueListViewCoordinator.swift in Sources */,
 				E0F09E0528576E66006B9F87 /* BaseTableViewCell.swift in Sources */,
 				E0F09DE928576CAE006B9F87 /* SceneDelegate.swift in Sources */,
 			);

@@ -14,6 +14,7 @@
 		E09CB92928589C9D002255FE /* HexToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92828589C9D002255FE /* HexToColor.swift */; };
 		E09CB92C2858A146002255FE /* DecodedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92B2858A146002255FE /* DecodedBy.swift */; };
 		E09CB92E2858CAD1002255FE /* Rx+TableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92D2858CAD1002255FE /* Rx+TableView+Extension.swift */; };
+		B5E9B6BC2858475800BA79A4 /* LabelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6BB2858475800BA79A4 /* LabelListViewController.swift */; };
 		E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09DE628576CAE006B9F87 /* AppDelegate.swift */; };
 		E0F09DE928576CAE006B9F87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */; };
 		E0F09DF028576CAF006B9F87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0F09DEF28576CAF006B9F87 /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		E09CB92828589C9D002255FE /* HexToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexToColor.swift; sourceTree = "<group>"; };
 		E09CB92B2858A146002255FE /* DecodedBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodedBy.swift; sourceTree = "<group>"; };
 		E09CB92D2858CAD1002255FE /* Rx+TableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+TableView+Extension.swift"; sourceTree = "<group>"; };
+		B5E9B6BB2858475800BA79A4 /* LabelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelListViewController.swift; sourceTree = "<group>"; };
 		E0F09DE328576CAE006B9F87 /* issueTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = issueTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0F09DE628576CAE006B9F87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +164,12 @@
 				E09CB92828589C9D002255FE /* HexToColor.swift */,
 			);
 			path = DecodedBy;
+		B5E9B6BA2858463F00BA79A4 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				B5E9B6BB2858475800BA79A4 /* LabelListViewController.swift */,
+			);
+			path = Label;
 			sourceTree = "<group>";
 		};
 		E0F09DDA28576CAE006B9F87 = {
@@ -315,6 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				E0F09E2D285794AB006B9F87 /* HomeViewCoordinator.swift */,
+				B5E9B6BA2858463F00BA79A4 /* Label */,
 				E0F09E1428577503006B9F87 /* IssueList */,
 			);
 			path = Home;
@@ -624,6 +633,7 @@
 				E09CB92728588F59002255FE /* TagListView.swift in Sources */,
 				E0F09E4F285821AE006B9F87 /* BaseTarget.swift in Sources */,
 				E0F09E1A28577559006B9F87 /* IssueListViewModel.swift in Sources */,
+				B5E9B6BC2858475800BA79A4 /* LabelListViewController.swift in Sources */,
 				E0F09E1128576FED006B9F87 /* AppCoordinator.swift in Sources */,
 				E0F09E30285795DA006B9F87 /* IssueListViewCoordinator.swift in Sources */,
 				E0F09E79285870E9006B9F87 /* Issue.swift in Sources */,

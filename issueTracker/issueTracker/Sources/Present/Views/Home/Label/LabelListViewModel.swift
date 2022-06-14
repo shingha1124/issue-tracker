@@ -25,8 +25,8 @@ final class LabelListViewModel: ViewModel {
     private weak var navigation: LabelListNavigation?
 
     struct Action {
-        let updateLabels = PublishRelay<Void>()
-        let labelInsertTap = PublishRelay<Void>()
+        let enteredLabels = PublishRelay<Void>()
+        let labelInsertButtonTapped = PublishRelay<Void>()
     }
     
     struct State {
@@ -40,6 +40,14 @@ final class LabelListViewModel: ViewModel {
     init(navigation: LabelListNavigation) {
         self.navigation = navigation
         let labelList = self.loadTemporaryData()
+        
+        self.action.labelInsertButtonTapped
+            .withUnretained(self)
+            .bind(onNext: { _ in
+                self.navigation?.goToLabelInsertion()
+            })
+            .disposed(by: disposeBag)
+        
         self.action.enteredLabels
             .withUnretained(self)
             .bind(onNext: { _ in

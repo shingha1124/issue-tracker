@@ -8,7 +8,7 @@ import UIKit
 
 final class LabelInsertForm: BaseView {
     
-    private (set)var titleForm: LabelInsertField = {
+    let titleForm: LabelInsertField = {
         let textField = UITextField()
         textField.placeholder = "필수 입력"
         
@@ -17,7 +17,7 @@ final class LabelInsertForm: BaseView {
         return form
     }()
     
-    private var descriptionForm: LabelInsertField = {
+    let descriptionForm: LabelInsertField = {
         let textField = UITextField()
         textField.placeholder = "선택 사항"
         
@@ -27,26 +27,26 @@ final class LabelInsertForm: BaseView {
     }()
     
     private let randomColors: [String] = ["#FFFFFF", "#3DDCFF", "#2F2F2F", "#DDDDDD"]
-    private lazy var colorForm: LabelInsertField = {
+    let colorForm: LabelInsertField = {
         let textField = UITextField()
         textField.text = "#FFFFFF"
-        
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
-        button.sizeToFit()
-        button.addAction(UIAction(handler:{ [weak self] _ in
-            textField.text = self?.randomColors.randomElement() ?? "#??????"
-        }), for: .touchDown)
-        
-        textField.rightViewMode = .always
-        textField.rightView = button
-        
+     
         let form = LabelInsertField(title: "배경색", textField: textField)
         form.backgroundColor = .white
         return form
     }()
     
-    private var formStackView: UIStackView = {
+    private (set) lazy var colorChangeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
+        button.sizeToFit()
+        button.addAction(UIAction(handler:{ [weak self] _ in
+            self?.colorForm.textField.text = self?.randomColors.randomElement() ?? "#??????"
+        }), for: .touchDown)
+        return button
+    }()
+    
+    private let formStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -57,6 +57,8 @@ final class LabelInsertForm: BaseView {
     override func attribute() {
         super.attribute()
         self.backgroundColor = .white
+        self.colorForm.textField.rightViewMode = .always
+        self.colorForm.textField.rightView = self.colorChangeButton
     }
     
     override func layout() {

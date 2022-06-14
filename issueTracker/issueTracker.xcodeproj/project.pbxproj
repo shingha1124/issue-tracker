@@ -50,6 +50,7 @@
 		E0F09E69285826F9006B9F87 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E68285826F9006B9F87 /* LoginButtonView.swift */; };
 		E0F09E6C2858339B006B9F87 /* DeepLinkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E6B2858339B006B9F87 /* DeepLinkRouter.swift */; };
 		E0F09E7028583EFC006B9F87 /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E6F28583EFC006B9F87 /* Result+Extension.swift */; };
+		E0F09E7328585EE7006B9F87 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E7228585EE7006B9F87 /* PaddingLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		E0F09E68285826F9006B9F87 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		E0F09E6B2858339B006B9F87 /* DeepLinkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkRouter.swift; sourceTree = "<group>"; };
 		E0F09E6F28583EFC006B9F87 /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
+		E0F09E7228585EE7006B9F87 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 		E0F09DFE28576E40006B9F87 /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				E0F09E7128585EDD006B9F87 /* Common */,
 				E0F09DFF28576E48006B9F87 /* Base */,
 				E0F09E182857753C006B9F87 /* Views */,
 			);
@@ -391,6 +394,14 @@
 			path = DeepLink;
 			sourceTree = "<group>";
 		};
+		E0F09E7128585EDD006B9F87 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E0F09E7228585EE7006B9F87 /* PaddingLabel.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -559,6 +570,7 @@
 				E0F09E30285795DA006B9F87 /* IssueListViewCoordinator.swift in Sources */,
 				E0F09E442858216C006B9F87 /* GitHubRepositoryImpl.swift in Sources */,
 				E0F09E4E285821AE006B9F87 /* Provider.swift in Sources */,
+				E0F09E7328585EE7006B9F87 /* PaddingLabel.swift in Sources */,
 				E0F09E612858225A006B9F87 /* GitHubTarget.swift in Sources */,
 				E0F09E0528576E66006B9F87 /* BaseTableViewCell.swift in Sources */,
 				E0F09DE928576CAE006B9F87 /* SceneDelegate.swift in Sources */,

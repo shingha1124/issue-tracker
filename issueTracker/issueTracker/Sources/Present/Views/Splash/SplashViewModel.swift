@@ -24,18 +24,26 @@ final class SplashViewModel: ViewModel {
     
     let action = Action()
     let state = State()
-    private weak var splashNavigation: SplashNavigation?
     
+    private weak var navigation: SplashNavigation?
     private var disposeBag = DisposeBag()
+    @Inject(\.tokenStore) private var tokenStore: TokenStore
     
-    init(splashNavigation: SplashNavigation) {
-        self.splashNavigation = splashNavigation
+    init(navigation: SplashNavigation) {
+        self.navigation = navigation
         
         action.checkToken
-            .delay(.seconds(5), scheduler: MainScheduler.asyncInstance)
             .withUnretained(self)
-            .bind(onNext: { model, _ in
-                model.splashNavigation?.goToLogin()
+            .map { model, _ in
+                model.tokenStore.hasToken()
+            }
+            .withUnretained(self)
+            .bind(onNext: { model, hasToken in
+                if hasToken {
+                    model.navigation?.goToHome()
+                } else {
+                    model.navigation?.goToLogin()
+                }
             })
             .disposed(by: disposeBag)
     }

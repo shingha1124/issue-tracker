@@ -29,7 +29,7 @@ final class SplashViewCoordinator: Coordinator {
 extension SplashViewCoordinator: SplashNavigation {
     func goToSplash() {
         let viewController = SplashViewController()
-        let viewModel = SplashViewModel(splashNavigation: self)
+        let viewModel = SplashViewModel(navigation: self)
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }

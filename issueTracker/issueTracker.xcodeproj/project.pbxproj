@@ -46,6 +46,10 @@
 		E0F09E5F28582229006B9F87 /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E5E28582229006B9F87 /* TokenStore.swift */; };
 		E0F09E612858225A006B9F87 /* GitHubTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E602858225A006B9F87 /* GitHubTarget.swift */; };
 		E0F09E63285822C7006B9F87 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E62285822C7006B9F87 /* Token.swift */; };
+		E0F09E6628582559006B9F87 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E6528582559006B9F87 /* UIColor+Extension.swift */; };
+		E0F09E69285826F9006B9F87 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E68285826F9006B9F87 /* LoginButtonView.swift */; };
+		E0F09E6C2858339B006B9F87 /* DeepLinkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E6B2858339B006B9F87 /* DeepLinkRouter.swift */; };
+		E0F09E7028583EFC006B9F87 /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E6F28583EFC006B9F87 /* Result+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +96,10 @@
 		E0F09E5E28582229006B9F87 /* TokenStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		E0F09E602858225A006B9F87 /* GitHubTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubTarget.swift; sourceTree = "<group>"; };
 		E0F09E62285822C7006B9F87 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		E0F09E6528582559006B9F87 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		E0F09E68285826F9006B9F87 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
+		E0F09E6B2858339B006B9F87 /* DeepLinkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkRouter.swift; sourceTree = "<group>"; };
+		E0F09E6F28583EFC006B9F87 /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +166,7 @@
 				E0F09E3D2858213C006B9F87 /* Target */,
 				E0F09E3C28582136006B9F87 /* Repository */,
 				E0F09DFE28576E40006B9F87 /* Present */,
+				E0F09E6428582547006B9F87 /* Extension */,
 				E0F09E38285815B0006B9F87 /* Common */,
 				E0F09DE628576CAE006B9F87 /* AppDelegate.swift */,
 				E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */,
@@ -230,9 +239,9 @@
 		E0F09E1428577503006B9F87 /* IssueList */ = {
 			isa = PBXGroup;
 			children = (
+				E0F09E2F285795DA006B9F87 /* IssueListViewCoordinator.swift */,
 				E0F09E1528577513006B9F87 /* IssueListViewController.swift */,
 				E0F09E1928577559006B9F87 /* IssueListViewModel.swift */,
-				E0F09E2F285795DA006B9F87 /* IssueListViewCoordinator.swift */,
 			);
 			path = IssueList;
 			sourceTree = "<group>";
@@ -260,6 +269,7 @@
 		E0F09E2B2857916C006B9F87 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				E0F09E67285826ED006B9F87 /* View */,
 				E0F09E1C28577D97006B9F87 /* LoginViewController.swift */,
 				E0F09E1E28577DA3006B9F87 /* LoginViewModel.swift */,
 			);
@@ -288,6 +298,7 @@
 		E0F09E38285815B0006B9F87 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E0F09E6A2858338F006B9F87 /* DeepLink */,
 				E0F09E5328582205006B9F87 /* PropertyWrapper */,
 				E0F09E5628582205006B9F87 /* Constants.swift */,
 				E0F09E5728582205006B9F87 /* Container.swift */,
@@ -353,6 +364,31 @@
 				E0F09E5528582205006B9F87 /* Inject.swift */,
 			);
 			path = PropertyWrapper;
+			sourceTree = "<group>";
+		};
+		E0F09E6428582547006B9F87 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E0F09E6528582559006B9F87 /* UIColor+Extension.swift */,
+				E0F09E6F28583EFC006B9F87 /* Result+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		E0F09E67285826ED006B9F87 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E0F09E68285826F9006B9F87 /* LoginButtonView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E0F09E6A2858338F006B9F87 /* DeepLink */ = {
+			isa = PBXGroup;
+			children = (
+				E0F09E6B2858339B006B9F87 /* DeepLinkRouter.swift */,
+			);
+			path = DeepLink;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -488,6 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0F09E4228582166006B9F87 /* GitHubRepository.swift in Sources */,
+				E0F09E6628582559006B9F87 /* UIColor+Extension.swift in Sources */,
 				E0F09E5D28582205006B9F87 /* ImageManager.swift in Sources */,
 				E0F09E3F28582157006B9F87 /* NetworkRepository.swift in Sources */,
 				E0F09E5928582205006B9F87 /* UserDefault.swift in Sources */,
@@ -505,6 +542,8 @@
 				E0F09E5F28582229006B9F87 /* TokenStore.swift in Sources */,
 				E0F09E0928576E66006B9F87 /* BaseCollectionViewCell.swift in Sources */,
 				E0F09E0728576E66006B9F87 /* MVVM.swift in Sources */,
+				E0F09E69285826F9006B9F87 /* LoginButtonView.swift in Sources */,
+				E0F09E6C2858339B006B9F87 /* DeepLinkRouter.swift in Sources */,
 				E0F09E3A285815BF006B9F87 /* Log.swift in Sources */,
 				E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */,
 				E0F09E50285821AE006B9F87 /* HTTPMethod.swift in Sources */,
@@ -513,6 +552,7 @@
 				E0F09E0828576E66006B9F87 /* BaseView.swift in Sources */,
 				E0F09E51285821AE006B9F87 /* Response.swift in Sources */,
 				E0F09E5A28582205006B9F87 /* Inject.swift in Sources */,
+				E0F09E7028583EFC006B9F87 /* Result+Extension.swift in Sources */,
 				E0F09E4F285821AE006B9F87 /* BaseTarget.swift in Sources */,
 				E0F09E1A28577559006B9F87 /* IssueListViewModel.swift in Sources */,
 				E0F09E1128576FED006B9F87 /* AppCoordinator.swift in Sources */,
@@ -665,7 +705,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.issueTracker.team14.issueTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.team14.issueTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -694,7 +734,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.issueTracker.team14.issueTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.team14.issueTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

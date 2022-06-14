@@ -12,7 +12,7 @@ class Container {
     
     private init() { }
     
-    lazy var authRepository: GitHubRepository = GitHubRepositoryImpl()
+    lazy var gitHubRepository: GitHubRepository = GitHubRepositoryImpl()
     
     lazy var imageManager = ImageManager()
     

@@ -17,7 +17,7 @@ protocol LoginNavigation: AnyObject {
 
 final class LoginViewModel: ViewModel {
     struct Action {
-        let checkLogin = PublishRelay<Void>()
+        let tappedGitLogin = PublishRelay<Void>()
     }
     
     struct State {
@@ -32,10 +32,17 @@ final class LoginViewModel: ViewModel {
     init(loginNavigation: LoginNavigation) {
         self.loginNavigation = loginNavigation
         
-        action.checkLogin
-            .withUnretained(self)
-            .bind(onNext: { model, _ in
-                model.loginNavigation?.goToHome()
+        action.tappedGitLogin
+            .compactMap { _ -> URL? in
+                let clientId = Constants.Login.gitHubClientId
+                var urlComponets = URLComponents(string: Constants.Login.gitHubUrl)
+                urlComponets?.queryItems = [
+                    URLQueryItem(name: "client_id", value: clientId)
+                ]
+                return urlComponets?.url
+            }
+            .bind(onNext: {
+                UIApplication.shared.open($0)
             })
             .disposed(by: disposeBag)
     }

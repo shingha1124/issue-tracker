@@ -35,6 +35,9 @@ final class HomeViewCoordinator: Coordinator {
         
         tabBarViewController.viewControllers = [issueNavigationController]
         
+        
+        navigationController.pushViewController(tabBarViewController, animated: true)
+        
         parentCoordinator?.children.append(issueCoordinator)
         
         issueCoordinator.start()

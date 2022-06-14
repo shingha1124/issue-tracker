@@ -17,6 +17,15 @@ final class IssueListViewCoordinator: Coordinator {
     }
     
     func start() {
-        
+        goToIssueList()
+    }
+}
+
+extension IssueListViewCoordinator: IssueListNavigation {
+    func goToIssueList() {
+        let viewController = IssueListViewController()
+        let viewModel = IssueListViewModel(navigation: self)
+        viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

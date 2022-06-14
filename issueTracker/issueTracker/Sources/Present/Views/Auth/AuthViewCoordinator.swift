@@ -24,16 +24,16 @@ final class AuthViewCoordinator: Coordinator {
         Log.debug("start \(String(describing: type(of: self)))")
         goToLoginPage()
     }
-    
+}
+
+extension AuthViewCoordinator: LoginNavigation {
     func goToLoginPage() {
         let loginViewController = LoginViewController()
         let loginViewModel = LoginViewModel(loginNavigation: self)
         loginViewController.viewModel = loginViewModel
         navigationController.pushViewController(loginViewController, animated: true)
     }
-}
-
-extension AuthViewCoordinator: LoginNavigation {
+    
     func goToHome() {
     }
     

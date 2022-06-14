@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol GitHubRepository {
+    func requestAccessToken(code: String) -> Single<Swift.Result<Token, APIError>>
 }

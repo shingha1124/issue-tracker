@@ -17,9 +17,14 @@ protocol BaseTarget {
 
 extension BaseTarget {
     var header: [String: String]? {
+        var header = [String: String]()
+        header["Accept"] = "application/json"
+        header["Content-Type"] = content.value
+        
         guard let accessToken = Container.shared.tokenStore.getToken()?.accessToken else {
-            return nil
+            return header
         }
-        return ["Authorization": "Bearer \(accessToken)"]
+        header["Authorization"] = "Bearer \(accessToken)"
+        return header
     }
 }

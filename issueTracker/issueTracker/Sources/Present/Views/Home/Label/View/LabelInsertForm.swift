@@ -66,8 +66,8 @@ final class LabelInsertForm: BaseView {
         formStackView.addArrangedSubview(descriptionForm)
         formStackView.addArrangedSubview(colorForm)
         
-        formStackView.snp.makeConstraints { formStackView in
-            formStackView.top.bottom.width.equalTo(self)
+        formStackView.snp.makeConstraints {
+            $0.top.bottom.width.equalToSuperview()
         }
     }
 }

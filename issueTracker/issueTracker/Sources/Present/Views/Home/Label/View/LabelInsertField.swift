@@ -27,19 +27,19 @@ final class LabelInsertField: BaseView {
         super.layout()
         
         self.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { titleLabel in
-            titleLabel.top.equalTo(self).offset(10)
-            titleLabel.leading.equalTo(self).offset(15)
-            titleLabel.width.equalTo(self).multipliedBy(0.3)
-            titleLabel.bottom.equalTo(self).offset(-10)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.leading.equalToSuperview().offset(15)
+            $0.width.equalToSuperview().multipliedBy(0.3)
+            $0.bottom.equalToSuperview().offset(-10)
         }
             
         self.addSubview(textField)
-        textField.snp.makeConstraints { textField in
-            textField.top.equalTo(self).offset(10)
-            textField.leading.equalTo(titleLabel.snp.trailing)
-            textField.trailing.equalTo(self).offset(-15)
-            textField.bottom.equalTo(self).offset(-10)
+        textField.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.leading.equalTo(titleLabel.snp.trailing)
+            $0.trailing.equalToSuperview().offset(-15)
+            $0.bottom.equalToSuperview().offset(-10)
         }
     }
 }

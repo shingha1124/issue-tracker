@@ -14,4 +14,31 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .request(.requestAccessToken(code: code))
             .map(Token.self)
     }
+    
+    func requestUser() -> Single<Swift.Result<User, APIError>> {
+        provider
+            .request(.requestUser)
+            .do {
+                $0.value?.printJson()
+            }
+            .map(User.self)
+    }
+    
+    func requestRepository() -> Single<Swift.Result<[Repository], APIError>> {
+        provider
+            .request(.requestRepository)
+            .do {
+                $0.value?.printJson()
+            }
+            .map([Repository].self)
+    }
+    
+    func requestIssue(owner: String, repo: String) -> Single<Swift.Result<[Issue], APIError>> {
+        provider
+            .request(.requestIssue(owner: owner, repo: repo))
+            .do {
+                $0.value?.printJson()
+            }
+            .map([Issue].self)
+    }
 }

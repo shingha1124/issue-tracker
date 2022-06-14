@@ -30,6 +30,14 @@ extension Response {
             throw APIError.objectMapping(error: error, response: self)
         }
     }
+    
+    func printJson() {
+        guard let json = try? JSONSerialization.jsonObject(with: data) else {
+            return
+        }
+        
+        print(json)
+    }
 }
 
 extension PrimitiveSequence where Trait == SingleTrait, Element == Result<Response, APIError> {

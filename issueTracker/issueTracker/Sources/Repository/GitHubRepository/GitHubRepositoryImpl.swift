@@ -29,9 +29,9 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .map([Repository].self)
     }
     
-    func requestIssueList(parameters: RequestIssueListParameters) -> Single<Swift.Result<[Issue], APIError>> {
+    func requestRepoIssueList(parameters: RequestIssueListParameters) -> Single<Swift.Result<[Issue], APIError>> {
         provider
-            .request(.requestIssueList(parameters: parameters))
+            .request(.requestRepoIssueList(parameters: parameters))
 //            .do { $0.value?.printJson() }
             .map([Issue].self)
     }

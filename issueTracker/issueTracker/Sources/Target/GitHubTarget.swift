@@ -11,7 +11,8 @@ enum GithubTarget {
     case requestAccessToken(code: String)
     case requestUser
     case requestRepository
-    case requestIssueList(parameters: RequestIssueListParameters)
+    case requestAllIssueList
+    case requestRepoIssueList(parameters: RequestIssueListParameters)
     case requestUpdateIssue(parameters: RequestUpdateIssueParameters)
 }
 
@@ -34,7 +35,9 @@ extension GithubTarget: BaseTarget {
             return "/user"
         case .requestRepository:
             return "/user/repos"
-        case .requestIssueList(let param):
+        case .requestAllIssueList:
+            return "/issues"
+        case .requestRepoIssueList(let param):
             return "/repos/\(param.owner)/\(param.repo)/issues"
         case .requestUpdateIssue(let param):
             return "/repos/\(param.owner)/\(param.repo)/issues/\(param.number)"
@@ -47,7 +50,7 @@ extension GithubTarget: BaseTarget {
             return ["client_id": Constants.Login.gitHubClientId, "client_secret": Constants.Login.gitHubSecrets, "code": code, "scope": "repo,user" ]
             
 //            URLQueryItem(name: "scope", value: "repo,user")
-        case .requestIssueList(let param):
+        case .requestRepoIssueList(let param):
             return param.parameters
         case .requestUpdateIssue(let param):
             return param.parameters
@@ -60,7 +63,7 @@ extension GithubTarget: BaseTarget {
         switch self {
         case .requestAccessToken:
             return .post
-        case .requestUser, .requestRepository, .requestIssueList:
+        case .requestUser, .requestRepository, .requestAllIssueList, .requestRepoIssueList:
             return .get
         case .requestUpdateIssue:
             return .patch

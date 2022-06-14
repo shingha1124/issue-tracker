@@ -45,7 +45,7 @@ final class IssueListViewModel: ViewModel {
             }
             .withUnretained(self)
             .flatMapLatest { model, param in
-                model.gitHubRepository.requestIssueList(parameters: param)
+                model.gitHubRepository.requestRepoIssueList(parameters: param)
             }
             .share()
         

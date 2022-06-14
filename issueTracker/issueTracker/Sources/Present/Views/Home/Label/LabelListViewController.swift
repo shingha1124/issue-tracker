@@ -10,7 +10,9 @@ import RxSwift
 final class LabelListViewController: BaseViewController, View {
 
     private lazy var addButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "추가 +", style: .plain, target: self, action: #selector(buttonTouched(_:)))
+        let button = UIBarButtonItem()
+        button.title = "추가 +"
+        button.style = .plain
         return button
     }()
     
@@ -24,18 +26,18 @@ final class LabelListViewController: BaseViewController, View {
             .withUnretained(self)
             .bind(onNext: { _, labels in
                 print(labels)
+        self.addButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { _ in
+                self.viewModel?.pushInsertViewController()
             })
             .disposed(by: disposeBag)
     }
-    
+        
     override func attribute() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         title = "레이블"
         self.navigationItem.rightBarButtonItem = addButton
         view.backgroundColor = .systemGray6
-    }
-    
-    @objc private func buttonTouched(_ sender: Any) {
-        
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 final class LabelListViewCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
+    weak var parentCoordinator: Coordinator?
     
     var children: [Coordinator] = []
     
@@ -33,6 +33,9 @@ extension LabelListViewCoordinator: LabelListNavigation {
     }
     
     func goToLabelInsertion() {
-        
+        let viewController = LabelInsertViewController()
+        let viewModel = LabelInsertViewModel(navigation: self)
+        viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

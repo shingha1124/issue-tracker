@@ -12,7 +12,7 @@ final class IssueListViewController: BaseViewController, View {
     
     private let issueTableView: UITableView = {
         let tableView = UITableView()
-//        tableView.
+        tableView.register(IssueTableViewCell.self, forCellReuseIdentifier: IssueTableViewCell.identifier)
         return tableView
     }()
     
@@ -22,9 +22,32 @@ final class IssueListViewController: BaseViewController, View {
         rx.viewDidLoad
             .bind(to: viewModel.action.requestIssue)
             .disposed(by: disposeBag)
+        
+        rx.viewDidAppear
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.navigationController?.navigationBar.prefersLargeTitles = true
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.state.issues
+            .bind(to: issueTableView.rx.items(cellIdentifier: IssueTableViewCell.identifier, cellType: IssueTableViewCell.self)) { _, model, cell in
+                cell.viewModel = model
+            }
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {
-        view.backgroundColor = .red
+        title = "이슈"
+        view.backgroundColor = .white
+    }
+    
+    override func layout() {
+        view.addSubview(issueTableView)
+        
+        issueTableView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 }

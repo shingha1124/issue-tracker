@@ -15,11 +15,11 @@ protocol IssueListNavigation: AnyObject {
 
 final class IssueListViewModel: ViewModel {
     struct Action {
-       let requestIssue = PublishRelay<Void>()
+        let requestIssue = PublishRelay<Void>()
     }
     
     struct State {
-        
+        let issues = PublishRelay<[IssueTableViewCellModel]>()
     }
     
     let action = Action()
@@ -39,11 +39,13 @@ final class IssueListViewModel: ViewModel {
             }
             .share()
         
-        requestIssueList
+        let issueCellViewModels = requestIssueList
             .compactMap { $0.value }
-            .bind(onNext: {
-                print($0)
-            })
+            .map { $0.map { IssueTableViewCellModel(issue: $0) } }
+            .share()
+        
+        issueCellViewModels
+            .bind(to: state.issues)
             .disposed(by: disposeBag)
     }
 }

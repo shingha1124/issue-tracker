@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
 struct Label: Decodable {
     let name: String
-    let color: String
+    @DecodedBy<HexToColor<String>> var color: UIColor
 }

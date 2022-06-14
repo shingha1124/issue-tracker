@@ -10,6 +10,9 @@
 		1F52F6165AEE270F17AB51FA /* Pods_issueTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBEC6FC7CBD59A4408598AF /* Pods_issueTracker.framework */; };
 		E09CB92328587E29002255FE /* IssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92228587E29002255FE /* IssueTableViewCell.swift */; };
 		E09CB92528587E4B002255FE /* IssueTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */; };
+		E09CB92728588F59002255FE /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92628588F59002255FE /* TagListView.swift */; };
+		E09CB92928589C9D002255FE /* HexToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92828589C9D002255FE /* HexToColor.swift */; };
+		E09CB92C2858A146002255FE /* DecodedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92B2858A146002255FE /* DecodedBy.swift */; };
 		E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09DE628576CAE006B9F87 /* AppDelegate.swift */; };
 		E0F09DE928576CAE006B9F87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */; };
 		E0F09DF028576CAF006B9F87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0F09DEF28576CAF006B9F87 /* Assets.xcassets */; };
@@ -66,6 +69,9 @@
 		A02F1C68BA88CBEE4E131C1E /* Pods-issueTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-issueTracker.debug.xcconfig"; path = "Target Support Files/Pods-issueTracker/Pods-issueTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		E09CB92228587E29002255FE /* IssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCell.swift; sourceTree = "<group>"; };
 		E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCellModel.swift; sourceTree = "<group>"; };
+		E09CB92628588F59002255FE /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		E09CB92828589C9D002255FE /* HexToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexToColor.swift; sourceTree = "<group>"; };
+		E09CB92B2858A146002255FE /* DecodedBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodedBy.swift; sourceTree = "<group>"; };
 		E0F09DE328576CAE006B9F87 /* issueTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = issueTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0F09DE628576CAE006B9F87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +151,15 @@
 				3EBEC6FC7CBD59A4408598AF /* Pods_issueTracker.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E09CB92A2858A13F002255FE /* DecodedBy */ = {
+			isa = PBXGroup;
+			children = (
+				E09CB92B2858A146002255FE /* DecodedBy.swift */,
+				E09CB92828589C9D002255FE /* HexToColor.swift */,
+			);
+			path = DecodedBy;
 			sourceTree = "<group>";
 		};
 		E0F09DDA28576CAE006B9F87 = {
@@ -383,6 +398,7 @@
 		E0F09E5328582205006B9F87 /* PropertyWrapper */ = {
 			isa = PBXGroup;
 			children = (
+				E09CB92A2858A13F002255FE /* DecodedBy */,
 				E0F09E5428582205006B9F87 /* UserDefault.swift */,
 				E0F09E5528582205006B9F87 /* Inject.swift */,
 			);
@@ -418,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				E0F09E7228585EE7006B9F87 /* PaddingLabel.swift */,
+				E09CB92628588F59002255FE /* TagListView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -572,6 +589,7 @@
 				E0F09E23285784DC006B9F87 /* AuthViewCoordinator.swift in Sources */,
 				E0F09E0E28576E9D006B9F87 /* Coordinator.swift in Sources */,
 				E0F09E4C285821AE006B9F87 /* APIError.swift in Sources */,
+				E09CB92C2858A146002255FE /* DecodedBy.swift in Sources */,
 				E0F09E5B28582205006B9F87 /* Constants.swift in Sources */,
 				E0F09E35285796E2006B9F87 /* SplashViewModel.swift in Sources */,
 				E0F09E33285796D5006B9F87 /* SplashViewController.swift in Sources */,
@@ -586,6 +604,7 @@
 				E0F09E0928576E66006B9F87 /* BaseCollectionViewCell.swift in Sources */,
 				E0F09E0728576E66006B9F87 /* MVVM.swift in Sources */,
 				E0F09E69285826F9006B9F87 /* LoginButtonView.swift in Sources */,
+				E09CB92928589C9D002255FE /* HexToColor.swift in Sources */,
 				E0F09E6C2858339B006B9F87 /* DeepLinkRouter.swift in Sources */,
 				E0F09E3A285815BF006B9F87 /* Log.swift in Sources */,
 				E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */,
@@ -598,6 +617,7 @@
 				E0F09E51285821AE006B9F87 /* Response.swift in Sources */,
 				E0F09E5A28582205006B9F87 /* Inject.swift in Sources */,
 				E0F09E7028583EFC006B9F87 /* Result+Extension.swift in Sources */,
+				E09CB92728588F59002255FE /* TagListView.swift in Sources */,
 				E0F09E4F285821AE006B9F87 /* BaseTarget.swift in Sources */,
 				E0F09E1A28577559006B9F87 /* IssueListViewModel.swift in Sources */,
 				E0F09E1128576FED006B9F87 /* AppCoordinator.swift in Sources */,

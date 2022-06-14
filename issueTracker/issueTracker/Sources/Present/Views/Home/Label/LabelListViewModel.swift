@@ -39,10 +39,16 @@ final class LabelListViewModel: ViewModel {
     
     init(navigation: LabelListNavigation) {
         self.navigation = navigation
-        self.loadTemporaryData()
+        let labelList = self.loadTemporaryData()
+        self.action.enteredLabels
+            .withUnretained(self)
+            .bind(onNext: { _ in
+                self.state.updatedLabels.accept(labelList)
+            })
+            .disposed(by: disposeBag)
     }
     
-    private func loadTemporaryData() {
+    private func loadTemporaryData() -> [LabelInfo] {
         var labelList: [LabelInfo] = []
         for num in 1...10 {
             let title = "label\(num)"
@@ -52,13 +58,6 @@ final class LabelListViewModel: ViewModel {
             
             labelList.append(labelInfo)
         }
-        
-        self.action.updateLabels
-            .withUnretained(self)
-            .bind(onNext: { _ in
-                print(labelList)
-                self.state.updatedLabels.accept(labelList)
-            })
-            .disposed(by: disposeBag)
+        return labelList
     }
 }

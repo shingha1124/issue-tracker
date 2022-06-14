@@ -36,6 +36,7 @@ final class DeepLinkRouter {
             .compactMap { $0.value }
             .withUnretained(self)
             .do { router, token in
+                print(token)
                 router.tokenStore.store(token)
             }
             .bind(onNext: { router, _ in

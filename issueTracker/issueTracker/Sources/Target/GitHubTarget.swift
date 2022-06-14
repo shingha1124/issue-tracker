@@ -11,7 +11,8 @@ enum GithubTarget {
     case requestAccessToken(code: String)
     case requestUser
     case requestRepository
-    case requestIssue(owner: String, repo: String)
+    case requestIssueList(parameters: RequestIssueListParameters)
+    case requestUpdateIssue(parameters: RequestUpdateIssueParameters)
 }
 
 extension GithubTarget: BaseTarget {
@@ -33,15 +34,23 @@ extension GithubTarget: BaseTarget {
             return "/user"
         case .requestRepository:
             return "/user/repos"
-        case .requestIssue(let owner, let repo):
-            return "/repos/\(owner)/\(repo)/issues"
+        case .requestIssueList(let param):
+            return "/repos/\(param.owner)/\(param.repo)/issues"
+        case .requestUpdateIssue(let param):
+            return "/repos/\(param.owner)/\(param.repo)/issues/\(param.number)"
         }
     }
     
     var parameter: [String: Any]? {
         switch self {
         case .requestAccessToken(let code):
-            return ["client_id": Constants.Login.gitHubClientId, "client_secret": Constants.Login.gitHubSecrets, "code": code ]
+            return ["client_id": Constants.Login.gitHubClientId, "client_secret": Constants.Login.gitHubSecrets, "code": code, "scope": "repo,user" ]
+            
+//            URLQueryItem(name: "scope", value: "repo,user")
+        case .requestIssueList(let param):
+            return param.parameters
+        case .requestUpdateIssue(let param):
+            return param.parameters
         default:
             return nil
         }
@@ -51,14 +60,16 @@ extension GithubTarget: BaseTarget {
         switch self {
         case .requestAccessToken:
             return .post
-        case .requestUser, .requestRepository, .requestIssue:
+        case .requestUser, .requestRepository, .requestIssueList:
             return .get
+        case .requestUpdateIssue:
+            return .patch
         }
     }
     
     var content: HTTPContentType {
         switch self {
-        case .requestAccessToken, .requestUser, .requestRepository, .requestIssue:
+        default:
             return .json
         }
     }

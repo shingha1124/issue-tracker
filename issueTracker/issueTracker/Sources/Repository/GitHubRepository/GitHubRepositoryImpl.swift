@@ -18,27 +18,28 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
     func requestUser() -> Single<Swift.Result<User, APIError>> {
         provider
             .request(.requestUser)
-            .do {
-                $0.value?.printJson()
-            }
+//            .do { $0.value?.printJson() }
             .map(User.self)
     }
     
     func requestRepository() -> Single<Swift.Result<[Repository], APIError>> {
         provider
             .request(.requestRepository)
-            .do {
-                $0.value?.printJson()
-            }
+//            .do { $0.value?.printJson() }
             .map([Repository].self)
     }
     
-    func requestIssue(owner: String, repo: String) -> Single<Swift.Result<[Issue], APIError>> {
+    func requestIssueList(parameters: RequestIssueListParameters) -> Single<Swift.Result<[Issue], APIError>> {
         provider
-            .request(.requestIssue(owner: owner, repo: repo))
-            .do {
-                $0.value?.printJson()
-            }
+            .request(.requestIssueList(parameters: parameters))
+//            .do { $0.value?.printJson() }
             .map([Issue].self)
+    }
+    
+    func requestUpdateIssue(parameters: RequestUpdateIssueParameters) -> Single<Swift.Result<Issue, APIError>> {
+        provider
+            .request(.requestUpdateIssue(parameters: parameters))
+            .do { $0.value?.printJson() }
+            .map(Issue.self)
     }
 }

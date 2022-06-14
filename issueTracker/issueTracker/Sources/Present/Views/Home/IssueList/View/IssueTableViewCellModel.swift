@@ -15,6 +15,7 @@ final class IssueTableViewCellModel: ViewModel {
     }
     
     struct State {
+        let issue: Issue
         let title = PublishRelay<String>()
         let body = PublishRelay<String?>()
         let milestone = PublishRelay<String?>()
@@ -22,11 +23,13 @@ final class IssueTableViewCellModel: ViewModel {
     }
     
     let action = Action()
-    let state = State()
+    let state: State
     
     private let disposeBag = DisposeBag()
     
     init(issue: Issue) {
+        state = State(issue: issue)
+        
         action.loadData
             .map { issue.title }
             .bind(to: state.title)

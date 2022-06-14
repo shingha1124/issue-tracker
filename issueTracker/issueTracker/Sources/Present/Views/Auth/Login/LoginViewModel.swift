@@ -38,7 +38,7 @@ final class LoginViewModel: ViewModel {
                 var urlComponets = URLComponents(string: Constants.Login.gitHubUrl)
                 urlComponets?.queryItems = [
                     URLQueryItem(name: "client_id", value: clientId),
-                    URLQueryItem(name: "scope", value: "repo:status"),
+                    URLQueryItem(name: "scope", value: "repo,user")
                 ]
                 return urlComponets?.url
             }

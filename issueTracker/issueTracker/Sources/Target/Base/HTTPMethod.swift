@@ -8,7 +8,7 @@
 import Foundation
 
 enum HTTPMethod: String {
-    case get, post, delete
+    case get, post, delete, patch
     
     var value: String {
         self.rawValue.uppercased()

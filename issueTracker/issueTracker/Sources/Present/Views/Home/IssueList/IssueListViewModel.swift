@@ -14,8 +14,15 @@ protocol IssueListNavigation: AnyObject {
 }
 
 final class IssueListViewModel: ViewModel {
+    
+    private enum Constants {
+        static let owner = "shingha1124"
+        static let repo = "issue-tracker"
+    }
+    
     struct Action {
         let requestIssue = PublishRelay<Void>()
+        let deleteIssue = PublishRelay<Int>()
     }
     
     struct State {
@@ -33,9 +40,12 @@ final class IssueListViewModel: ViewModel {
         self.navigation = navigation
         
         let requestIssueList = action.requestIssue
+            .map {
+                RequestIssueListParameters(owner: Constants.owner, repo: Constants.repo, parameters: nil)
+            }
             .withUnretained(self)
-            .flatMapLatest { model, _ in
-                model.gitHubRepository.requestIssue(owner: "shingha1124", repo: "issue-tracker")
+            .flatMapLatest { model, param in
+                model.gitHubRepository.requestIssueList(parameters: param)
             }
             .share()
         
@@ -46,6 +56,26 @@ final class IssueListViewModel: ViewModel {
         
         issueCellViewModels
             .bind(to: state.issues)
+            .disposed(by: disposeBag)
+        
+        let requestIssueClose = action.deleteIssue
+            .withLatestFrom(state.issues) { index, viewModels in
+                viewModels[index].state.issue.number
+            }
+            .map {
+                RequestUpdateIssueParameters(owner: Constants.owner, repo: Constants.repo, number: $0, parameters: ["state": Issue.State.closed.value])
+            }
+            .withUnretained(self)
+            .flatMapLatest { model, param in
+                model.gitHubRepository.requestUpdateIssue(parameters: param)
+            }
+            .share()
+        
+        requestIssueClose
+            .compactMap { $0.value }
+            .bind(onNext: {
+                print($0)
+            })
             .disposed(by: disposeBag)
     }
 }

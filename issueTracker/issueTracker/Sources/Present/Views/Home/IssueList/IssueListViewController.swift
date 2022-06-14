@@ -40,7 +40,7 @@ final class IssueListViewController: BaseViewController, View {
             .withUnretained(self)
             .map { vc, issues -> [IndexPath: UISwipeActionsConfiguration] in
                 let keyValue = issues.enumerated().map { index, _ in
-                    (IndexPath(row: index, section: 0), vc.maketrailingSwipeActions())
+                    (IndexPath(row: index, section: 0), vc.maketrailingSwipeActions(index))
                 }
                 return Dictionary(uniqueKeysWithValues: keyValue)
             }
@@ -64,14 +64,15 @@ final class IssueListViewController: BaseViewController, View {
 }
 
 extension IssueListViewController {
-    func maketrailingSwipeActions() -> UISwipeActionsConfiguration {
+    func maketrailingSwipeActions(_ index: Int) -> UISwipeActionsConfiguration {
         let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { [weak self] _, _, completionHandler in
+            self?.viewModel?.action.deleteIssue.accept(index)
             completionHandler(true)
         }
         deleteAction.image = UIImage(named: "ic_trash")?.withTintColor(.white)
         deleteAction.backgroundColor = .error
         
-        let closeAction = UIContextualAction(style: .normal, title: "닫기") { [weak self] action, view, completionHandler in
+        let closeAction = UIContextualAction(style: .normal, title: "닫기") { _, _, completionHandler in
             completionHandler(true)
         }
         closeAction.image = UIImage(named: "ic_archive")?.withTintColor(.white)

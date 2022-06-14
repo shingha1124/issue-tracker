@@ -11,6 +11,7 @@ final class LabelListTableViewCell: BaseTableViewCell {
     
     private let paddingLabel: PaddingLabel = {
         let paddingLabel = PaddingLabel()
+        paddingLabel.backgroundColor = .systemCyan
         return paddingLabel
     }()
     

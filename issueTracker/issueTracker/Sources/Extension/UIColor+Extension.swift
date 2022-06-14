@@ -15,6 +15,10 @@ extension UIColor {
     static let grey5 = color(r: 229, g: 229, b: 234)
     static let grey6 = color(r: 242, g: 242, b: 247)
     
+    static let secondary2 = color(r: 204, g: 212, b: 255)
+    
+    static let error = color(r: 255, g: 59, b: 48)
+    
     static let backGround1 = UIColor.white
     static let backGround2 = grey6
     static let backGround3 = UIColor.black.withAlphaComponent(0.02)

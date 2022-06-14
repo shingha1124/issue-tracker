@@ -35,6 +35,17 @@ final class IssueListViewController: BaseViewController, View {
                 cell.viewModel = model
             }
             .disposed(by: disposeBag)
+        
+        viewModel.state.issues
+            .withUnretained(self)
+            .map { vc, issues -> [IndexPath: UISwipeActionsConfiguration] in
+                let keyValue = issues.enumerated().map { index, _ in
+                    (IndexPath(row: index, section: 0), vc.maketrailingSwipeActions())
+                }
+                return Dictionary(uniqueKeysWithValues: keyValue)
+            }
+            .bind(to: issueTableView.rx.trailingSwipeActionsConfigurationForRowAt)
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {
@@ -49,5 +60,26 @@ final class IssueListViewController: BaseViewController, View {
             $0.top.equalToSuperview()
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+}
+
+extension IssueListViewController {
+    func maketrailingSwipeActions() -> UISwipeActionsConfiguration {
+        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { [weak self] _, _, completionHandler in
+            completionHandler(true)
+        }
+        deleteAction.image = UIImage(named: "ic_trash")?.withTintColor(.white)
+        deleteAction.backgroundColor = .error
+        
+        let closeAction = UIContextualAction(style: .normal, title: "닫기") { [weak self] action, view, completionHandler in
+            completionHandler(true)
+        }
+        closeAction.image = UIImage(named: "ic_archive")?.withTintColor(.white)
+        closeAction.backgroundColor = .grey1
+        
+        let config = UISwipeActionsConfiguration(actions: [closeAction, deleteAction])
+        config.performsFirstActionWithFullSwipe = false
+
+        return config
     }
 }

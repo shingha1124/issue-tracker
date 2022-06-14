@@ -79,6 +79,13 @@ final class LabelInsertViewController: BaseViewController, View {
                 Log.debug("value changed to \(rgbValue)")
             })
             .disposed(by: disposeBag)
+        
+        rx.viewWillDisappear
+            .withUnretained(self)
+            .bind(onNext: { _ in
+                self.navigationController?.navigationBar.prefersLargeTitles = true
+            })
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {
@@ -86,11 +93,6 @@ final class LabelInsertViewController: BaseViewController, View {
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.view.backgroundColor = .systemGray6
         self.navigationItem.title = "새로운 레이블"
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func layout() {

@@ -21,4 +21,8 @@ final class SplashViewController: BaseViewController, View {
     override func attribute() {
         view.backgroundColor = .blue
     }
+    
+    override func layout() {
+        
+    }
 }

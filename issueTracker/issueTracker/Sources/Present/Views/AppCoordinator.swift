@@ -19,18 +19,22 @@ final class AppCoordinator: Coordinator {
         navigationController = UINavigationController()
     }
     
+    deinit {
+        Log.debug("deinit \(String(describing: type(of: self)))")
+    }
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func start() {
-        print("start \(String(describing: type(of: self)))")
+        Log.debug("start \(String(describing: type(of: self)))")
         window.overrideUserInterfaceStyle = .light
-        switchRootWindow(.splash)
+        switchRootViewController(.splash)
     }
     
-    func switchRootWindow(_ type: RootViewType) {
+    func switchRootViewController(_ type: RootViewType) {
         let coordinator = type.coordinator
         children.removeAll()
         coordinator.parentCoordinator = self

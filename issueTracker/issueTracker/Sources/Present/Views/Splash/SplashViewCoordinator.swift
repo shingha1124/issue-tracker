@@ -17,11 +17,11 @@ final class SplashViewCoordinator: Coordinator {
     }
     
     deinit {
-        print("deinit \(String(describing: type(of: self)))")
+        Log.debug("deinit \(String(describing: type(of: self)))")
     }
     
     func start() {
-        print("start \(String(describing: type(of: self)))")
+        Log.debug("start \(String(describing: type(of: self)))")
         goToSplash()
     }
 }
@@ -36,13 +36,13 @@ extension SplashViewCoordinator: SplashNavigation {
     
     func goToLogin() {
         let appCoordinator = parentCoordinator as? AppCoordinator
-        appCoordinator?.switchRootWindow(.login)
+        appCoordinator?.switchRootViewController(.login)
         parentCoordinator?.childDidFinish(self)
     }
     
     func goToHome() {
         let appCoordinator = parentCoordinator as? AppCoordinator
-        appCoordinator?.switchRootWindow(.home)
+        appCoordinator?.switchRootViewController(.home)
         parentCoordinator?.childDidFinish(self)
     }
 }

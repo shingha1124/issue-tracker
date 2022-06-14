@@ -28,6 +28,7 @@
 		E0F09E33285796D5006B9F87 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E32285796D5006B9F87 /* SplashViewController.swift */; };
 		E0F09E35285796E2006B9F87 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E34285796E2006B9F87 /* SplashViewModel.swift */; };
 		E0F09E37285796F0006B9F87 /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E36285796F0006B9F87 /* SplashViewCoordinator.swift */; };
+		E0F09E3A285815BF006B9F87 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E39285815BF006B9F87 /* Login.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		E0F09E32285796D5006B9F87 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		E0F09E34285796E2006B9F87 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		E0F09E36285796F0006B9F87 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
+		E0F09E39285815BF006B9F87 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 		E0F09DFA28576CB4006B9F87 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E0F09E38285815B0006B9F87 /* Common */,
 				E0F09DFE28576E40006B9F87 /* Present */,
 				E0F09DE628576CAE006B9F87 /* AppDelegate.swift */,
 				E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */,
@@ -243,6 +246,14 @@
 				E0F09E34285796E2006B9F87 /* SplashViewModel.swift */,
 			);
 			path = Splash;
+			sourceTree = "<group>";
+		};
+		E0F09E38285815B0006B9F87 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E0F09E39285815BF006B9F87 /* Login.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,6 +399,7 @@
 				E0F09E1F28577DA3006B9F87 /* LoginViewModel.swift in Sources */,
 				E0F09E0928576E66006B9F87 /* BaseCollectionViewCell.swift in Sources */,
 				E0F09E0728576E66006B9F87 /* MVVM.swift in Sources */,
+				E0F09E3A285815BF006B9F87 /* Login.swift in Sources */,
 				E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */,
 				E0F09E0628576E66006B9F87 /* BaseViewController.swift in Sources */,
 				E0F09E0828576E66006B9F87 /* BaseView.swift in Sources */,

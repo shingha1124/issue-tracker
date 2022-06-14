@@ -20,7 +20,6 @@ final class SplashViewModel: ViewModel {
     }
     
     struct State {
-        
     }
     
     let action = Action()

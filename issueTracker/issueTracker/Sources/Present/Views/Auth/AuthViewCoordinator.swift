@@ -16,8 +16,12 @@ final class AuthViewCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
+    deinit {
+        Log.debug("deinit \(String(describing: type(of: self)))")
+    }
+    
     func start() {
-        print("start \(String(describing: type(of: self)))")
+        Log.debug("start \(String(describing: type(of: self)))")
         goToLoginPage()
     }
     

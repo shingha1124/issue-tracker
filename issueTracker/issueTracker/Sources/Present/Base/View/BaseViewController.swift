@@ -9,10 +9,8 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    weak var coordinator: Coordinator?
-    
     init() {
-        print("init \(String(describing: type(of: self)))")
+        Log.debug("init \(String(describing: type(of: self)))")
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -22,7 +20,7 @@ class BaseViewController: UIViewController {
     }
     
     deinit {
-        print("deinit \(String(describing: type(of: self)))")
+        Log.debug("deinit \(String(describing: type(of: self)))")
     }
     
     override func viewDidLoad() {

@@ -16,12 +16,18 @@
 		B5E9B6E52859267300BA79A4 /* LabelInsertForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DC2859267300BA79A4 /* LabelInsertForm.swift */; };
 		B5E9B6E62859267300BA79A4 /* LabelInsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DD2859267300BA79A4 /* LabelInsertViewController.swift */; };
 		B5E9B6E72859267300BA79A4 /* LabelListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DE2859267300BA79A4 /* LabelListViewModel.swift */; };
+		E096F465285A070400778265 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F464285A070400778265 /* CoreDataRepository.swift */; };
+		E096F467285A14DB00778265 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F466285A14DB00778265 /* String+Extension.swift */; };
+		E096F471285A2F6900778265 /* CoreDatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F470285A2F6900778265 /* CoreDatable.swift */; };
+		E096F474285A315300778265 /* CDInssue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F472285A315300778265 /* CDInssue+CoreDataProperties.swift */; };
+		E096F475285A315300778265 /* CDInssue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F473285A315300778265 /* CDInssue+CoreDataClass.swift */; };
 		E09CB92328587E29002255FE /* IssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92228587E29002255FE /* IssueTableViewCell.swift */; };
 		E09CB92528587E4B002255FE /* IssueTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */; };
 		E09CB92728588F59002255FE /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92628588F59002255FE /* TagListView.swift */; };
 		E09CB92928589C9D002255FE /* HexToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92828589C9D002255FE /* HexToColor.swift */; };
 		E09CB92C2858A146002255FE /* DecodedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92B2858A146002255FE /* DecodedBy.swift */; };
 		E09CB92E2858CAD1002255FE /* Rx+TableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92D2858CAD1002255FE /* Rx+TableView+Extension.swift */; };
+		E09CB9452859FD00002255FE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E09CB9432859FD00002255FE /* Model.xcdatamodeld */; };
 		E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09DE628576CAE006B9F87 /* AppDelegate.swift */; };
 		E0F09DE928576CAE006B9F87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */; };
 		E0F09DF028576CAF006B9F87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0F09DEF28576CAF006B9F87 /* Assets.xcassets */; };
@@ -84,12 +90,18 @@
 		B5E9B6DC2859267300BA79A4 /* LabelInsertForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertForm.swift; sourceTree = "<group>"; };
 		B5E9B6DD2859267300BA79A4 /* LabelInsertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertViewController.swift; sourceTree = "<group>"; };
 		B5E9B6DE2859267300BA79A4 /* LabelListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewModel.swift; sourceTree = "<group>"; };
+		E096F464285A070400778265 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
+		E096F466285A14DB00778265 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		E096F470285A2F6900778265 /* CoreDatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDatable.swift; sourceTree = "<group>"; };
+		E096F472285A315300778265 /* CDInssue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDInssue+CoreDataProperties.swift"; path = "/Users/seonghashin/Desktop/CodeSquad/Projects/issueTracker/issueTracker/issueTracker/CoreData/CDInssue+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		E096F473285A315300778265 /* CDInssue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDInssue+CoreDataClass.swift"; path = "/Users/seonghashin/Desktop/CodeSquad/Projects/issueTracker/issueTracker/issueTracker/CoreData/CDInssue+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		E09CB92228587E29002255FE /* IssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCell.swift; sourceTree = "<group>"; };
 		E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCellModel.swift; sourceTree = "<group>"; };
 		E09CB92628588F59002255FE /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		E09CB92828589C9D002255FE /* HexToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexToColor.swift; sourceTree = "<group>"; };
 		E09CB92B2858A146002255FE /* DecodedBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodedBy.swift; sourceTree = "<group>"; };
 		E09CB92D2858CAD1002255FE /* Rx+TableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+TableView+Extension.swift"; sourceTree = "<group>"; };
+		E09CB9442859FD00002255FE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E0F09DE328576CAE006B9F87 /* issueTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = issueTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0F09DE628576CAE006B9F87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -218,6 +230,17 @@
 			path = DecodedBy;
 			sourceTree = "<group>";
 		};
+		E09CB9422859FC6D002255FE /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E096F473285A315300778265 /* CDInssue+CoreDataClass.swift */,
+				E096F472285A315300778265 /* CDInssue+CoreDataProperties.swift */,
+				E096F470285A2F6900778265 /* CoreDatable.swift */,
+				E09CB9432859FD00002255FE /* Model.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		E0F09DDA28576CAE006B9F87 = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +262,7 @@
 		E0F09DE528576CAE006B9F87 /* issueTracker */ = {
 			isa = PBXGroup;
 			children = (
+				E09CB9422859FC6D002255FE /* CoreData */,
 				E0F09DFA28576CB4006B9F87 /* Sources */,
 				E0F09DFB28576CE1006B9F87 /* Resource */,
 				E0F09DFC28576CE7006B9F87 /* Configuration */,
@@ -418,6 +442,7 @@
 			children = (
 				E0F09E402858215A006B9F87 /* GitHubRepository */,
 				E0F09E3E28582157006B9F87 /* NetworkRepository.swift */,
+				E096F464285A070400778265 /* CoreDataRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -469,6 +494,7 @@
 				E0F09E6528582559006B9F87 /* UIColor+Extension.swift */,
 				E0F09E6F28583EFC006B9F87 /* Result+Extension.swift */,
 				E09CB92D2858CAD1002255FE /* Rx+TableView+Extension.swift */,
+				E096F466285A14DB00778265 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -655,6 +681,8 @@
 				E0F09E5B28582205006B9F87 /* Constants.swift in Sources */,
 				E0F09E35285796E2006B9F87 /* SplashViewModel.swift in Sources */,
 				E0F09E33285796D5006B9F87 /* SplashViewController.swift in Sources */,
+				E096F467285A14DB00778265 /* String+Extension.swift in Sources */,
+				E096F471285A2F6900778265 /* CoreDatable.swift in Sources */,
 				E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */,
 				B5E9B6E42859267300BA79A4 /* LabelListTableViewCell.swift in Sources */,
 				E0F09E1628577513006B9F87 /* IssueListViewController.swift in Sources */,
@@ -671,6 +699,7 @@
 				E09CB92928589C9D002255FE /* HexToColor.swift in Sources */,
 				E0F09E6C2858339B006B9F87 /* DeepLinkRouter.swift in Sources */,
 				E0F09E3A285815BF006B9F87 /* Log.swift in Sources */,
+				E096F465285A070400778265 /* CoreDataRepository.swift in Sources */,
 				E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */,
 				B5E9B6E32859267300BA79A4 /* LabelInsertField.swift in Sources */,
 				E0F09E50285821AE006B9F87 /* HTTPMethod.swift in Sources */,
@@ -681,15 +710,18 @@
 				E0F09E7D28587393006B9F87 /* Label.swift in Sources */,
 				E0F09E51285821AE006B9F87 /* Response.swift in Sources */,
 				B5E9B6E52859267300BA79A4 /* LabelInsertForm.swift in Sources */,
+				E096F475285A315300778265 /* CDInssue+CoreDataClass.swift in Sources */,
 				E0F09E5A28582205006B9F87 /* Inject.swift in Sources */,
 				B5E9B6E62859267300BA79A4 /* LabelInsertViewController.swift in Sources */,
 				E0F09E7028583EFC006B9F87 /* Result+Extension.swift in Sources */,
 				E09CB92728588F59002255FE /* TagListView.swift in Sources */,
 				B5E9B6E02859267300BA79A4 /* LabelListViewCoordinator.swift in Sources */,
 				E0F09E4F285821AE006B9F87 /* BaseTarget.swift in Sources */,
+				E096F474285A315300778265 /* CDInssue+CoreDataProperties.swift in Sources */,
 				E0F09E1A28577559006B9F87 /* IssueListViewModel.swift in Sources */,
 				E0F09E1128576FED006B9F87 /* AppCoordinator.swift in Sources */,
 				E0F09E30285795DA006B9F87 /* IssueListViewCoordinator.swift in Sources */,
+				E09CB9452859FD00002255FE /* Model.xcdatamodeld in Sources */,
 				E0F09E79285870E9006B9F87 /* Issue.swift in Sources */,
 				E0F09E442858216C006B9F87 /* GitHubRepositoryImpl.swift in Sources */,
 				E0F09E4E285821AE006B9F87 /* Provider.swift in Sources */,
@@ -900,6 +932,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E09CB9432859FD00002255FE /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E09CB9442859FD00002255FE /* Model.xcdatamodel */,
+			);
+			currentVersion = E09CB9442859FD00002255FE /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E0F09DDB28576CAE006B9F87 /* Project object */;
 }

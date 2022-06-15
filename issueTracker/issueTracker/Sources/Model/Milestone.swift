@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Milestone: Decodable {
+struct Milestone: Codable {
     let title: String
 }

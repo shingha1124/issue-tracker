@@ -79,8 +79,6 @@ final class IssueListViewController: BaseViewController, View {
                 
                 vc.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: vc.filterButton)
                 vc.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: vc.selectButton)
-                
-                vc.navigationItem.searchController = vc.searchController
             })
             .disposed(by: disposeBag)
         
@@ -101,6 +99,14 @@ final class IssueListViewController: BaseViewController, View {
             .bind(to: issueTableView.rx.trailingSwipeActionsConfigurationForRowAt)
             .disposed(by: disposeBag)
         
+        viewModel.state.issues
+            .filter { $0.count > 4 }
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.navigationItem.searchController = vc.searchController
+            })
+            .disposed(by: disposeBag)
+
         viewModel.state.enableLoadingIndactorView
             .withUnretained(self)
             .bind(onNext: { vc, enable in

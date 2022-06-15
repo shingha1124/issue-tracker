@@ -36,6 +36,7 @@ final class IssueListViewModel: ViewModel {
     private let disposeBag = DisposeBag()
     private weak var navigation: IssueListNavigation?
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
+    @Inject(\.coreDataRepository) private var coreDataRepository: CoreDataRepository
     
     init(navigation: IssueListNavigation) {
         self.navigation = navigation
@@ -58,6 +59,17 @@ final class IssueListViewModel: ViewModel {
         
         let issueCellViewModels = requestIssueList
             .compactMap { $0.value }
+            .do {
+                print($0.count)
+            }
+            .withUnretained(self)
+            .map { vm, value in
+                vm.coreDataRepository.update(CDInssue.self, values: value)
+            }
+            .map { $0.filter { $0.state != .closed } }
+            .do {
+                print($0.count)
+            }
             .map { $0.map { IssueTableViewCellModel(issue: $0) } }
             .share()
         
@@ -86,9 +98,12 @@ final class IssueListViewModel: ViewModel {
         
         requestIssueClose
             .compactMap { $0.value }
-            .bind(onNext: {
-                print($0)
-            })
+            .withUnretained(self)
+            .do { vm, value in
+                vm.coreDataRepository.update(CDInssue.self, values: [value])
+            }
+            .map { _ in }
+            .bind(to: action.requestIssue)
             .disposed(by: disposeBag)
     }
 }

@@ -36,12 +36,14 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
     func requestRepoIssueList(parameters: RequestIssueListParameters) -> Single<Swift.Result<[Issue], APIError>> {
         provider
             .request(.requestRepoIssueList(parameters: parameters))
+            .do { $0.value?.printJson() }
             .map([Issue].self)
     }
     
     func requestUpdateIssue(parameters: RequestUpdateIssueParameters) -> Single<Swift.Result<Issue, APIError>> {
         provider
             .request(.requestUpdateIssue(parameters: parameters))
+            .do { $0.value?.printJson() }
             .map(Issue.self)
     }
     

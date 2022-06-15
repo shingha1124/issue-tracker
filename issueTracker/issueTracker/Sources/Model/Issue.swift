@@ -7,14 +7,26 @@
 
 import Foundation
 
-struct Issue: Decodable {
+protocol BaseCoreData {
+    var id: Int { get }
+    var updatedAt: Date { get }
+}
+
+struct Issue: Decodable, BaseCoreData {
+    let id: Int
     let number: Int
     let title: String
     let body: String?
-    let state: State
+    var state: State
+    let updatedAt: Date
     
     let labels: [Label]?
     let milestone: Milestone?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, number, title, body, state, labels, milestone
+        case updatedAt = "updated_at"
+    }
 }
 
 extension Issue {

@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-struct Label: Decodable {
+struct Label: Codable {
     let name: String
     let description: String
-    @DecodedBy<HexToColor<String>> var color: UIColor
+    let color: String
 }

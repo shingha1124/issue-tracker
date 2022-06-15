@@ -95,8 +95,8 @@ final class IssueTableViewCell: BaseTableViewCell, View {
             .map {
                 $0.map { label -> TagListView.Tag in
                     let config = TagListView.TagConfig()
-                    config.textColor = label.color.contrast
-                    config.backgroundColor = label.color
+                    config.textColor = label.color.hexToColor().contrast
+                    config.backgroundColor = label.color.hexToColor()
                     return TagListView.Tag(text: label.name, config: config)
                 }
             }

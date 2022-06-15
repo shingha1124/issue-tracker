@@ -14,6 +14,8 @@ class Container {
     
     lazy var gitHubRepository: GitHubRepository = GitHubRepositoryImpl()
     
+    lazy var coreDataRepository = CoreDataRepository()
+    
     lazy var imageManager = ImageManager()
     
     lazy var tokenStore = TokenStore()

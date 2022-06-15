@@ -25,6 +25,7 @@ class Response {
 extension Response {
     func map<D: Decodable>(_ type: D.Type, using decoder: JSONDecoder = JSONDecoder()) throws -> D {
         do {
+            decoder.dateDecodingStrategy = .iso8601
             return try decoder.decode(D.self, from: data)
         } catch {
             throw APIError.objectMapping(error: error, response: self)
@@ -68,20 +69,6 @@ extension PrimitiveSequence where Trait == SingleTrait, Element == Result<Respon
         let response = filterSuccessStatusCode()
             .map { result -> Result<Void, APIError> in
                 result.map { _ in Void() }
-            }
-
-        return response.flatMap { result in .just(result) }
-        .do(onSuccess: { result in
-            if case .failure(let error) = result {
-                Log.error("APIError : \(error)")
-            }
-        })
-    }
-    
-    func mapValue<T>(_ value: T) -> Single<Result<T, APIError>> {
-        let response = filterSuccessStatusCode()
-            .map { result -> Result<T, APIError> in
-                result.map { _ in value }
             }
 
         return response.flatMap { result in .just(result) }

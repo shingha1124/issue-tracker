@@ -9,12 +9,6 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
-struct LabelInfo {
-    let labelName: String
-    let labelDescription: String
-    let labelColor: String
-}
-
 protocol LabelListNavigation: AnyObject {
     func goToLabelList()
     func goToLabelInsertion()
@@ -30,7 +24,7 @@ final class LabelListViewModel: ViewModel {
     }
     
     struct State {
-        let updatedLabels = PublishRelay<[LabelInfo]>()
+        let updatedLabels = PublishRelay<[Label]>()
     }
     
     private let disposeBag = DisposeBag()
@@ -54,15 +48,12 @@ final class LabelListViewModel: ViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func loadTemporaryData() -> [LabelInfo] {
-        var labelList: [LabelInfo] = []
+    private func loadTemporaryData() -> [Label] {
+        var labelList: [Label] = []
         for num in 1...10 {
             let title = "label\(num)"
-            let description = "description for label\(num)"
-            let color = "#FFFFFF"
-            let labelInfo = LabelInfo(labelName: title, labelDescription: description, labelColor: color)
-            
-            labelList.append(labelInfo)
+            let label = Label(name: title, color: .systemCyan)
+            labelList.append(label)
         }
         return labelList
     }

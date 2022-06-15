@@ -34,12 +34,10 @@ final class LabelListViewController: BaseViewController, View {
             .bind(to: viewModel.action.labelListRequest)
             .disposed(by: disposeBag)
         
-        viewModel.state.updatedLabels
+        viewModel.state.labels
             .bind(to: labelListTableView.rx.items(cellIdentifier: LabelListTableViewCell.identifier,
-                                                  cellType: LabelListTableViewCell.self)) { _, model, cell in
-                cell.updateValues(labelName: model.name,
-                                  description: model.description,
-                                  color: model.color.hexToColor())
+                                                  cellType: LabelListTableViewCell.self)) { _, viewModel, cell in
+                cell.viewModel = viewModel
             }
             .disposed(by: disposeBag)
         

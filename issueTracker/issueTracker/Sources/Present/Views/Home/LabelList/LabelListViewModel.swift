@@ -27,7 +27,7 @@ final class LabelListViewModel: ViewModel {
     }
     
     struct State {
-        let updatedLabels = PublishRelay<[Label]>()
+        let labels = PublishRelay<[LabelListTableViewCellModel]>()
     }
     
     let action = Action()
@@ -67,7 +67,8 @@ final class LabelListViewModel: ViewModel {
                 viewModel.githubRepository.requestLabels(parameters: parameters)
             }
             .compactMap { $0.value }
-            .bind(to: state.updatedLabels)
+            .map { $0.map { LabelListTableViewCellModel(label: $0) } }
+            .bind(to: state.labels)
             .disposed(by: disposeBag)
     }
 }

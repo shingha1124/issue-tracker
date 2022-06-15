@@ -4,9 +4,10 @@
 //
 //  Created by 이준우 on 2022/06/14.
 //
-import UIKit
-import RxSwift
+import RxCocoa
 import RxRelay
+import RxSwift
+import UIKit
 
 final class LabelListViewController: BaseViewController, View {
     
@@ -17,12 +18,11 @@ final class LabelListViewController: BaseViewController, View {
         return button
     }()
     
-    private let labelListDataSource = LabelListDataSource()
     private let labelListTableView: UITableView = {
         let tableView = UITableView()
-        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
-        tableView.register(LabelListTableViewCell.self, forCellReuseIdentifier: LabelListTableViewCell.identifier)
+        tableView.register(LabelListTableViewCell.self,
+                           forCellReuseIdentifier: LabelListTableViewCell.identifier)
         return tableView
     }()
     
@@ -30,28 +30,19 @@ final class LabelListViewController: BaseViewController, View {
     
     func bind(to viewModel: LabelListViewModel) {
         
-        //이벤트 발생
         rx.viewDidLoad
-            .withUnretained(self)
-            .bind(onNext: { _ in
-                viewModel.action.enteredLabels.accept(())
-            })
+            .bind(to: viewModel.action.enteredLabels)
             .disposed(by: disposeBag)
         
         viewModel.state.updatedLabels
-            .withUnretained(self)
-            .bind(onNext: { _, labels in
-                self.labelListDataSource.updateLabelList(labels: labels)
-                self.labelListTableView.reloadData()
-            })
+            .bind(to: labelListTableView.rx.items(cellIdentifier: LabelListTableViewCell.identifier,
+                                                  cellType: LabelListTableViewCell.self)) { _, model, cell in
+                cell.updateValues(labelName: model.labelName, description: model.labelDescription)
+            }
             .disposed(by: disposeBag)
         
         addButton.rx.tap
-            .withUnretained(self)
-            .bind(onNext: { _ in
-                self.viewModel?.action.labelInsertButtonTapped
-                    .accept(())
-            })
+            .bind(to: viewModel.action.labelInsertButtonTapped)
             .disposed(by: disposeBag)
     }
     
@@ -60,8 +51,6 @@ final class LabelListViewController: BaseViewController, View {
         self.title = "레이블"
         self.navigationItem.rightBarButtonItem = addButton
         self.view.backgroundColor = .systemGray6
-        
-        self.labelListTableView.dataSource = self.labelListDataSource
     }
     
     override func layout() {

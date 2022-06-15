@@ -39,7 +39,7 @@ final class LabelListViewController: BaseViewController, View {
                                                   cellType: LabelListTableViewCell.self)) { _, model, cell in
                 cell.updateValues(labelName: model.name,
                                   description: model.description,
-                                  color: model.color)
+                                  color: model.color.hexToColor())
             }
             .disposed(by: disposeBag)
         

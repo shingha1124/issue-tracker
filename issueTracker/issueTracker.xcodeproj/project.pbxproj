@@ -16,11 +16,12 @@
 		B5E9B6E52859267300BA79A4 /* LabelInsertForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DC2859267300BA79A4 /* LabelInsertForm.swift */; };
 		B5E9B6E62859267300BA79A4 /* LabelInsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DD2859267300BA79A4 /* LabelInsertViewController.swift */; };
 		B5E9B6E72859267300BA79A4 /* LabelListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DE2859267300BA79A4 /* LabelListViewModel.swift */; };
+		B5E9B6F6285A5FBA00BA79A4 /* CDInssue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6F4285A5FBA00BA79A4 /* CDInssue+CoreDataClass.swift */; };
+		B5E9B6F7285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6F5285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift */; };
+		B5E9B6F9285A615B00BA79A4 /* LabelListTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6F8285A615B00BA79A4 /* LabelListTableViewCellModel.swift */; };
 		E096F465285A070400778265 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F464285A070400778265 /* CoreDataRepository.swift */; };
 		E096F467285A14DB00778265 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F466285A14DB00778265 /* String+Extension.swift */; };
 		E096F471285A2F6900778265 /* CoreDatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F470285A2F6900778265 /* CoreDatable.swift */; };
-		E096F474285A315300778265 /* CDInssue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F472285A315300778265 /* CDInssue+CoreDataProperties.swift */; };
-		E096F475285A315300778265 /* CDInssue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F473285A315300778265 /* CDInssue+CoreDataClass.swift */; };
 		E09CB92328587E29002255FE /* IssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92228587E29002255FE /* IssueTableViewCell.swift */; };
 		E09CB92528587E4B002255FE /* IssueTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */; };
 		E09CB92728588F59002255FE /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92628588F59002255FE /* TagListView.swift */; };
@@ -90,11 +91,12 @@
 		B5E9B6DC2859267300BA79A4 /* LabelInsertForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertForm.swift; sourceTree = "<group>"; };
 		B5E9B6DD2859267300BA79A4 /* LabelInsertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertViewController.swift; sourceTree = "<group>"; };
 		B5E9B6DE2859267300BA79A4 /* LabelListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewModel.swift; sourceTree = "<group>"; };
+		B5E9B6F4285A5FBA00BA79A4 /* CDInssue+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDInssue+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B5E9B6F5285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDInssue+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B5E9B6F8285A615B00BA79A4 /* LabelListTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelListTableViewCellModel.swift; sourceTree = "<group>"; };
 		E096F464285A070400778265 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		E096F466285A14DB00778265 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E096F470285A2F6900778265 /* CoreDatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDatable.swift; sourceTree = "<group>"; };
-		E096F472285A315300778265 /* CDInssue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDInssue+CoreDataProperties.swift"; path = "/Users/seonghashin/Desktop/CodeSquad/Projects/issueTracker/issueTracker/issueTracker/CoreData/CDInssue+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		E096F473285A315300778265 /* CDInssue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDInssue+CoreDataClass.swift"; path = "/Users/seonghashin/Desktop/CodeSquad/Projects/issueTracker/issueTracker/issueTracker/CoreData/CDInssue+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		E09CB92228587E29002255FE /* IssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCell.swift; sourceTree = "<group>"; };
 		E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCellModel.swift; sourceTree = "<group>"; };
 		E09CB92628588F59002255FE /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				B5E9B6DB2859267300BA79A4 /* LabelListTableViewCell.swift */,
+				B5E9B6F8285A615B00BA79A4 /* LabelListTableViewCellModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -233,8 +236,8 @@
 		E09CB9422859FC6D002255FE /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				E096F473285A315300778265 /* CDInssue+CoreDataClass.swift */,
-				E096F472285A315300778265 /* CDInssue+CoreDataProperties.swift */,
+				B5E9B6F5285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift */,
+				B5E9B6F4285A5FBA00BA79A4 /* CDInssue+CoreDataClass.swift */,
 				E096F470285A2F6900778265 /* CoreDatable.swift */,
 				E09CB9432859FD00002255FE /* Model.xcdatamodeld */,
 			);
@@ -670,6 +673,7 @@
 				E0F09E5D28582205006B9F87 /* ImageManager.swift in Sources */,
 				E0F09E3F28582157006B9F87 /* NetworkRepository.swift in Sources */,
 				E0F09E5928582205006B9F87 /* UserDefault.swift in Sources */,
+				B5E9B6F6285A5FBA00BA79A4 /* CDInssue+CoreDataClass.swift in Sources */,
 				B5E9B6E72859267300BA79A4 /* LabelListViewModel.swift in Sources */,
 				E0F09E2E285794AB006B9F87 /* HomeViewCoordinator.swift in Sources */,
 				E09CB92E2858CAD1002255FE /* Rx+TableView+Extension.swift in Sources */,
@@ -700,6 +704,7 @@
 				E0F09E6C2858339B006B9F87 /* DeepLinkRouter.swift in Sources */,
 				E0F09E3A285815BF006B9F87 /* Log.swift in Sources */,
 				E096F465285A070400778265 /* CoreDataRepository.swift in Sources */,
+				B5E9B6F9285A615B00BA79A4 /* LabelListTableViewCellModel.swift in Sources */,
 				E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */,
 				B5E9B6E32859267300BA79A4 /* LabelInsertField.swift in Sources */,
 				E0F09E50285821AE006B9F87 /* HTTPMethod.swift in Sources */,
@@ -710,14 +715,13 @@
 				E0F09E7D28587393006B9F87 /* Label.swift in Sources */,
 				E0F09E51285821AE006B9F87 /* Response.swift in Sources */,
 				B5E9B6E52859267300BA79A4 /* LabelInsertForm.swift in Sources */,
-				E096F475285A315300778265 /* CDInssue+CoreDataClass.swift in Sources */,
 				E0F09E5A28582205006B9F87 /* Inject.swift in Sources */,
+				B5E9B6F7285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift in Sources */,
 				B5E9B6E62859267300BA79A4 /* LabelInsertViewController.swift in Sources */,
 				E0F09E7028583EFC006B9F87 /* Result+Extension.swift in Sources */,
 				E09CB92728588F59002255FE /* TagListView.swift in Sources */,
 				B5E9B6E02859267300BA79A4 /* LabelListViewCoordinator.swift in Sources */,
 				E0F09E4F285821AE006B9F87 /* BaseTarget.swift in Sources */,
-				E096F474285A315300778265 /* CDInssue+CoreDataProperties.swift in Sources */,
 				E0F09E1A28577559006B9F87 /* IssueListViewModel.swift in Sources */,
 				E0F09E1128576FED006B9F87 /* AppCoordinator.swift in Sources */,
 				E0F09E30285795DA006B9F87 /* IssueListViewCoordinator.swift in Sources */,

@@ -58,9 +58,8 @@ final class LabelInsertViewController: BaseViewController, View {
         
         self.insertForm.colorChangeButton.rx.tap
             .bind(onNext: { _ in
-                let rgbValue = self.insertForm.colorForm.textField.text ?? ""
                 self.viewModel?.action.enteredRgbValue
-                    .accept(rgbValue)
+                    .accept(viewModel.randomColor)
             })
             .disposed(by: disposeBag)
         
@@ -76,8 +75,13 @@ final class LabelInsertViewController: BaseViewController, View {
         self.viewModel?.state
             .updatedRgbValue
             .bind(onNext: { rgbValue in
-                //라벨 색상 바꿔줘야 함
-                Log.debug("value changed to \(rgbValue)")
+                var rgbValue = rgbValue
+                rgbValue.removeFirst()
+                guard let newColor = try? HexToColor.transform(form: rgbValue) else {
+                    return
+                }
+                self.previewLabel.backgroundColor = newColor
+                self.insertForm.colorForm.textField.text = "#\(rgbValue)"
             })
             .disposed(by: disposeBag)
         

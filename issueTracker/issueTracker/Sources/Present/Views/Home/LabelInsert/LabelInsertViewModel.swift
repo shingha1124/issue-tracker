@@ -27,7 +27,11 @@ final class LabelInsertViewModel: ViewModel {
     let action = Action()
     let state = State()
     private let disposeBag = DisposeBag()
-    
+    var randomColor: String {
+        let randomList = ["#c5def5", "#7FAD7D", "#320F8D", "#F6CBD5"]
+        return randomList.randomElement() ?? ""
+    }
+
     init(navigation: LabelListNavigation) {
         self.navigation = navigation
         

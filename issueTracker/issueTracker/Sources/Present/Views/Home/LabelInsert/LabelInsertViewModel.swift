@@ -15,7 +15,7 @@ final class LabelInsertViewModel: ViewModel {
     struct Action {
         let enteredTitleValue = PublishRelay<String>()
         let enteredDescriptionValue = PublishRelay<String>()
-        let enteredRgbValue = PublishRelay<String>()
+        let tappedColorChangeButton = PublishRelay<Void>()
     }
     
     struct State {
@@ -36,15 +36,17 @@ final class LabelInsertViewModel: ViewModel {
         self.navigation = navigation
         
         action.enteredTitleValue
-            .bind(to: self.state.updatedTitleValue)
+            .bind(to: state.updatedTitleValue)
             .disposed(by: disposeBag)
         
         action.enteredDescriptionValue
-            .bind(to: self.state.updatedDescriptionValue)
+            .bind(to: state.updatedDescriptionValue)
             .disposed(by: disposeBag)
         
-        action.enteredRgbValue
-            .bind(to: self.state.updatedRgbValue)
+        action.tappedColorChangeButton
+            .withUnretained(self)
+            .map { vm, _ in String(vm.randomColor.dropFirst()) }
+            .bind(to: state.updatedRgbValue)
             .disposed(by: disposeBag)
     }
 }

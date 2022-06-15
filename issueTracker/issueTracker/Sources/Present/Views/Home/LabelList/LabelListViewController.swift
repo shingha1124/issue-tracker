@@ -46,10 +46,27 @@ final class LabelListViewController: BaseViewController, View {
         addButton.rx.tap
             .bind(to: viewModel.action.labelInsertButtonTapped)
             .disposed(by: disposeBag)
+        
+        rx.viewWillAppear
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.navigationController?.navigationBar.prefersLargeTitles = true
+            })
+            .disposed(by: disposeBag)
+        
+        rx.viewWillDisappear
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.navigationController?.navigationBar.prefersLargeTitles = false
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    deinit {
+        Log.debug("denit LabelListViewController")
     }
     
     override func attribute() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.title = "레이블"
         self.navigationItem.rightBarButtonItem = addButton
         self.view.backgroundColor = .white

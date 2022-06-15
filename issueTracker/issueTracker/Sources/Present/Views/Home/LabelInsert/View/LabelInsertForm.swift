@@ -9,28 +9,25 @@ import UIKit
 final class LabelInsertForm: BaseView {
     
     let titleForm: LabelInsertField = {
-        let textField = UITextField()
-        textField.placeholder = "필수 입력"
-        
-        let form = LabelInsertField(title: "제목", textField: textField)
+        let form = LabelInsertField()
+        form.title = "제목"
+        form.placeHolder = "필수 입력"
         form.backgroundColor = .white
         return form
     }()
     
     let descriptionForm: LabelInsertField = {
-        let textField = UITextField()
-        textField.placeholder = "선택 사항"
-        
-        let form = LabelInsertField(title: "설명", textField: textField)
+        let form = LabelInsertField()
+        form.title = "설명"
+        form.placeHolder = "선택사항"
         form.backgroundColor = .white
         return form
     }()
     
     let colorForm: LabelInsertField = {
-        let textField = UITextField()
-        textField.text = "#c5def5"
-     
-        let form = LabelInsertField(title: "배경색", textField: textField)
+        let form = LabelInsertField()
+        form.title = "배경색"
+        form.placeHolder = "#c5def5"
         form.backgroundColor = .white
         return form
     }()
@@ -53,8 +50,7 @@ final class LabelInsertForm: BaseView {
     override func attribute() {
         super.attribute()
         self.backgroundColor = .white
-        self.colorForm.textField.rightViewMode = .always
-        self.colorForm.textField.rightView = self.colorChangeButton
+        self.colorForm.rightButton = self.colorChangeButton
     }
     
     override func layout() {

@@ -6,23 +6,48 @@
 //
 import SnapKit
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class LabelInsertField: BaseView {
     
-    private var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         return label
     }()
     
-    private (set)var textField: UITextField
-    
-    init(title: String, textField: UITextField) {
-        self.titleLabel.text = title
-        self.textField = textField
-        super.init(frame: .zero)
+    private let textField = UITextField()
+   
+    var title: String? {
+        didSet {
+            titleLabel.text = title
+        }
     }
-
+    
+    var placeHolder: String? {
+        didSet {
+            textField.placeholder = placeHolder
+        }
+    }
+    
+    var rightButton: UIButton? {
+        didSet {
+            textField.rightViewMode = .always
+            textField.rightView = rightButton
+        }
+    }
+    
+    var text: String? {
+        didSet {
+            textField.text = text
+        }
+    }
+    
+    var didChange: ControlProperty<String?> {
+        textField.rx.text
+    }
+    
     override func layout() {
         super.layout()
         

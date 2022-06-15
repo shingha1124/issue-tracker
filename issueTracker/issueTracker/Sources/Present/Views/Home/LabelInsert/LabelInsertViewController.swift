@@ -4,10 +4,10 @@
 //
 //  Created by 이준우 on 2022/06/15.
 //
-import UIKit
-import SnapKit
 import RxCocoa
 import RxSwift
+import SnapKit
+import UIKit
 
 final class LabelInsertViewController: BaseViewController, View {
     
@@ -22,14 +22,15 @@ final class LabelInsertViewController: BaseViewController, View {
         return view
     }()
     
-    private let previewLabel: UILabel = {
-        let label = UILabel()
+    private let previewLabel: PaddingLabel = {
+        let label = PaddingLabel()
         label.text = "레이블"
-        label.backgroundColor = .blue
-        label.textColor = .white
+        label.padding = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
+        label.backgroundColor = .systemCyan
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.textColor = .black
         label.clipsToBounds = true
-        label.layer.cornerRadius = 10
-        label.textAlignment = .center
+        label.layer.cornerRadius = 15
         label.sizeToFit()
         return label
     }()

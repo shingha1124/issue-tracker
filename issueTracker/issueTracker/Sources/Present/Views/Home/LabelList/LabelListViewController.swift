@@ -37,7 +37,9 @@ final class LabelListViewController: BaseViewController, View {
         viewModel.state.updatedLabels
             .bind(to: labelListTableView.rx.items(cellIdentifier: LabelListTableViewCell.identifier,
                                                   cellType: LabelListTableViewCell.self)) { _, model, cell in
-                cell.updateValues(labelName: model.labelName, description: model.labelDescription)
+                cell.updateValues(labelName: model.name,
+                                  description: "description for \(model.name)",
+                                  color: model.color)
             }
             .disposed(by: disposeBag)
         
@@ -50,7 +52,7 @@ final class LabelListViewController: BaseViewController, View {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.title = "레이블"
         self.navigationItem.rightBarButtonItem = addButton
-        self.view.backgroundColor = .systemGray6
+        self.view.backgroundColor = .white
     }
     
     override func layout() {

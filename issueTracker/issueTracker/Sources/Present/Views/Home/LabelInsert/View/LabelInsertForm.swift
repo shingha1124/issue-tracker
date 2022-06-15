@@ -26,10 +26,9 @@ final class LabelInsertForm: BaseView {
         return form
     }()
     
-    private let randomColors: [String] = ["#FFFFFF", "#3DDCFF", "#2F2F2F", "#DDDDDD"]
     let colorForm: LabelInsertField = {
         let textField = UITextField()
-        textField.text = "#FFFFFF"
+        textField.text = "#c5def5"
      
         let form = LabelInsertField(title: "배경색", textField: textField)
         form.backgroundColor = .white
@@ -40,9 +39,6 @@ final class LabelInsertForm: BaseView {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
         button.sizeToFit()
-        button.addAction(UIAction(handler:{ [weak self] _ in
-            self?.colorForm.textField.text = self?.randomColors.randomElement() ?? "#??????"
-        }), for: .touchDown)
         return button
     }()
     

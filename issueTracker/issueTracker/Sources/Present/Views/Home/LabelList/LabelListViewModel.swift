@@ -15,46 +15,59 @@ protocol LabelListNavigation: AnyObject {
 }
 
 final class LabelListViewModel: ViewModel {
-
-    private weak var navigation: LabelListNavigation?
-
+    
+    private enum Constants {
+        static let owner = "shingha1124"
+        static let repo = "issue-tracker"
+    }
+    
     struct Action {
-        let enteredLabels = PublishRelay<Void>()
         let labelInsertButtonTapped = PublishRelay<Void>()
+        let labelListRequest = PublishRelay<Void>()
     }
     
     struct State {
         let updatedLabels = PublishRelay<[Label]>()
     }
     
-    private let disposeBag = DisposeBag()
     let action = Action()
     let state = State()
     
+    private let disposeBag = DisposeBag()
+    private weak var navigation: LabelListNavigation?
+    
+    /*
+     - Repository 의존성을 사실상 필드 주입 방식으로 의존받고 있음
+     - Testable한 뷰모델을 만드려면, 생성자 주입 방식을 적용하는 것이 어떨까 싶음
+     - Mock인스턴스에 의존해야 하는 처리를 해야 하므로 결국 외부에서 의존성을 주입해줘야 할 것 같기 때문
+     */
+    @Inject(\.gitHubRepository) private var githubRepository: GitHubRepository
+    
     init(navigation: LabelListNavigation) {
         self.navigation = navigation
-        let labelList = self.loadTemporaryData()
         
-        self.action.labelInsertButtonTapped
+        //화면에서 추가버튼 눌렀을 때, 다음 버튼으로 넘어가는 동작 바인딩
+        action.labelInsertButtonTapped
             .withUnretained(self)
-            .bind(onNext: { _ in
-                self.navigation?.goToLabelInsertion()
+            .bind(onNext: { viewModel, _ in
+                viewModel.navigation?.goToLabelInsertion()
             })
             .disposed(by: disposeBag)
         
-        self.action.enteredLabels
-            .map { labelList }
+       /*
+            - 깃허브 API 받아서 state.updatedLabels에 응답받은 라벨 리스트 바인딩
+            - state.updatedLabels는 뷰컨트롤러의 테이블뷰 속성에 쓰이는 테이블뷰 셀에 바인딩됨
+        */
+        action.labelListRequest
+            .map {
+                RequestLabelsParameters(owner: Constants.owner, repo: Constants.repo)
+            }
+            .withUnretained(self)
+            .flatMapLatest { viewModel, parameters in
+                viewModel.githubRepository.requestLabels(parameters: parameters)
+            }
+            .compactMap { $0.value }
             .bind(to: state.updatedLabels)
             .disposed(by: disposeBag)
-    }
-    
-    private func loadTemporaryData() -> [Label] {
-        var labelList: [Label] = []
-        for num in 1...10 {
-            let title = "label\(num)"
-            let label = Label(name: title, description: "", color: "ff00ff")
-            labelList.append(label)
-        }
-        return labelList
     }
 }

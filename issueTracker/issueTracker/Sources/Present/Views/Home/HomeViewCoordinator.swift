@@ -42,7 +42,6 @@ final class HomeViewCoordinator: Coordinator {
         tabBarViewController.viewControllers = [issueNavigationController,labelListNavigationController]
         
         navigationController.pushViewController(tabBarViewController, animated: true)
-        self.navigationController.navigationBar.isHidden = true
         parentCoordinator?.children.append(issueCoordinator)
         parentCoordinator?.children.append(labelListCoordinator)
         

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1F52F6165AEE270F17AB51FA /* Pods_issueTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBEC6FC7CBD59A4408598AF /* Pods_issueTracker.framework */; };
-		B5E9B6DF2859267300BA79A4 /* LabelListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D52859267300BA79A4 /* LabelListDataSource.swift */; };
 		B5E9B6E02859267300BA79A4 /* LabelListViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */; };
 		B5E9B6E12859267300BA79A4 /* LabelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */; };
 		B5E9B6E22859267300BA79A4 /* LabelInsertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */; };
@@ -77,7 +76,6 @@
 		3EBEC6FC7CBD59A4408598AF /* Pods_issueTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_issueTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41A6E6AB15AD371DD9C056AB /* Pods-issueTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-issueTracker.release.xcconfig"; path = "Target Support Files/Pods-issueTracker/Pods-issueTracker.release.xcconfig"; sourceTree = "<group>"; };
 		A02F1C68BA88CBEE4E131C1E /* Pods-issueTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-issueTracker.debug.xcconfig"; path = "Target Support Files/Pods-issueTracker/Pods-issueTracker.debug.xcconfig"; sourceTree = "<group>"; };
-		B5E9B6D52859267300BA79A4 /* LabelListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListDataSource.swift; sourceTree = "<group>"; };
 		B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewCoordinator.swift; sourceTree = "<group>"; };
 		B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewController.swift; sourceTree = "<group>"; };
 		B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertViewModel.swift; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				B5E9B6D92859267300BA79A4 /* View */,
-				B5E9B6D52859267300BA79A4 /* LabelListDataSource.swift */,
 				B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */,
 				B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */,
 				B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */,
@@ -657,7 +654,6 @@
 				E0F09E69285826F9006B9F87 /* LoginButtonView.swift in Sources */,
 				E09CB92928589C9D002255FE /* HexToColor.swift in Sources */,
 				E0F09E6C2858339B006B9F87 /* DeepLinkRouter.swift in Sources */,
-				B5E9B6DF2859267300BA79A4 /* LabelListDataSource.swift in Sources */,
 				E0F09E3A285815BF006B9F87 /* Log.swift in Sources */,
 				E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */,
 				B5E9B6E32859267300BA79A4 /* LabelInsertField.swift in Sources */,

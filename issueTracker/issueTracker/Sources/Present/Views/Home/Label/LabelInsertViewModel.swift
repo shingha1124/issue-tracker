@@ -5,8 +5,8 @@
 //  Created by 이준우 on 2022/06/15.
 //
 import Foundation
-import RxSwift
 import RxRelay
+import RxSwift
 
 final class LabelInsertViewModel: ViewModel {
   

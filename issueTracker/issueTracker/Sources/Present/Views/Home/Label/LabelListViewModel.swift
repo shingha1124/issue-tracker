@@ -49,10 +49,8 @@ final class LabelListViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         self.action.enteredLabels
-            .withUnretained(self)
-            .bind(onNext: { _ in
-                self.state.updatedLabels.accept(labelList)
-            })
+            .map { labelList }
+            .bind(to: state.updatedLabels)
             .disposed(by: disposeBag)
     }
     

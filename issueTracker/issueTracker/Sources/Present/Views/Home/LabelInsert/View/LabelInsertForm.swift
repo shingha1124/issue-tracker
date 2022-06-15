@@ -35,7 +35,7 @@ final class LabelInsertForm: BaseView {
         return form
     }()
     
-    private (set) lazy var colorChangeButton: UIButton = {
+    let colorChangeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
         button.sizeToFit()

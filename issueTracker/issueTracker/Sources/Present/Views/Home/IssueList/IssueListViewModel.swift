@@ -27,6 +27,7 @@ final class IssueListViewModel: ViewModel {
     
     struct State {
         let issues = PublishRelay<[IssueTableViewCellModel]>()
+        let enableLoadingIndactorView = PublishRelay<Bool>()
     }
     
     let action = Action()
@@ -43,10 +44,16 @@ final class IssueListViewModel: ViewModel {
             .map {
                 RequestIssueListParameters(owner: Constants.owner, repo: Constants.repo, parameters: nil)
             }
+            .do(onNext: { [weak self] _ in
+                self?.state.enableLoadingIndactorView.accept(true)
+            })
             .withUnretained(self)
             .flatMapLatest { model, param in
                 model.gitHubRepository.requestRepoIssueList(parameters: param)
             }
+            .do(onNext: { [weak self] _ in
+                self?.state.enableLoadingIndactorView.accept(false)
+            })
             .share()
         
         let issueCellViewModels = requestIssueList
@@ -65,10 +72,16 @@ final class IssueListViewModel: ViewModel {
             .map {
                 RequestUpdateIssueParameters(owner: Constants.owner, repo: Constants.repo, number: $0, parameters: ["state": Issue.State.closed.value])
             }
+            .do(onNext: { [weak self] _ in
+                self?.state.enableLoadingIndactorView.accept(true)
+            })
             .withUnretained(self)
             .flatMapLatest { model, param in
                 model.gitHubRepository.requestUpdateIssue(parameters: param)
             }
+            .do(onNext: { [weak self] _ in
+                self?.state.enableLoadingIndactorView.accept(false)
+            })
             .share()
         
         requestIssueClose

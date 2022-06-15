@@ -18,28 +18,42 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
     func requestUser() -> Single<Swift.Result<User, APIError>> {
         provider
             .request(.requestUser)
-//            .do { $0.value?.printJson() }
             .map(User.self)
     }
     
-    func requestRepository() -> Single<Swift.Result<[Repository], APIError>> {
+    func requestRepositorys() -> Single<Swift.Result<[Repository], APIError>> {
         provider
-            .request(.requestRepository)
-//            .do { $0.value?.printJson() }
+            .request(.requestRepositorys)
             .map([Repository].self)
+    }
+    
+    func requestRepository(parameters: RequestRepositoryParameters) -> Single<Swift.Result<Repository, APIError>> {
+        provider
+            .request(.requestRepository(parameters: parameters))
+            .map(Repository.self)
     }
     
     func requestRepoIssueList(parameters: RequestIssueListParameters) -> Single<Swift.Result<[Issue], APIError>> {
         provider
             .request(.requestRepoIssueList(parameters: parameters))
-//            .do { $0.value?.printJson() }
             .map([Issue].self)
     }
     
     func requestUpdateIssue(parameters: RequestUpdateIssueParameters) -> Single<Swift.Result<Issue, APIError>> {
         provider
             .request(.requestUpdateIssue(parameters: parameters))
-            .do { $0.value?.printJson() }
             .map(Issue.self)
+    }
+    
+    func requestLabels(parameters: RequestLabelsParameters) -> Single<Swift.Result<[Label], APIError>> {
+        provider
+            .request(.requestLabels(parameters: parameters))
+            .map([Label].self)
+    }
+    
+    func requestAssignees(parameters: RequestAssigneesParameters) -> Single<Swift.Result<[User], APIError>> {
+        provider
+            .request(.requestAssignees(parameters: parameters))
+            .map([User].self)
     }
 }

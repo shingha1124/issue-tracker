@@ -10,5 +10,6 @@ import UIKit
 
 struct Label: Decodable {
     let name: String
+    let description: String
     @DecodedBy<HexToColor<String>> var color: UIColor
 }

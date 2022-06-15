@@ -52,7 +52,7 @@ final class LabelListViewModel: ViewModel {
         var labelList: [Label] = []
         for num in 1...10 {
             let title = "label\(num)"
-            let label = Label(name: title, color: .systemCyan)
+            let label = Label(name: title, description: "", color: .systemCyan)
             labelList.append(label)
         }
         return labelList

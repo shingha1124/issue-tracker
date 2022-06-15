@@ -39,7 +39,7 @@ final class HomeViewCoordinator: Coordinator {
         labelListNavigationController.tabBarItem = UITabBarItem(title: "레이블", image: UIImage(named: "ic_issue"), tag: 1)
         
         navigationController.setNavigationBarHidden(true, animated: false)
-        tabBarViewController.viewControllers = [issueNavigationController,labelListNavigationController]
+        tabBarViewController.viewControllers = [issueNavigationController, labelListNavigationController]
         
         navigationController.pushViewController(tabBarViewController, animated: true)
         parentCoordinator?.children.append(issueCoordinator)

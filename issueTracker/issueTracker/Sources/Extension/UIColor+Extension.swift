@@ -17,6 +17,9 @@ extension UIColor {
     
     static let secondary2 = color(r: 204, g: 212, b: 255)
     
+    static let separator1 = color(r: 198, g: 198, b: 200)
+    static let separator2 = color(r: 185, g: 185, b: 191)
+    
     static let error = color(r: 255, g: 59, b: 48)
     
     static let backGround1 = UIColor.white

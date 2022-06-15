@@ -41,61 +41,45 @@ final class LabelInsertViewController: BaseViewController, View {
         /*
             - 사용자 입력값을 뷰모델의 속성과 바인딩
          */
-        self.insertForm.titleForm
-            .textField.rx.text.orEmpty
+        self.insertForm.titleForm.didChange
+            .compactMap { $0 }
             .bind(to: viewModel.action.enteredTitleValue)
             .disposed(by: disposeBag)
         
-        self.insertForm.descriptionForm
-            .textField.rx.text.orEmpty
+        self.insertForm.descriptionForm.didChange
+            .compactMap { $0 }
             .bind(to: viewModel.action.enteredDescriptionValue)
             .disposed(by: disposeBag)
         
-        self.insertForm.colorForm
-            .textField.rx.text.orEmpty
-            .bind(to: viewModel.action.enteredRgbValue)
-            .disposed(by: disposeBag)
-        
         self.insertForm.colorChangeButton.rx.tap
-            .bind(onNext: { _ in
-                self.viewModel?.action.enteredRgbValue
-                    .accept(viewModel.randomColor)
-            })
+            .bind(to: viewModel.action.tappedColorChangeButton)
             .disposed(by: disposeBag)
         
         /*
             - 뷰모델의 속성변화를 감지
             - 뷰모델의 변화된 속성값을 읽어들여 뷰에 출력
          */
-        self.viewModel?.state
-            .updatedTitleValue
+        viewModel.state.updatedTitleValue
             .bind(to: previewLabel.rx.text)
             .disposed(by: disposeBag)
         
-        self.viewModel?.state
-            .updatedRgbValue
-            .bind(onNext: { rgbValue in
-                var rgbValue = rgbValue
-                rgbValue.removeFirst()
-                guard let newColor = try? HexToColor.transform(form: rgbValue) else {
-                    return
-                }
-                self.previewLabel.backgroundColor = newColor
-                self.insertForm.colorForm.textField.text = "#\(rgbValue)"
-            })
+        viewModel.state.updatedRgbValue
+            .bind(to: insertForm.colorForm.rx.text)
             .disposed(by: disposeBag)
         
-        rx.viewWillDisappear
+        viewModel.state.updatedRgbValue
+            .map { try HexToColor.transform(form: $0) }
             .withUnretained(self)
-            .bind(onNext: { _ in
-                self.navigationController?.navigationBar.prefersLargeTitles = true
-            })
-            .disposed(by: disposeBag)
+            .do { vc, color in
+                vc.previewLabel.textColor = color.contrast
+            }
+            .map { _, color in color }
+            .bind(to: previewLabel.rx.backgroundColor )
+            .disposed(by: disposeBag)        
     }
     
     override func attribute() {
         super.attribute()
-        self.navigationController?.navigationBar.prefersLargeTitles = false
         self.view.backgroundColor = .systemGray6
         self.navigationItem.title = "새로운 레이블"
     }

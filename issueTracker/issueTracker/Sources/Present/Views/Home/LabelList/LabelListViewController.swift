@@ -62,10 +62,6 @@ final class LabelListViewController: BaseViewController, View {
             .disposed(by: disposeBag)
     }
     
-    deinit {
-        Log.debug("denit LabelListViewController")
-    }
-    
     override func attribute() {
         self.title = "레이블"
         self.navigationItem.rightBarButtonItem = addButton

@@ -27,7 +27,7 @@ final class LabelInsertForm: BaseView {
     let colorForm: LabelInsertField = {
         let form = LabelInsertField()
         form.title = "배경색"
-        form.placeHolder = "#c5def5"
+        form.text = "c5def5"
         form.backgroundColor = .white
         return form
     }()

@@ -9,7 +9,7 @@ import UIKit
 
 final class LabelListTableViewCell: BaseTableViewCell, View {
     
-    private lazy var paddingLabel: PaddingLabel = {
+    private let paddingLabel: PaddingLabel = {
         let label = PaddingLabel()
         label.padding = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -26,6 +26,13 @@ final class LabelListTableViewCell: BaseTableViewCell, View {
         return label
     }()
     
+    var paddingLabelColor: UIColor? {
+        didSet {
+            paddingLabel.backgroundColor = paddingLabelColor
+            paddingLabel.textColor = paddingLabelColor?.contrast ?? .black
+        }
+    }
+    
     func bind(to viewModel: LabelListTableViewCellModel) {
         
         viewModel.state.name
@@ -38,7 +45,10 @@ final class LabelListTableViewCell: BaseTableViewCell, View {
         
         viewModel.state.color
             .map { $0.hexToColor() }
-            .bind(to: paddingLabel.rx.backgroundColor)
+            .withUnretained(self)
+            .bind(onNext: { cell, color in
+                cell.paddingLabelColor = color
+            })
             .disposed(by: disposeBag)
         
         viewModel.action.loadData.accept(())

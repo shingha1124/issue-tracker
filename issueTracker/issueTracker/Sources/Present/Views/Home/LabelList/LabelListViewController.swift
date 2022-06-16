@@ -72,7 +72,9 @@ final class LabelListViewController: BaseViewController, View {
     override func layout() {
         self.view.addSubview(labelListTableView)
         labelListTableView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+            $0.top.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.leading.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().offset(-10)
         }
     }
 }

@@ -23,6 +23,7 @@ final class LabelInsertViewModel: ViewModel {
         let tappedColorChangeButton = PublishRelay<Void>()
         let requestedCreatingLabel = PublishRelay<Void>()
         let viewDidLoad = PublishRelay<Void>()
+        let dismissView = PublishRelay<Void>()
     }
     
     struct State {
@@ -70,6 +71,13 @@ final class LabelInsertViewModel: ViewModel {
             .map { "" }
             .bind(to: state.updatedDescriptionValue)
             .disposed(by: disposeBag)
+        
+        action.dismissView
+            .withUnretained(self)
+            .bind(onNext: { viewModel, _ in
+                viewModel.navigation?.goBackToLabelList()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func bindActionsToStates() {
@@ -104,10 +112,8 @@ final class LabelInsertViewModel: ViewModel {
             .flatMapLatest { viewModel, parameters in
                 viewModel.gitHubRepository.requestCreatingLabel(parameters: parameters)
             }
-            .compactMap { $0.value }
-            .bind(onNext: { result in
-                Log.debug("\(result)")
-            })
+            .compactMap { _ in }
+            .bind(to: action.dismissView)
             .disposed(by: disposeBag)
     }
 }

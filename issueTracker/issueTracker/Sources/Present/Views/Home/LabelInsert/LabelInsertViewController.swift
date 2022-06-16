@@ -67,7 +67,7 @@ final class LabelInsertViewController: BaseViewController, View {
             .disposed(by: disposeBag)
         
         addButton.rx.tap
-            .bind(to: viewModel.action.requestedCreatingLabel)
+            .bind(to: viewModel.action.tappedAddingLabelButton)
             .disposed(by: disposeBag)
         
         /*

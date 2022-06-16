@@ -21,7 +21,7 @@ final class LabelInsertViewModel: ViewModel {
         let enteredTitleValue = PublishRelay<String>()
         let enteredDescriptionValue = PublishRelay<String>()
         let tappedColorChangeButton = PublishRelay<Void>()
-        let requestedCreatingLabel = PublishRelay<Void>()
+        let tappedAddingLabelButton = PublishRelay<Void>()
         let viewDidLoad = PublishRelay<Void>()
         let dismissView = PublishRelay<Void>()
     }
@@ -103,7 +103,7 @@ final class LabelInsertViewModel: ViewModel {
             }
             .share()
         
-        action.requestedCreatingLabel
+        action.tappedAddingLabelButton
             .withLatestFrom(parameters)
             .map { param in
                 RequestCreatingLabel(owner: Constants.owner, repo: Constants.repo, parameters: param)

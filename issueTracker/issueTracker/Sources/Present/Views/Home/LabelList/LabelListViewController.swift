@@ -30,8 +30,11 @@ final class LabelListViewController: BaseViewController, View {
     
     func bind(to viewModel: LabelListViewModel) {
         
-        rx.viewDidLoad
-            .bind(to: viewModel.action.labelListRequest)
+        rx.viewWillAppear
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.viewModel?.action.labelListRequest.accept(())
+            })
             .disposed(by: disposeBag)
         
         viewModel.state.labels

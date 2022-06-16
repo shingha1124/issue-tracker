@@ -35,6 +35,13 @@ final class LabelInsertViewController: BaseViewController, View {
         return label
     }()
     
+    private let addButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = "저장"
+        button.style = .plain
+        return button
+    }()
+
     var disposeBag = DisposeBag()
     
     func bind(to viewModel: LabelInsertViewModel) {
@@ -53,6 +60,10 @@ final class LabelInsertViewController: BaseViewController, View {
         
         self.insertForm.colorChangeButton.rx.tap
             .bind(to: viewModel.action.tappedColorChangeButton)
+            .disposed(by: disposeBag)
+        
+        self.addButton.rx.tap
+            .bind(to: viewModel.action.requestedCreatingLabel)
             .disposed(by: disposeBag)
         
         /*
@@ -75,13 +86,14 @@ final class LabelInsertViewController: BaseViewController, View {
             }
             .map { _, color in color }
             .bind(to: previewLabel.rx.backgroundColor )
-            .disposed(by: disposeBag)        
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {
         super.attribute()
         self.view.backgroundColor = .systemGray6
         self.navigationItem.title = "새로운 레이블"
+        self.navigationItem.rightBarButtonItem = addButton
     }
     
     override func layout() {

@@ -60,14 +60,14 @@ final class LabelListTableViewCell: BaseTableViewCell, View {
         contentView.addSubview(paddingLabel)
         paddingLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)
-            $0.leading.equalToSuperview().offset(10)
+            $0.leading.equalToSuperview().offset(20)
         }
         
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(paddingLabel.snp.bottom).offset(20)
             $0.bottom.equalToSuperview().offset(-20)
-            $0.leading.equalToSuperview().offset(10)
+            $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-10)
         }
     }

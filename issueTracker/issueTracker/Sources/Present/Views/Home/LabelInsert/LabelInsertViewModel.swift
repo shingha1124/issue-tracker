@@ -22,6 +22,7 @@ final class LabelInsertViewModel: ViewModel {
         let enteredDescriptionValue = PublishRelay<String>()
         let tappedColorChangeButton = PublishRelay<Void>()
         let requestedCreatingLabel = PublishRelay<Void>()
+        let viewDidLoad = PublishRelay<Void>()
     }
     
     struct State {
@@ -43,10 +44,32 @@ final class LabelInsertViewModel: ViewModel {
     init(navigation: LabelListNavigation) {
         self.navigation = navigation
         
+        //State 속성 초기값 지정
+        setInitialStates()
         //Action 속성과 State 속성 바인딩
         bindActionsToStates()
         //State 속성과 라벨 생성 요청 바인딩
         bindStatesToCreatingRequest()
+    }
+    
+    private func setInitialStates() {
+        action.viewDidLoad
+            .map { "" }
+            .bind(to: state.updatedTitleValue)
+            .disposed(by: disposeBag)
+        
+        action.viewDidLoad
+            .withUnretained(self)
+            .map { viewModel, _ in
+                viewModel.randomColor
+            }
+            .bind(to: state.updatedRgbValue)
+            .disposed(by: disposeBag)
+        
+        action.viewDidLoad
+            .map { "" }
+            .bind(to: state.updatedDescriptionValue)
+            .disposed(by: disposeBag)
     }
     
     private func bindActionsToStates() {

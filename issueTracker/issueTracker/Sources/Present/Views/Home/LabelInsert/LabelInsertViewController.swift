@@ -48,21 +48,25 @@ final class LabelInsertViewController: BaseViewController, View {
         /*
             - 사용자 입력값을 뷰모델의 속성과 바인딩
          */
-        self.insertForm.titleForm.didChange
+        rx.viewDidLoad
+            .bind(to: viewModel.action.viewDidLoad)
+            .disposed(by: disposeBag)
+        
+        insertForm.titleForm.didChange
             .compactMap { $0 }
             .bind(to: viewModel.action.enteredTitleValue)
             .disposed(by: disposeBag)
         
-        self.insertForm.descriptionForm.didChange
+        insertForm.descriptionForm.didChange
             .compactMap { $0 }
             .bind(to: viewModel.action.enteredDescriptionValue)
             .disposed(by: disposeBag)
         
-        self.insertForm.colorChangeButton.rx.tap
+        insertForm.colorChangeButton.rx.tap
             .bind(to: viewModel.action.tappedColorChangeButton)
             .disposed(by: disposeBag)
         
-        self.addButton.rx.tap
+        addButton.rx.tap
             .bind(to: viewModel.action.requestedCreatingLabel)
             .disposed(by: disposeBag)
         

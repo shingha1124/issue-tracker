@@ -39,6 +39,5 @@ final class LoginButtonView: BaseView {
     }
     
     override func layout() {
-        
     }
 }

@@ -23,6 +23,5 @@ final class SplashViewController: BaseViewController, View {
     }
     
     override func layout() {
-        
     }
 }

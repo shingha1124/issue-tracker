@@ -10,7 +10,6 @@ import RxRelay
 import RxSwift
 
 protocol IssueListNavigation: AnyObject {
-    
 }
 
 final class IssueListViewModel: ViewModel {

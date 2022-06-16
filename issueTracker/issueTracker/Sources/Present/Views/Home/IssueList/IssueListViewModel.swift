@@ -22,7 +22,7 @@ final class IssueListViewModel: ViewModel {
     
     struct Action {
         let requestIssue = PublishRelay<Void>()
-        let deleteIssue = PublishRelay<Int>()
+        let closeIssue = PublishRelay<Int>()
     }
     
     struct State {
@@ -59,17 +59,11 @@ final class IssueListViewModel: ViewModel {
         
         let issueCellViewModels = requestIssueList
             .compactMap { $0.value }
-            .do {
-                print($0.count)
-            }
             .withUnretained(self)
             .map { vm, value in
-                vm.coreDataRepository.update(CDInssue.self, values: value)
+                vm.coreDataRepository.fetch(CDInssue.self, values: value)
             }
             .map { $0.filter { $0.state != .closed } }
-            .do {
-                print($0.count)
-            }
             .map { $0.map { IssueTableViewCellModel(issue: $0) } }
             .share()
         
@@ -77,7 +71,7 @@ final class IssueListViewModel: ViewModel {
             .bind(to: state.issues)
             .disposed(by: disposeBag)
         
-        let requestIssueClose = action.deleteIssue
+        let requestIssueClose = action.closeIssue
             .withLatestFrom(state.issues) { index, viewModels in
                 viewModels[index].state.issue.number
             }
@@ -95,12 +89,12 @@ final class IssueListViewModel: ViewModel {
                 self?.state.enableLoadingIndactorView.accept(false)
             })
             .share()
-        
+
         requestIssueClose
             .compactMap { $0.value }
             .withUnretained(self)
             .do { vm, value in
-                vm.coreDataRepository.update(CDInssue.self, values: [value])
+                vm.coreDataRepository.update(CDInssue.self, value: value)
             }
             .map { _ in }
             .bind(to: action.requestIssue)

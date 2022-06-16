@@ -27,7 +27,7 @@ extension CDInssue: CoreDatable {
         state = data.state.value
     }
     
-    func update<T>(_ data: T) -> T? where T: BaseCoreData {
+    func fetch<T>(_ data: T) -> T? where T: BaseCoreData {
         guard let data = data as? Issue else {
             return data
         }

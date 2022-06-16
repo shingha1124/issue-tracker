@@ -144,20 +144,14 @@ final class IssueListViewController: BaseViewController, View {
 
 extension IssueListViewController {
     func maketrailingSwipeActions(_ index: Int) -> UISwipeActionsConfiguration {
-        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { [weak self] _, _, completionHandler in
-            self?.viewModel?.action.deleteIssue.accept(index)
-            completionHandler(true)
-        }
-        deleteAction.image = UIImage(named: "ic_trash")?.withTintColor(.white)
-        deleteAction.backgroundColor = .error
-        
-        let closeAction = UIContextualAction(style: .normal, title: "닫기") { _, _, completionHandler in
+        let closeAction = UIContextualAction(style: .normal, title: "닫기") { [weak self] _, _, completionHandler in
+            self?.viewModel?.action.closeIssue.accept(index)
             completionHandler(true)
         }
         closeAction.image = UIImage(named: "ic_archive")?.withTintColor(.white)
         closeAction.backgroundColor = .grey1
         
-        let config = UISwipeActionsConfiguration(actions: [closeAction, deleteAction])
+        let config = UISwipeActionsConfiguration(actions: [closeAction])
         config.performsFirstActionWithFullSwipe = false
 
         return config

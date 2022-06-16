@@ -59,7 +59,7 @@ extension GithubTarget: BaseTarget {
     var parameter: [String: Any]? {
         switch self {
         case .requestAccessToken(let code):
-            return ["client_id": Constants.Login.gitHubClientId, "client_secret": Constants.Login.gitHubSecrets, "code": code, "scope": "repo,user" ]
+            return ["client_id": Constants.Github.clientId, "client_secret": Constants.Github.secrets, "code": code, "scope": "repo,user" ]
         case .requestRepoIssueList(let param):
             return param.parameters
         case .requestUpdateIssue(let param):

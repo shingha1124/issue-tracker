@@ -12,11 +12,11 @@ class Container {
     
     private init() { }
     
-    lazy var gitHubRepository: GitHubRepository = GitHubRepositoryImpl()
+    let gitHubRepository: GitHubRepository = GitHubRepositoryImpl()
     
-    lazy var coreDataRepository = CoreDataRepository()
+    let coreDataRepository = CoreDataRepository()
     
-    lazy var imageManager = ImageManager()
+    let imageManager = ImageManager()
     
-    lazy var tokenStore = TokenStore()
+    let tokenStore = TokenStore()
 }

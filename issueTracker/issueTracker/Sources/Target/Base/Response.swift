@@ -33,11 +33,12 @@ extension Response {
     }
     
     func printJson() {
+#if DEBUG
         guard let json = try? JSONSerialization.jsonObject(with: data) else {
             return
         }
-        
-        print(json)
+        debugPrint(json)
+#endif
     }
 }
 

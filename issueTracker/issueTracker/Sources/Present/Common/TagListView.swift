@@ -25,11 +25,6 @@ final class TagListView: UIView {
     struct Tag {
         let text: String
         let config: TagConfig
-        
-        init(text: String, config: TagConfig) {
-            self.text = text
-            self.config = config
-        }
     }
     
     private var tags: [Tag] = []
@@ -67,30 +62,16 @@ final class TagListView: UIView {
     }
     
     func updateTag() {
-        
         if tags.isEmpty {
             frame.size = CGSize(width: frame.size.width, height: 0)
             return
         }
-        
         layoutIfNeeded()
-        
+        positioning(to: tags.map { makeTagLabel($0) })
+    }
+    
+    private func positioning(to labels: [PaddingLabel]) {
         let maxWidth = frame.width
-        
-        let labels = tags.map { tag -> PaddingLabel in
-            let label = PaddingLabel()
-            label.padding = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
-            label.text = tag.text
-            label.textColor = tag.config.textColor
-            label.backgroundColor = tag.config.backgroundColor
-            label.font = config.font
-            label.clipsToBounds = true
-            
-            label.layer.cornerRadius = config.isCapsule ? label.intrinsicContentSize.height / 2 :  config.cornerRadius
-            self.addSubview(label)
-            return label
-        }
-        
         var stackHeight = 0.0
         var stackWidth = 0.0
         labels.forEach { label in
@@ -111,5 +92,18 @@ final class TagListView: UIView {
         snp.updateConstraints {
             $0.height.equalTo(lastLabel.frame.origin.y + lastLabel.frame.height)
         }
+    }
+    
+    private func makeTagLabel(_ tag: Tag) -> PaddingLabel {
+        let label = PaddingLabel()
+        label.padding = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
+        label.text = tag.text
+        label.textColor = tag.config.textColor
+        label.backgroundColor = tag.config.backgroundColor
+        label.font = config.font
+        label.clipsToBounds = true
+        label.layer.cornerRadius = config.isCapsule ? label.intrinsicContentSize.height / 2 :  config.cornerRadius
+        self.addSubview(label)
+        return label
     }
 }

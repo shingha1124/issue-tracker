@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 class Provider<Target: BaseTarget> {
-    private static func createRequest(_ target: Target) -> URLRequest? {
+    private func createRequest(_ target: Target) -> URLRequest? {
         
         var url: URL?
         
@@ -68,7 +68,7 @@ class Provider<Target: BaseTarget> {
     
     func request(_ target: Target) -> Single<Swift.Result<Response, APIError>> {
         Single.create { observer in
-            guard let request = Self.createRequest(target) else {
+            guard let request = self.createRequest(target) else {
                 let error = APIError.custom(message: "", debugMessage: "Request가 제대로 생성되지 않았습니다.")
                 observer(.success(.failure(error)))
                 return Disposables.create { AF.session.invalidateAndCancel() }

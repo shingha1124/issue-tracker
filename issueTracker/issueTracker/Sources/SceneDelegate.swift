@@ -26,7 +26,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else {
             return
         }
-        let path = url.path.split(separator: "/").map { String($0) }
-        appCoordinator?.deepLink(path: path, url: url)
+        appCoordinator?.deepLinkHandler.accept(DeepLink(url: url))
+//        appCoordinator?.deeplink(deeplink: DeepLink(url: url))
+    }
+}
+
+struct DeepLink {
+    let path: [DeepLinkDestination]
+    let queryItems: [URLQueryItem]?
+    
+    init(url: URL) {
+        path = Array(url.path.split(separator: "/").compactMap {
+            DeepLinkDestination.init(rawValue: String($0))
+        })
+        queryItems = URLComponents(string: url.absoluteString)?.queryItems
+    }
+    
+    init(path: [DeepLinkDestination], queryItems: [URLQueryItem]?) {
+        self.path = path
+        self.queryItems = queryItems
+    }
+}
+
+enum DeepLinkDestination: String {
+    case auth
+    case login
+    
+    var coordinatorType: BaseCoordinator.Type? {
+        switch self {
+        case .auth:
+            return AuthViewCoordinator.self
+        default:
+            return nil
+        }
     }
 }

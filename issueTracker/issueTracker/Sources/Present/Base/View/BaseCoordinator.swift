@@ -6,10 +6,15 @@
 //
 
 import Foundation
+import RxRelay
+import RxSwift
 
 class BaseCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
+    let deepLinkHandler = PublishRelay<DeepLink>()
+    let disposeBag = DisposeBag()
+    
+    func bind() { }
     func start() { }
-    func deepLink(path: [String], url: URL) { }
 }

@@ -18,7 +18,7 @@ protocol LoginViewModelCoordinatorDelegate: AnyObject {
 final class LoginViewModel: ViewModel {
     struct Action {
         let tappedGitLogin = PublishRelay<Void>()
-        let inputDeeplinkQuery = PublishRelay<URL>()
+        let inputDeeplinkQuery = PublishRelay<[URLQueryItem]?>()
     }
     
     struct State {
@@ -42,8 +42,7 @@ final class LoginViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         let requestAccessToken = action.inputDeeplinkQuery
-            .compactMap { URLComponents(string: $0.absoluteString) }
-            .compactMap { $0.queryItems?.filter { $0.name == "code" }.first?.value }
+            .compactMap { $0?.filter { $0.name == "code" }.first?.value }
             .withUnretained(self)
             .flatMapLatest { router, code in
                 router.gitHubRepository.requestAccessToken(code: code)

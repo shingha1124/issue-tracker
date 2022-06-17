@@ -13,11 +13,12 @@ final class AppCoordinator: BaseCoordinator {
     }()
     
     private let window: UIWindow
-    
     @Inject(\.tokenStore) private var tokenStore: TokenStore
     
     init(window: UIWindow) {
         self.window = window
+        super.init()
+        bind()
     }
     
     deinit {
@@ -29,38 +30,42 @@ final class AppCoordinator: BaseCoordinator {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func bind() {
+        deepLinkHandler
+            .filter { $0.path.contains(.auth) }
+            .withUnretained(self)
+            .bind(onNext: { coord, deeplink in
+                if let coordinator = coord.find(type: AuthViewCoordinator.self) {
+                    coordinator.deepLinkHandler.accept(deeplink)
+                } else {
+                    coord.clear()
+                    coord.loginFlow().deepLinkHandler.accept(deeplink)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
     override func start() {
         Log.debug("start \(String(describing: type(of: self)))")
         window.overrideUserInterfaceStyle = .light
         window.rootViewController = rootViewController
         window.makeKeyAndVisible()
+        loginFlow()
         
-        if tokenStore.hasToken() {
-            homeFlow()
-        } else {
-            loginFlow()
-        }
+//        if tokenStore.hasToken() {
+//            homeFlow()
+//        } else {
+//            loginFlow()
+//        }
     }
     
-    override func deepLink(path: [String], url: URL) {
-        if path.isEmpty { return }
-        let firstPath = path[0]
-        let nextPath = Array(path.dropFirst())
-        
-        switch firstPath {
-        case "auth":
-            let coordinator = find(type: AuthViewCoordinator.self)
-            coordinator?.deepLink(path: nextPath, url: url)
-        default:
-            break
-        }
-    }
-    
-    private func loginFlow() {
+    @discardableResult
+    private func loginFlow() -> AuthViewCoordinator {
         let coordinator = AuthViewCoordinator(navigationController: rootViewController)
         coordinator.delegate = self
         store(coordinator: coordinator)
         coordinator.start()
+        return coordinator
     }
     
     private func homeFlow() {

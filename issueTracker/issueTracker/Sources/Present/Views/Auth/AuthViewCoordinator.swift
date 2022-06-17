@@ -25,27 +25,28 @@ final class AuthViewCoordinator: BaseCoordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        super.init()
+        bind()
     }
     
     deinit {
         Log.debug("deinit \(String(describing: type(of: self)))")
     }
     
+    override func bind() {
+        deepLinkHandler
+            .filter { $0.path.contains(.login) }
+            .withUnretained(self)
+            .bind(onNext: { coord, deeplink in
+                let viewModel = coord.loginViewController.viewModel
+                viewModel?.action.inputDeeplinkQuery.accept(deeplink.queryItems)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     override func start() {
         Log.debug("start \(String(describing: type(of: self)))")
         navigationController.setViewControllers([loginViewController], animated: false)
-    }
-    
-    override func deepLink(path: [String], url: URL) {
-        if path.isEmpty { return }
-        let firstPath = path[0]
-        
-        switch firstPath {
-        case "login":
-            loginViewController.viewModel?.action.inputDeeplinkQuery.accept(url)
-        default:
-            break
-        }
     }
 }
 

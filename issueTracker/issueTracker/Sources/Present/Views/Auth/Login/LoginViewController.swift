@@ -30,6 +30,12 @@ final class LoginViewController: BaseViewController, View {
         gitLoginButton.rx.tap
             .bind(to: viewModel.action.tappedGitLogin)
             .disposed(by: disposeBag)
+        
+        viewModel.state.presentGitLogin
+            .bind(onNext: {
+                UIApplication.shared.open($0)
+            })
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {

@@ -117,7 +117,6 @@ final class IssueTableViewCell: BaseTableViewCell, View {
     }
     
     override func attribute() {
-        
     }
     
     override func layout() {

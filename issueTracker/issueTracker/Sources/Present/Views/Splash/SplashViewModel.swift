@@ -10,8 +10,7 @@ import RxRelay
 import RxSwift
 
 protocol SplashNavigation: AnyObject {
-    func goToLogin()
-    func goToHome()
+    func switchRootViewController(_ type: AppCoordinator.RootViewType)
 }
 
 final class SplashViewModel: ViewModel {
@@ -35,15 +34,11 @@ final class SplashViewModel: ViewModel {
         action.checkToken
             .withUnretained(self)
             .map { model, _ in
-                model.tokenStore.hasToken()
+                model.tokenStore.hasToken() ? .home : .login
             }
             .withUnretained(self)
-            .bind(onNext: { model, hasToken in
-                if hasToken {
-                    model.navigation?.goToHome()
-                } else {
-                    model.navigation?.goToLogin()
-                }
+            .bind(onNext: { model, type in
+                model.navigation?.switchRootViewController(type)
             })
             .disposed(by: disposeBag)
     }

@@ -92,7 +92,7 @@ final class IssueListViewController: BaseViewController, View {
             .withUnretained(self)
             .map { vc, issues -> [IndexPath: UISwipeActionsConfiguration] in
                 let keyValue = issues.enumerated().map { index, _ in
-                    (IndexPath(row: index, section: 0), vc.maketrailingSwipeActions(index))
+                    (IndexPath(row: index, section: 0), vc.makeTrailingSwipeActions(index))
                 }
                 return Dictionary(uniqueKeysWithValues: keyValue)
             }
@@ -111,12 +111,6 @@ final class IssueListViewController: BaseViewController, View {
             .withUnretained(self)
             .bind(onNext: { vc, enable in
                 enable ? vc.loadingIndicatorView.startAnimating() : vc.loadingIndicatorView.stopAnimating()
-            })
-            .disposed(by: disposeBag)
-        
-        filterButton.rx.tap
-            .bind(onNext: {
-                print("zxcvzxvxcvv")
             })
             .disposed(by: disposeBag)
     }
@@ -143,21 +137,16 @@ final class IssueListViewController: BaseViewController, View {
 }
 
 extension IssueListViewController {
-    func maketrailingSwipeActions(_ index: Int) -> UISwipeActionsConfiguration {
-        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { [weak self] _, _, completionHandler in
-            self?.viewModel?.action.deleteIssue.accept(index)
+    func makeTrailingSwipeActions(_ index: Int) -> UISwipeActionsConfiguration {
+        let closeAction = UIContextualAction(style: .normal, title: "닫기") { [weak self] _, _, completionHandler in
+            self?.viewModel?.action.closeIssue.accept(index)
             completionHandler(true)
         }
-        deleteAction.image = UIImage(named: "ic_trash")?.withTintColor(.white)
-        deleteAction.backgroundColor = .error
         
-        let closeAction = UIContextualAction(style: .normal, title: "닫기") { _, _, completionHandler in
-            completionHandler(true)
-        }
         closeAction.image = UIImage(named: "ic_archive")?.withTintColor(.white)
         closeAction.backgroundColor = .grey1
         
-        let config = UISwipeActionsConfiguration(actions: [closeAction, deleteAction])
+        let config = UISwipeActionsConfiguration(actions: [closeAction])
         config.performsFirstActionWithFullSwipe = false
 
         return config

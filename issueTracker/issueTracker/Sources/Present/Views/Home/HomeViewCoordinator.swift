@@ -8,7 +8,6 @@
 import UIKit
 
 protocol HomeViewCoordinatorDelegate: AnyObject {
-    
 }
 
 final class HomeViewCoordinator: BaseCoordinator {
@@ -26,7 +25,6 @@ final class HomeViewCoordinator: BaseCoordinator {
         return labelListCoordinator
     }()
     
-    var children: [Coordinator] = []
     var navigationController: UINavigationController
     weak var delegate: HomeViewCoordinatorDelegate?
     
@@ -44,20 +42,17 @@ final class HomeViewCoordinator: BaseCoordinator {
     }
     
     private func initializeHomeTabBar() {
-//        navigationController.setNavigationBarHidden(true, animated: false)
-//        
-//        let tabBarViewController = UITabBarController()
-//        tabBarViewController.viewControllers = [issueCoordinator.navigationController, labelListCoordinator.navigationController]
-//        
-//        issueCoordinator.parentCoordinator = parentCoordinator
-//        labelListCoordinator.parentCoordinator = parentCoordinator
-//        
-//        parentCoordinator?.children.append(issueCoordinator)
-//        parentCoordinator?.children.append(labelListCoordinator)
-//        
-//        navigationController.pushViewController(tabBarViewController, animated: true)
-//        
-//        issueCoordinator.start()
-//        labelListCoordinator.start()
+        navigationController.setNavigationBarHidden(true, animated: false)
+
+        let tabBarViewController = UITabBarController()
+        tabBarViewController.viewControllers = [issueCoordinator.navigationController, labelListCoordinator.navigationController]
+        
+        store(coordinator: issueCoordinator)
+        store(coordinator: labelListCoordinator)
+        
+        issueCoordinator.start()
+        labelListCoordinator.start()
+        
+        navigationController.setViewControllers([tabBarViewController], animated: false)
     }
 }

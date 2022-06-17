@@ -8,7 +8,6 @@
 import UIKit
 
 final class IssueListViewCoordinator: BaseCoordinator {
-    var children: [Coordinator] = []
     var navigationController: UINavigationController
     
     init(navigation: UINavigationController) {
@@ -16,15 +15,14 @@ final class IssueListViewCoordinator: BaseCoordinator {
     }
     
     override func start() {
-        goToIssueList()
+        let viewController = IssueListViewController()
+        let viewModel = IssueListViewModel(navigation: self)
+        viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
 
 extension IssueListViewCoordinator: IssueListNavigation {
     func goToIssueList() {
-//        let viewController = IssueListViewController()
-//        let viewModel = IssueListViewModel(navigation: self)
-//        viewController.viewModel = viewModel
-//        navigationController.pushViewController(viewController, animated: true)
     }
 }

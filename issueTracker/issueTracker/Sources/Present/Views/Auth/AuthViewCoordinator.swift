@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AuthViewCoordinatorDelegate: AnyObject {
-    
+    func didFinishAuthCoordinator(coordinator: Coordinator)
 }
 
 final class AuthViewCoordinator: BaseCoordinator {
@@ -35,6 +35,18 @@ final class AuthViewCoordinator: BaseCoordinator {
         Log.debug("start \(String(describing: type(of: self)))")
         navigationController.setViewControllers([loginViewController], animated: false)
     }
+    
+    override func deepLink(path: [String], url: URL) {
+        if path.isEmpty { return }
+        let firstPath = path[0]
+        
+        switch firstPath {
+        case "login":
+            loginViewController.viewModel?.action.inputDeeplinkQuery.accept(url)
+        default:
+            break
+        }
+    }
 }
 
 extension AuthViewCoordinator: LoginViewModelCoordinatorDelegate {
@@ -47,5 +59,9 @@ extension AuthViewCoordinator: LoginViewModelCoordinatorDelegate {
             return
         }
         UIApplication.shared.open(openUrl)
+    }
+    
+    func loginDidSuccess() {
+        delegate?.didFinishAuthCoordinator(coordinator: self)
     }
 }

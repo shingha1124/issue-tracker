@@ -15,11 +15,20 @@ protocol Coordinator: AnyObject {
 
 extension Coordinator {
     
-  func store(coordinator: Coordinator) {
-    childCoordinators.append(coordinator)
-  }
-  
-  func free(coordinator: Coordinator) {
-    childCoordinators = childCoordinators.filter { $0 !== coordinator }
-  }
+    func store(coordinator: Coordinator) {
+      childCoordinators.append(coordinator)
+    }
+    
+    func free(coordinator: Coordinator) {
+      childCoordinators = childCoordinators.filter { $0 !== coordinator }
+    }
+    
+    func find<T: BaseCoordinator>(type: T.Type) -> BaseCoordinator? {
+        for coordinator in childCoordinators {
+            if let coordnator = coordinator as? T {
+                return coordnator
+            }
+        }
+        return nil
+    }
 }

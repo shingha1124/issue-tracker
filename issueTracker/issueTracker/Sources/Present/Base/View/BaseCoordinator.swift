@@ -11,4 +11,5 @@ class BaseCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     func start() { }
+    func deepLink(path: [String], url: URL) { }
 }

@@ -12,8 +12,9 @@ final class AppCoordinator: BaseCoordinator {
         UINavigationController()
     }()
     
-    private let deepLinkRouter = DeepLinkRouter()
-    let window: UIWindow
+    private let window: UIWindow
+    
+    @Inject(\.tokenStore) private var tokenStore: TokenStore
     
     init(window: UIWindow) {
         self.window = window
@@ -34,7 +35,25 @@ final class AppCoordinator: BaseCoordinator {
         window.rootViewController = rootViewController
         window.makeKeyAndVisible()
         
-        loginFlow()
+        if tokenStore.hasToken() {
+            homeFlow()
+        } else {
+            loginFlow()
+        }
+    }
+    
+    override func deepLink(path: [String], url: URL) {
+        if path.isEmpty { return }
+        let firstPath = path[0]
+        let nextPath = Array(path.dropFirst())
+        
+        switch firstPath {
+        case "auth":
+            let coordinator = find(type: AuthViewCoordinator.self)
+            coordinator?.deepLink(path: nextPath, url: url)
+        default:
+            break
+        }
     }
     
     private func loginFlow() {
@@ -53,6 +72,10 @@ final class AppCoordinator: BaseCoordinator {
 }
 
 extension AppCoordinator: AuthViewCoordinatorDelegate {
+    func didFinishAuthCoordinator(coordinator: Coordinator) {
+        free(coordinator: coordinator)
+        homeFlow()
+    }
 }
 
 extension AppCoordinator: HomeViewCoordinatorDelegate {

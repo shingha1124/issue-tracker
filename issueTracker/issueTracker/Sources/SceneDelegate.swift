@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
-    var deepLinkRouter: DeepLinkRouter?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
@@ -27,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else {
             return
         }
-//        deepLinkRouter?.handle(url)
+        let path = url.path.split(separator: "/").map { String($0) }
+        appCoordinator?.deepLink(path: path, url: url)
     }
 }

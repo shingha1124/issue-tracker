@@ -1,0 +1,15 @@
+use_frameworks!
+
+target 'issueTracker' do
+  pod 'SwiftLint'
+  
+  pod 'SnapKit', '~> 5.6.0'
+  pod 'Alamofire'
+  
+  pod 'RxSwift', '6.5.0'
+  pod 'RxCocoa', '6.5.0'
+  pod 'RxAppState', '~> 1.6'
+  pod 'RxDataSources'
+
+  pod 'WeakMapTable'
+end

@@ -22,7 +22,7 @@ final class HomeViewCoordinator: BaseCoordinator {
     private let labelListCoordinator: LabelListViewCoordinator = {
         let labelListNavigationController = UINavigationController()
         let labelListCoordinator = LabelListViewCoordinator(navigation: labelListNavigationController)
-        labelListNavigationController.tabBarItem = UITabBarItem(title: "레이블", image: UIImage(named: "ic_issue"), tag: 1)
+        labelListNavigationController.tabBarItem = UITabBarItem(title: "레이블", image: UIImage(named: "ic_label"), tag: 1)
         return labelListCoordinator
     }()
     

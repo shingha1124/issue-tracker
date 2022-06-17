@@ -20,7 +20,7 @@ final class LabelListViewController: BaseViewController, View {
     
     private let labelListTableView: UITableView = {
         let tableView = UITableView()
-        tableView.separatorStyle = .none
+        tableView.separatorColor = .separator1
         tableView.register(LabelListTableViewCell.self,
                            forCellReuseIdentifier: LabelListTableViewCell.identifier)
         return tableView
@@ -30,16 +30,17 @@ final class LabelListViewController: BaseViewController, View {
     
     func bind(to viewModel: LabelListViewModel) {
         
-        rx.viewDidLoad
-            .bind(to: viewModel.action.enteredLabels)
+        rx.viewWillAppear
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.viewModel?.action.labelListRequest.accept(())
+            })
             .disposed(by: disposeBag)
         
-        viewModel.state.updatedLabels
+        viewModel.state.labels
             .bind(to: labelListTableView.rx.items(cellIdentifier: LabelListTableViewCell.identifier,
-                                                  cellType: LabelListTableViewCell.self)) { _, model, cell in
-                cell.updateValues(labelName: model.name,
-                                  description: "description for \(model.name)",
-                                  color: model.color.hexToColor())
+                                                  cellType: LabelListTableViewCell.self)) { _, viewModel, cell in
+                cell.viewModel = viewModel
             }
             .disposed(by: disposeBag)
         
@@ -62,10 +63,6 @@ final class LabelListViewController: BaseViewController, View {
             .disposed(by: disposeBag)
     }
     
-    deinit {
-        Log.debug("denit LabelListViewController")
-    }
-    
     override func attribute() {
         self.title = "레이블"
         self.navigationItem.rightBarButtonItem = addButton
@@ -75,7 +72,8 @@ final class LabelListViewController: BaseViewController, View {
     override func layout() {
         self.view.addSubview(labelListTableView)
         labelListTableView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+            $0.top.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 }

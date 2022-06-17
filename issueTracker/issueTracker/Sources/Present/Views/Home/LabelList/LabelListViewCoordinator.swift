@@ -38,4 +38,8 @@ extension LabelListViewCoordinator: LabelListNavigation {
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func goBackToLabelList() {
+        navigationController.popViewController(animated: true)
+    }
 }

@@ -35,24 +35,39 @@ final class LabelInsertViewController: BaseViewController, View {
         return label
     }()
     
+    private let addButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = "저장"
+        button.style = .plain
+        return button
+    }()
+
     var disposeBag = DisposeBag()
     
     func bind(to viewModel: LabelInsertViewModel) {
         /*
             - 사용자 입력값을 뷰모델의 속성과 바인딩
          */
-        self.insertForm.titleForm.didChange
+        rx.viewDidLoad
+            .bind(to: viewModel.action.viewDidLoad)
+            .disposed(by: disposeBag)
+        
+        insertForm.titleForm.didChange
             .compactMap { $0 }
             .bind(to: viewModel.action.enteredTitleValue)
             .disposed(by: disposeBag)
         
-        self.insertForm.descriptionForm.didChange
+        insertForm.descriptionForm.didChange
             .compactMap { $0 }
             .bind(to: viewModel.action.enteredDescriptionValue)
             .disposed(by: disposeBag)
         
-        self.insertForm.colorChangeButton.rx.tap
+        insertForm.colorChangeButton.rx.tap
             .bind(to: viewModel.action.tappedColorChangeButton)
+            .disposed(by: disposeBag)
+        
+        addButton.rx.tap
+            .bind(to: viewModel.action.tappedAddingLabelButton)
             .disposed(by: disposeBag)
         
         /*
@@ -75,13 +90,14 @@ final class LabelInsertViewController: BaseViewController, View {
             }
             .map { _, color in color }
             .bind(to: previewLabel.rx.backgroundColor )
-            .disposed(by: disposeBag)        
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {
         super.attribute()
         self.view.backgroundColor = .systemGray6
         self.navigationItem.title = "새로운 레이블"
+        self.navigationItem.rightBarButtonItem = addButton
     }
     
     override func layout() {

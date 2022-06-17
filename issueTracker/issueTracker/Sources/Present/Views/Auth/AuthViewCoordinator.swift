@@ -7,10 +7,21 @@
 
 import UIKit
 
-final class AuthViewCoordinator: Coordinator {
-    weak var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
-    var navigationController: UINavigationController
+protocol AuthViewCoordinatorDelegate: AnyObject {
+    
+}
+
+final class AuthViewCoordinator: BaseCoordinator {
+    private let navigationController: UINavigationController
+    weak var delegate: AuthViewCoordinatorDelegate?
+    
+    lazy var loginViewController: LoginViewController = {
+        let loginViewModel = LoginViewModel()
+        loginViewModel.coordinatorDelegate = self
+        let loginViewController = LoginViewController()
+        loginViewController.viewModel = loginViewModel
+        return loginViewController
+    }()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -20,23 +31,21 @@ final class AuthViewCoordinator: Coordinator {
         Log.debug("deinit \(String(describing: type(of: self)))")
     }
     
-    func start() {
+    override func start() {
         Log.debug("start \(String(describing: type(of: self)))")
-        goToLoginPage()
+        navigationController.setViewControllers([loginViewController], animated: false)
     }
 }
 
-extension AuthViewCoordinator: LoginNavigation {
-    func goToLoginPage() {
-        let loginViewController = LoginViewController()
-        let loginViewModel = LoginViewModel(loginNavigation: self)
-        loginViewController.viewModel = loginViewModel
-        navigationController.pushViewController(loginViewController, animated: true)
-    }
-    
-    func goToHome() {
-    }
-    
-    func goToRegisterPage() {
+extension AuthViewCoordinator: LoginViewModelCoordinatorDelegate {
+    func didGithubLogin() {
+        var urlComponets = URLComponents(string: Constants.Github.authorizeUrl)
+        urlComponets?.queryItems = Constants.Github.authorizeQuery.map {
+            URLQueryItem(name: $0.key, value: $0.value)
+        }
+        guard let openUrl = urlComponets?.url else {
+            return
+        }
+        UIApplication.shared.open(openUrl)
     }
 }

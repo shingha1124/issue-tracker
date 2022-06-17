@@ -7,16 +7,16 @@
 
 import UIKit
 
-final class AppCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
-    var navigationController: UINavigationController
+final class AppCoordinator: BaseCoordinator {
+    var rootViewController: UINavigationController = {
+        UINavigationController()
+    }()
     
+    private let deepLinkRouter = DeepLinkRouter()
     let window: UIWindow
     
     init(window: UIWindow) {
         self.window = window
-        navigationController = UINavigationController()
     }
     
     deinit {
@@ -28,36 +28,32 @@ final class AppCoordinator: Coordinator {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func start() {
+    override func start() {
         Log.debug("start \(String(describing: type(of: self)))")
         window.overrideUserInterfaceStyle = .light
-        switchRootViewController(.splash)
+        window.rootViewController = rootViewController
+        window.makeKeyAndVisible()
+        
+        loginFlow()
     }
     
-    func switchRootViewController(_ type: RootViewType) {
-        let coordinator = type.coordinator
-        children.removeAll()
-        coordinator.parentCoordinator = self
-        navigationController = coordinator.navigationController
-        children.append(coordinator)
+    private func loginFlow() {
+        let coordinator = AuthViewCoordinator(navigationController: rootViewController)
+        coordinator.delegate = self
+        store(coordinator: coordinator)
         coordinator.start()
-        window.rootViewController = navigationController
+    }
+    
+    private func homeFlow() {
+        let coordinator = HomeViewCoordinator(navigationController: rootViewController)
+        coordinator.delegate = self
+        store(coordinator: coordinator)
+        coordinator.start()
     }
 }
 
-extension AppCoordinator {
-    enum RootViewType {
-        case splash, login, home
-        
-        var coordinator: Coordinator {
-            switch self {
-            case .splash:
-                return SplashViewCoordinator(navigationController: UINavigationController())
-            case .login:
-                return AuthViewCoordinator(navigationController: UINavigationController())
-            case .home:
-                return HomeViewCoordinator(navigationController: UINavigationController())
-            }
-        }
-    }
+extension AppCoordinator: AuthViewCoordinatorDelegate {
+}
+
+extension AppCoordinator: HomeViewCoordinatorDelegate {
 }

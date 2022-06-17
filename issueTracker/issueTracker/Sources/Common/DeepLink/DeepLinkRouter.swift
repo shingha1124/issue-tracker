@@ -17,11 +17,7 @@ final class DeepLinkRouter {
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
     @Inject(\.tokenStore) private var tokenStore: TokenStore
     
-    weak var appCoordinator: AppCoordinator?
-    
-    init(appCoordinator: AppCoordinator?) {
-        self.appCoordinator = appCoordinator
-        
+    init() {
         let requestGitHubAccessToken = registDeepLink
             .filter { $0.host == "github" }
             .compactMap { URLComponents(string: $0.absoluteString) }
@@ -39,7 +35,7 @@ final class DeepLinkRouter {
                 router.tokenStore.store(token)
             }
             .bind(onNext: { router, _ in
-                router.appCoordinator?.switchRootViewController(.home)
+//                router.appCoordinator?.switchRootViewController(.home)
             })
             .disposed(by: disposeBag)
     }
@@ -49,6 +45,7 @@ extension DeepLinkRouter {
     func handle(_ url: URL) {
         registDeepLink.accept(url)
     }
+    //team14-issuetracker://github?code=84f41d8ae59a8303b55a
 }
 
 struct DeepLink {

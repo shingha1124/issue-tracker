@@ -7,8 +7,7 @@
 
 import UIKit
 
-final class IssueListViewCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
+final class IssueListViewCoordinator: BaseCoordinator {
     var children: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -16,16 +15,16 @@ final class IssueListViewCoordinator: Coordinator {
         self.navigationController = navigation
     }
     
-    func start() {
+    override func start() {
         goToIssueList()
     }
 }
 
 extension IssueListViewCoordinator: IssueListNavigation {
     func goToIssueList() {
-        let viewController = IssueListViewController()
-        let viewModel = IssueListViewModel(navigation: self)
-        viewController.viewModel = viewModel
-        navigationController.pushViewController(viewController, animated: true)
+//        let viewController = IssueListViewController()
+//        let viewModel = IssueListViewModel(navigation: self)
+//        viewController.viewModel = viewModel
+//        navigationController.pushViewController(viewController, animated: true)
     }
 }

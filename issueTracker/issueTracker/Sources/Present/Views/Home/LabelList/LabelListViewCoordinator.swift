@@ -7,18 +7,15 @@
 
 import UIKit
 
-final class LabelListViewCoordinator: Coordinator {
-    weak var parentCoordinator: Coordinator?
-    
+final class LabelListViewCoordinator: BaseCoordinator {
     var children: [Coordinator] = []
-    
     var navigationController: UINavigationController
     
     init(navigation: UINavigationController) {
         self.navigationController = navigation
     }
     
-    func start() {
+    override func start() {
         goToLabelList()
     }
 }

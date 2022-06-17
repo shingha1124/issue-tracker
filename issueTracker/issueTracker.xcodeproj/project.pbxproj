@@ -21,6 +21,7 @@
 		E096F471285A2F6900778265 /* CoreDatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F470285A2F6900778265 /* CoreDatable.swift */; };
 		E096F474285A315300778265 /* CDInssue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F472285A315300778265 /* CDInssue+CoreDataProperties.swift */; };
 		E096F475285A315300778265 /* CDInssue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F473285A315300778265 /* CDInssue+CoreDataClass.swift */; };
+		E096F477285C3D5000778265 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F476285C3D5000778265 /* BaseCoordinator.swift */; };
 		E09CB92328587E29002255FE /* IssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92228587E29002255FE /* IssueTableViewCell.swift */; };
 		E09CB92528587E4B002255FE /* IssueTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */; };
 		E09CB92728588F59002255FE /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92628588F59002255FE /* TagListView.swift */; };
@@ -45,9 +46,6 @@
 		E0F09E23285784DC006B9F87 /* AuthViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E22285784DC006B9F87 /* AuthViewCoordinator.swift */; };
 		E0F09E2E285794AB006B9F87 /* HomeViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E2D285794AB006B9F87 /* HomeViewCoordinator.swift */; };
 		E0F09E30285795DA006B9F87 /* IssueListViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E2F285795DA006B9F87 /* IssueListViewCoordinator.swift */; };
-		E0F09E33285796D5006B9F87 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E32285796D5006B9F87 /* SplashViewController.swift */; };
-		E0F09E35285796E2006B9F87 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E34285796E2006B9F87 /* SplashViewModel.swift */; };
-		E0F09E37285796F0006B9F87 /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E36285796F0006B9F87 /* SplashViewCoordinator.swift */; };
 		E0F09E3A285815BF006B9F87 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E39285815BF006B9F87 /* Log.swift */; };
 		E0F09E3F28582157006B9F87 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E3E28582157006B9F87 /* NetworkRepository.swift */; };
 		E0F09E4228582166006B9F87 /* GitHubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E4128582166006B9F87 /* GitHubRepository.swift */; };
@@ -95,6 +93,7 @@
 		E096F470285A2F6900778265 /* CoreDatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDatable.swift; sourceTree = "<group>"; };
 		E096F472285A315300778265 /* CDInssue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDInssue+CoreDataProperties.swift"; path = "/Users/seonghashin/Desktop/CodeSquad/Projects/issueTracker/issueTracker/issueTracker/CoreData/CDInssue+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		E096F473285A315300778265 /* CDInssue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDInssue+CoreDataClass.swift"; path = "/Users/seonghashin/Desktop/CodeSquad/Projects/issueTracker/issueTracker/issueTracker/CoreData/CDInssue+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		E096F476285C3D5000778265 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		E09CB92228587E29002255FE /* IssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCell.swift; sourceTree = "<group>"; };
 		E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCellModel.swift; sourceTree = "<group>"; };
 		E09CB92628588F59002255FE /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
@@ -121,9 +120,6 @@
 		E0F09E22285784DC006B9F87 /* AuthViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewCoordinator.swift; sourceTree = "<group>"; };
 		E0F09E2D285794AB006B9F87 /* HomeViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCoordinator.swift; sourceTree = "<group>"; };
 		E0F09E2F285795DA006B9F87 /* IssueListViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewCoordinator.swift; sourceTree = "<group>"; };
-		E0F09E32285796D5006B9F87 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		E0F09E34285796E2006B9F87 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
-		E0F09E36285796F0006B9F87 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
 		E0F09E39285815BF006B9F87 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		E0F09E3E28582157006B9F87 /* NetworkRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
 		E0F09E4128582166006B9F87 /* GitHubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepository.swift; sourceTree = "<group>"; };
@@ -328,6 +324,7 @@
 				E0F09E0028576E66006B9F87 /* BaseTableViewCell.swift */,
 				E0F09E0328576E66006B9F87 /* BaseView.swift */,
 				E0F09E0128576E66006B9F87 /* BaseViewController.swift */,
+				E096F476285C3D5000778265 /* BaseCoordinator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,7 +360,6 @@
 			isa = PBXGroup;
 			children = (
 				E0F09E1028576FED006B9F87 /* AppCoordinator.swift */,
-				E0F09E31285796C7006B9F87 /* Splash */,
 				E0F09E1B28577D88006B9F87 /* Auth */,
 				E0F09E2C28579495006B9F87 /* Home */,
 			);
@@ -398,16 +394,6 @@
 				E0F09E1428577503006B9F87 /* IssueList */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		E0F09E31285796C7006B9F87 /* Splash */ = {
-			isa = PBXGroup;
-			children = (
-				E0F09E36285796F0006B9F87 /* SplashViewCoordinator.swift */,
-				E0F09E32285796D5006B9F87 /* SplashViewController.swift */,
-				E0F09E34285796E2006B9F87 /* SplashViewModel.swift */,
-			);
-			path = Splash;
 			sourceTree = "<group>";
 		};
 		E0F09E38285815B0006B9F87 /* Common */ = {
@@ -679,15 +665,13 @@
 				E09CB92C2858A146002255FE /* DecodedBy.swift in Sources */,
 				B5E9B6E12859267300BA79A4 /* LabelListViewController.swift in Sources */,
 				E0F09E5B28582205006B9F87 /* Constants.swift in Sources */,
-				E0F09E35285796E2006B9F87 /* SplashViewModel.swift in Sources */,
-				E0F09E33285796D5006B9F87 /* SplashViewController.swift in Sources */,
 				E096F467285A14DB00778265 /* String+Extension.swift in Sources */,
 				E096F471285A2F6900778265 /* CoreDatable.swift in Sources */,
 				E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */,
 				B5E9B6E42859267300BA79A4 /* LabelListTableViewCell.swift in Sources */,
 				E0F09E1628577513006B9F87 /* IssueListViewController.swift in Sources */,
-				E0F09E37285796F0006B9F87 /* SplashViewCoordinator.swift in Sources */,
 				E09CB92328587E29002255FE /* IssueTableViewCell.swift in Sources */,
+				E096F477285C3D5000778265 /* BaseCoordinator.swift in Sources */,
 				E0F09E1F28577DA3006B9F87 /* LoginViewModel.swift in Sources */,
 				E09CB92528587E4B002255FE /* IssueTableViewCellModel.swift in Sources */,
 				E0F09E7B285872FE006B9F87 /* Milestone.swift in Sources */,

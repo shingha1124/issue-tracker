@@ -23,6 +23,8 @@
 		E096F467285A14DB00778265 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F466285A14DB00778265 /* String+Extension.swift */; };
 		E096F471285A2F6900778265 /* CoreDatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F470285A2F6900778265 /* CoreDatable.swift */; };
 		E096F479285C4CC200778265 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F478285C4CC200778265 /* BaseCoordinator.swift */; };
+		E096F480285CAB1A00778265 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F47F285CAB1900778265 /* Deeplink.swift */; };
+		E096F482285CB0B900778265 /* Rx+URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F481285CB0B900778265 /* Rx+URLSession+Extension.swift */; };
 		E09CB92328587E29002255FE /* IssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92228587E29002255FE /* IssueTableViewCell.swift */; };
 		E09CB92528587E4B002255FE /* IssueTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */; };
 		E09CB92728588F59002255FE /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92628588F59002255FE /* TagListView.swift */; };
@@ -97,6 +99,8 @@
 		E096F470285A2F6900778265 /* CoreDatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDatable.swift; sourceTree = "<group>"; };
 		E096F478285C4CC200778265 /* BaseCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		E096F47A285C62B500778265 /* IssueTracker-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "IssueTracker-Dev.xcconfig"; sourceTree = "<group>"; };
+		E096F47F285CAB1900778265 /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
+		E096F481285CB0B900778265 /* Rx+URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+URLSession+Extension.swift"; sourceTree = "<group>"; };
 		E09CB92228587E29002255FE /* IssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCell.swift; sourceTree = "<group>"; };
 		E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCellModel.swift; sourceTree = "<group>"; };
 		E09CB92628588F59002255FE /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
@@ -410,6 +414,7 @@
 				E0F09E5828582205006B9F87 /* ImageManager.swift */,
 				E0F09E5E28582229006B9F87 /* TokenStore.swift */,
 				E0F09E39285815BF006B9F87 /* Log.swift */,
+				E096F47F285CAB1900778265 /* Deeplink.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 				E0F09E6F28583EFC006B9F87 /* Result+Extension.swift */,
 				E09CB92D2858CAD1002255FE /* Rx+TableView+Extension.swift */,
 				E096F466285A14DB00778265 /* String+Extension.swift */,
+				E096F481285CB0B900778265 /* Rx+URLSession+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -662,6 +668,7 @@
 				E09CB92C2858A146002255FE /* DecodedBy.swift in Sources */,
 				B5E9B6E12859267300BA79A4 /* LabelListViewController.swift in Sources */,
 				E0F09E5B28582205006B9F87 /* Constants.swift in Sources */,
+				E096F482285CB0B900778265 /* Rx+URLSession+Extension.swift in Sources */,
 				E096F467285A14DB00778265 /* String+Extension.swift in Sources */,
 				E096F471285A2F6900778265 /* CoreDatable.swift in Sources */,
 				E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */,
@@ -700,6 +707,7 @@
 				E0F09E4F285821AE006B9F87 /* BaseTarget.swift in Sources */,
 				E0F09E1A28577559006B9F87 /* IssueListViewModel.swift in Sources */,
 				E0F09E1128576FED006B9F87 /* AppCoordinator.swift in Sources */,
+				E096F480285CAB1A00778265 /* Deeplink.swift in Sources */,
 				E0F09E30285795DA006B9F87 /* IssueListViewCoordinator.swift in Sources */,
 				E09CB9452859FD00002255FE /* Model.xcdatamodeld in Sources */,
 				E0F09E79285870E9006B9F87 /* Issue.swift in Sources */,

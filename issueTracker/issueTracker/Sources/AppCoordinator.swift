@@ -43,6 +43,18 @@ final class AppCoordinator: BaseCoordinator {
                 }
             })
             .disposed(by: disposeBag)
+        
+        deepLinkHandler
+            .filter { $0.path.contains(.home) }
+            .withUnretained(self)
+            .filter { coord, _ in
+                !coord.tokenStore.hasToken()
+            }
+            .bind(onNext: { coord, _ in
+                coord.clear()
+                coord.loginFlow()
+            })
+            .disposed(by: disposeBag)
     }
     
     override func start() {
@@ -50,13 +62,12 @@ final class AppCoordinator: BaseCoordinator {
         window.overrideUserInterfaceStyle = .light
         window.rootViewController = rootViewController
         window.makeKeyAndVisible()
-        loginFlow()
-        
-//        if tokenStore.hasToken() {
-//            homeFlow()
-//        } else {
-//            loginFlow()
-//        }
+
+        if tokenStore.hasToken() {
+            homeFlow()
+        } else {
+            loginFlow()
+        }
     }
     
     @discardableResult

@@ -12,7 +12,7 @@ import RxSwift
 class BaseCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
-    let deepLinkHandler = PublishRelay<DeepLink>()
+    let deepLinkHandler = PublishRelay<Deeplink>()
     let disposeBag = DisposeBag()
     
     func bind() { }

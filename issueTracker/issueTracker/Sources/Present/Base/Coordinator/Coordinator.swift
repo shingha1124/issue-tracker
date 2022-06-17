@@ -27,10 +27,7 @@ extension Coordinator {
         childCoordinators.removeAll()
     }
     
-    func find<T: BaseCoordinator>(type: T.Type?) -> BaseCoordinator? {
-        if type == nil {
-            return nil
-        }
+    func find<T: BaseCoordinator>(type: T.Type) -> BaseCoordinator? {
         for coordinator in childCoordinators {
             if let coordnator = coordinator as? T {
                 return coordnator

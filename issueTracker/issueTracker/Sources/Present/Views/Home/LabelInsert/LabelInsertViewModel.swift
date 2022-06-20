@@ -35,8 +35,11 @@ final class LabelInsertViewModel: ViewModel {
     private weak var navigation: LabelListNavigation?
     
     var randomColor: String {
-        let randomList = ["c5def5", "7FAD7D", "320F8D", "F6CBD5"]
-        return randomList.randomElement() ?? ""
+        var hexString = ""
+        for _ in 0..<3 {
+            hexString += String(format: "%02X", Int.random(in: 0...255))
+        }
+        return "#\(hexString)"
     }
     
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository

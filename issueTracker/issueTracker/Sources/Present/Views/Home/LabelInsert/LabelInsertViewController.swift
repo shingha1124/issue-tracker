@@ -83,7 +83,7 @@ final class LabelInsertViewController: BaseViewController, View {
             .disposed(by: disposeBag)
         
         viewModel.state.updatedRgbValue
-            .map { try HexToColor.transform(form: $0) }
+            .map { try HexToColor.transform(form: String($0.dropFirst())) }
             .withUnretained(self)
             .do { vc, color in
                 vc.previewLabel.textColor = color.contrast

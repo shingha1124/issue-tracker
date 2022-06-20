@@ -43,18 +43,6 @@ final class AppCoordinator: BaseCoordinator {
                 }
             })
             .disposed(by: disposeBag)
-        
-        deepLinkHandler
-            .filter { $0.path.contains(.home) }
-            .withUnretained(self)
-            .filter { coord, _ in
-                !coord.tokenStore.hasToken()
-            }
-            .bind(onNext: { coord, _ in
-                coord.clear()
-                coord.loginFlow()
-            })
-            .disposed(by: disposeBag)
     }
     
     override func start() {
@@ -71,7 +59,11 @@ final class AppCoordinator: BaseCoordinator {
     }
     
     @discardableResult
-    private func loginFlow() -> AuthViewCoordinator {
+    private func loginFlow() -> BaseCoordinator {
+        if let coordinator = self.find(type: AuthViewCoordinator.self) {
+            return coordinator
+        }
+        
         let coordinator = AuthViewCoordinator(navigationController: rootViewController)
         coordinator.delegate = self
         store(coordinator: coordinator)
@@ -79,11 +71,17 @@ final class AppCoordinator: BaseCoordinator {
         return coordinator
     }
     
-    private func homeFlow() {
+    @discardableResult
+    private func homeFlow() -> BaseCoordinator {
+        if let coordinator = self.find(type: HomeViewCoordinator.self) {
+            return coordinator
+        }
+        
         let coordinator = HomeViewCoordinator(navigationController: rootViewController)
         coordinator.delegate = self
         store(coordinator: coordinator)
         coordinator.start()
+        return coordinator
     }
 }
 

@@ -33,16 +33,9 @@ extension SplashViewCoordinator: SplashNavigation {
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }
-    
-    func goToLogin() {
+    func switchRootViewController(_ type: AppCoordinator.RootViewType) {
         let appCoordinator = parentCoordinator as? AppCoordinator
-        appCoordinator?.switchRootViewController(.login)
-        parentCoordinator?.childDidFinish(self)
-    }
-    
-    func goToHome() {
-        let appCoordinator = parentCoordinator as? AppCoordinator
-        appCoordinator?.switchRootViewController(.home)
+        appCoordinator?.switchRootViewController(type)
         parentCoordinator?.childDidFinish(self)
     }
 }

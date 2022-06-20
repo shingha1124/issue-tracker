@@ -20,7 +20,7 @@ final class LabelListViewController: BaseViewController, View {
     
     private let labelListTableView: UITableView = {
         let tableView = UITableView()
-        tableView.separatorStyle = .none
+        tableView.separatorColor = .separator1
         tableView.register(LabelListTableViewCell.self,
                            forCellReuseIdentifier: LabelListTableViewCell.identifier)
         return tableView
@@ -30,8 +30,11 @@ final class LabelListViewController: BaseViewController, View {
     
     func bind(to viewModel: LabelListViewModel) {
         
-        rx.viewDidLoad
-            .bind(to: viewModel.action.labelListRequest)
+        rx.viewWillAppear
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.viewModel?.action.labelListRequest.accept(())
+            })
             .disposed(by: disposeBag)
         
         viewModel.state.labels
@@ -69,7 +72,8 @@ final class LabelListViewController: BaseViewController, View {
     override func layout() {
         self.view.addSubview(labelListTableView)
         labelListTableView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+            $0.top.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 }

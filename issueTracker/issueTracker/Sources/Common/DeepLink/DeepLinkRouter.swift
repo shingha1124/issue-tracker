@@ -36,18 +36,10 @@ final class DeepLinkRouter {
             .compactMap { $0.value }
             .withUnretained(self)
             .do { router, token in
-                print(token)
                 router.tokenStore.store(token)
             }
             .bind(onNext: { router, _ in
                 router.appCoordinator?.switchRootViewController(.home)
-            })
-            .disposed(by: disposeBag)
-        
-        requestGitHubAccessToken
-            .compactMap { $0.error }
-            .bind(onNext: {
-                print($0)
             })
             .disposed(by: disposeBag)
     }

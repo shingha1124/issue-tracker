@@ -21,6 +21,7 @@ final class LoginViewModel: ViewModel {
     }
     
     struct State {
+        let presentGitLogin = PublishRelay<URL>()
     }
     
     let action = Action()
@@ -34,17 +35,13 @@ final class LoginViewModel: ViewModel {
         
         action.tappedGitLogin
             .compactMap { _ -> URL? in
-                let clientId = Constants.Login.gitHubClientId
-                var urlComponets = URLComponents(string: Constants.Login.gitHubUrl)
-                urlComponets?.queryItems = [
-                    URLQueryItem(name: "client_id", value: clientId),
-                    URLQueryItem(name: "scope", value: "repo,user")
-                ]
+                var urlComponets = URLComponents(string: Constants.Github.authorizeUrl)
+                urlComponets?.queryItems = Constants.Github.authorizeQuery.map {
+                    URLQueryItem(name: $0.key, value: $0.value)
+                }
                 return urlComponets?.url
             }
-            .bind(onNext: {
-                UIApplication.shared.open($0)
-            })
+            .bind(to: state.presentGitLogin)
             .disposed(by: disposeBag)
     }
 }

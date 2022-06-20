@@ -12,7 +12,7 @@ protocol GitHubRepository {
     func requestAccessToken(code: String) -> Single<Swift.Result<Token, APIError>>
     func requestUser() -> Single<Swift.Result<User, APIError>>
     
-    func requestRepositorys() -> Single<Swift.Result<[Repository], APIError>>
+    func requestRepositories() -> Single<Swift.Result<[Repository], APIError>>
     func requestRepository(parameters: RequestRepositoryParameters) -> Single<Swift.Result<Repository, APIError>>
     
     func requestRepoIssueList(parameters: RequestIssueListParameters) -> Single<Swift.Result<[Issue], APIError>>
@@ -20,6 +20,8 @@ protocol GitHubRepository {
     
     func requestLabels(parameters: RequestLabelsParameters) -> Single<Swift.Result<[Label], APIError>>
     func requestAssignees(parameters: RequestAssigneesParameters) -> Single<Swift.Result<[User], APIError>>
+    
+    func requestCreatingLabel(parameters: RequestCreatingLabel) -> Single<Swift.Result<[Label], APIError>>
 }
 
 struct RequestAssigneesParameters {
@@ -47,5 +49,11 @@ struct RequestUpdateIssueParameters {
     let owner: String
     let repo: String
     let number: Int
+    let parameters: [String: Any]?
+}
+
+struct RequestCreatingLabel {
+    let owner: String
+    let repo: String
     let parameters: [String: Any]?
 }

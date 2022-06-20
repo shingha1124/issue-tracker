@@ -12,6 +12,7 @@ import RxSwift
 protocol LabelListNavigation: AnyObject {
     func goToLabelList()
     func goToLabelInsertion()
+    func goBackToLabelList()
 }
 
 final class LabelListViewModel: ViewModel {

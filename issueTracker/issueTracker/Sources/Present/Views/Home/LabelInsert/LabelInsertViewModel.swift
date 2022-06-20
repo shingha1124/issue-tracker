@@ -9,9 +9,6 @@ import RxRelay
 import RxSwift
 
 final class LabelInsertViewModel: ViewModel {
-    
-    private weak var navigation: LabelListNavigation?
-    
     private enum Constants {
         static let owner = "shingha1124"
         static let repo = "issue-tracker"
@@ -35,6 +32,8 @@ final class LabelInsertViewModel: ViewModel {
     let action = Action()
     let state = State()
     private let disposeBag = DisposeBag()
+    private weak var navigation: LabelListNavigation?
+    
     var randomColor: String {
         let randomList = ["c5def5", "7FAD7D", "320F8D", "F6CBD5"]
         return randomList.randomElement() ?? ""

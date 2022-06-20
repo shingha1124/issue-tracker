@@ -30,11 +30,8 @@ final class LabelListViewController: BaseViewController, View {
     
     func bind(to viewModel: LabelListViewModel) {
         
-        rx.viewWillAppear
-            .withUnretained(self)
-            .bind(onNext: { vc, _ in
-                vc.viewModel?.action.labelListRequest.accept(())
-            })
+        rx.viewDidLoad
+            .bind(to: viewModel.action.labelListRequest)
             .disposed(by: disposeBag)
         
         viewModel.state.labels
@@ -64,15 +61,15 @@ final class LabelListViewController: BaseViewController, View {
     }
     
     override func attribute() {
-        self.title = "레이블"
-        self.navigationItem.rightBarButtonItem = addButton
-        self.view.backgroundColor = .white
+        title = "레이블"
+        navigationItem.rightBarButtonItem = addButton
+        view.backgroundColor = .white
     }
     
     override func layout() {
-        self.view.addSubview(labelListTableView)
+        view.addSubview(labelListTableView)
         labelListTableView.snp.makeConstraints {
-            $0.top.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
         }
     }

@@ -10,7 +10,6 @@ import RxRelay
 import RxSwift
 
 protocol LabelListNavigation: AnyObject {
-    func goToLabelList()
     func goToLabelInsertion()
     func goBackToLabelList()
 }
@@ -59,7 +58,7 @@ final class LabelListViewModel: ViewModel {
             - 깃허브 API 받아서 state.updatedLabels에 응답받은 라벨 리스트 바인딩
             - state.updatedLabels는 뷰컨트롤러의 테이블뷰 속성에 쓰이는 테이블뷰 셀에 바인딩됨
         */
-        action.labelListRequest
+        let requestLabelList = action.labelListRequest
             .map {
                 RequestLabelsParameters(owner: Constants.owner, repo: Constants.repo)
             }
@@ -67,9 +66,19 @@ final class LabelListViewModel: ViewModel {
             .flatMapLatest { viewModel, parameters in
                 viewModel.githubRepository.requestLabels(parameters: parameters)
             }
+            .share()
+        
+        requestLabelList
             .compactMap { $0.value }
             .map { $0.map { LabelListTableViewCellModel(label: $0) } }
             .bind(to: state.labels)
+            .disposed(by: disposeBag)
+        
+        requestLabelList
+            .compactMap { $0.error }
+            .bind(onNext: {
+                //TODO: error 처리
+            })
             .disposed(by: disposeBag)
     }
 }

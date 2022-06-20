@@ -8,7 +8,6 @@
 import UIKit
 
 final class LabelListViewCoordinator: BaseCoordinator {
-    var children: [Coordinator] = []
     var navigationController: UINavigationController
     
     init(navigation: UINavigationController) {
@@ -16,24 +15,21 @@ final class LabelListViewCoordinator: BaseCoordinator {
     }
     
     override func start() {
-        goToLabelList()
-    }
-}
-
-extension LabelListViewCoordinator: LabelListNavigation {
-
-    func goToLabelList() {
         let viewController = LabelListViewController()
         let viewModel = LabelListViewModel(navigation: self)
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }
+}
+
+extension LabelListViewCoordinator: LabelListNavigation {
     
     func goToLabelInsertion() {
         let viewController = LabelInsertViewController()
         let viewModel = LabelInsertViewModel(navigation: self)
         viewController.viewModel = viewModel
-        navigationController.pushViewController(viewController, animated: true)
+        viewController.modalPresentationStyle = .pageSheet
+        navigationController.present(viewController, animated: true)
     }
     
     func goBackToLabelList() {

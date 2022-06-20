@@ -95,21 +95,21 @@ final class LabelInsertViewController: BaseViewController, View {
     
     override func attribute() {
         super.attribute()
-        self.view.backgroundColor = .systemGray6
-        self.navigationItem.title = "새로운 레이블"
-        self.navigationItem.rightBarButtonItem = addButton
+        view.backgroundColor = .systemGray6
+        navigationItem.title = "새로운 레이블"
+        navigationItem.rightBarButtonItem = addButton
     }
     
     override func layout() {
         super.layout()
 
-        self.view.addSubview(insertForm)
+        view.addSubview(insertForm)
         insertForm.snp.makeConstraints {
             $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(20)
             $0.width.equalToSuperview()
         }
 
-        self.view.addSubview(labelBox)
+        view.addSubview(labelBox)
         labelBox.snp.makeConstraints {
             $0.top.equalTo(insertForm.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(20)
@@ -117,7 +117,7 @@ final class LabelInsertViewController: BaseViewController, View {
             $0.height.equalToSuperview().multipliedBy(0.3)
         }
 
-        self.labelBox.addSubview(previewLabel)
+        labelBox.addSubview(previewLabel)
         previewLabel.snp.makeConstraints {
             $0.centerX.centerY.equalTo(labelBox)
             $0.height.equalTo(labelBox).multipliedBy(0.13)

@@ -21,7 +21,9 @@ enum GithubTarget {
     case requestLabels(parameters: RequestLabelsParameters)
     
     case requestAssignees(parameters: RequestAssigneesParameters)
-    case requestCreatingLabel(parameters: RequestCreatingLabel)
+    case requestCreatingLabel(parameters: RequestCreatingLabelParameters)
+    
+    case requestMilestones(parameters: RequestMilestoneParameters)
 }
 
 extension GithubTarget: BaseTarget {
@@ -56,6 +58,8 @@ extension GithubTarget: BaseTarget {
             return "/repos/\(param.owner)/\(param.repo)/assignees"
         case .requestCreatingLabel(parameters: let param):
             return "/repos/\(param.owner)/\(param.repo)/labels"
+        case .requestMilestones(let param):
+            return "/repos/\(param.owner)/\(param.repo)/milestones"
         }
     }
     

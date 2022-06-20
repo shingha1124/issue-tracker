@@ -28,11 +28,11 @@ extension LabelListViewCoordinator: LabelListNavigation {
         let viewController = LabelInsertViewController()
         let viewModel = LabelInsertViewModel(navigation: self)
         viewController.viewModel = viewModel
-        viewController.modalPresentationStyle = .pageSheet
-        navigationController.present(viewController, animated: true)
+        let childNavigation = UINavigationController(rootViewController: viewController)
+        navigationController.present(childNavigation, animated: true)
     }
     
     func goBackToLabelList() {
-        navigationController.popViewController(animated: true)
+        navigationController.presentedViewController?.dismiss(animated: true)
     }
 }

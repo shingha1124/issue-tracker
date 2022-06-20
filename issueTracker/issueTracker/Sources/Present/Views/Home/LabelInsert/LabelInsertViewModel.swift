@@ -35,8 +35,11 @@ final class LabelInsertViewModel: ViewModel {
     private weak var navigation: LabelListNavigation?
     
     var randomColor: String {
-        let randomList = ["c5def5", "7FAD7D", "320F8D", "F6CBD5"]
-        return randomList.randomElement() ?? ""
+        var hexString = ""
+        for _ in 0..<3 {
+            hexString += String(format: "%02X", Int.random(in: 0...255))
+        }
+        return "#\(hexString)"
     }
     
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
@@ -98,11 +101,11 @@ final class LabelInsertViewModel: ViewModel {
     private func bindStatesToCreatingRequest() {
         let parameters = Observable
             .combineLatest(state.updatedRgbValue, state.updatedDescriptionValue, state.updatedTitleValue) { color, description, title in
-                ["name": title, "description": description, "color": color]
+                ["name": title, "description": description, "color": String(color.dropFirst())]
             }
             .share()
         
-        action.tappedAddingLabelButton
+        let requestCreatingLabel = action.tappedAddingLabelButton
             .withLatestFrom(parameters)
             .map { param in
                 RequestCreatingLabel(owner: Constants.owner, repo: Constants.repo, parameters: param)
@@ -111,8 +114,18 @@ final class LabelInsertViewModel: ViewModel {
             .flatMapLatest { viewModel, parameters in
                 viewModel.gitHubRepository.requestCreatingLabel(parameters: parameters)
             }
+            .share()
+        
+        requestCreatingLabel
             .compactMap { _ in }
             .bind(to: action.dismissView)
+            .disposed(by: disposeBag)
+        
+        requestCreatingLabel
+            .compactMap { $0.error }
+            .bind(onNext: {
+                Log.error("\($0)")
+            })
             .disposed(by: disposeBag)
     }
 }

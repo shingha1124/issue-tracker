@@ -34,13 +34,19 @@ class ImageManager {
                 return Disposables.create { }
             }
             
-            self?.downloadImage(url: url, saveUrl: fileUrl) { image in
-                guard let image = image else {
-                    return
+            URLSession.shared.rx.download(with: url)
+                .compactMap { result -> UIImage? in
+                    guard let url = result.url else {
+                        return nil
+                    }
+                    try? FileManager.default.copyItem(at: url, to: fileUrl)
+                    
+                    return UIImage(contentsOfFile: fileUrl.path)
                 }
-                self?.imageCache.setObject(image, forKey: imageName as NSString)
-                observer(.success(image))
-            }
+                .bind(onNext: {
+                    observer(.success($0))
+                })
+                .dispose()
             return Disposables.create { }
         }
     }
@@ -55,19 +61,5 @@ class ImageManager {
             return image
         }
         return nil
-    }
-    
-    private func downloadImage(url: URL, saveUrl: URL, complate: @escaping (UIImage?) -> Void) {
-        let task = URLSession.shared.downloadTask(with: url) { url, _, _ in
-            guard let url = url else { return }
-            try? self.fileManager.copyItem(at: url, to: saveUrl)
-
-            guard let image = UIImage(contentsOfFile: saveUrl.path) else {
-                complate(nil)
-                return
-            }
-            complate(image)
-        }
-        task.resume()
     }
 }

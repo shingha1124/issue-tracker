@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
-    var deepLinkRouter: DeepLinkRouter?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
@@ -19,17 +18,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         self.window = window
         
-        self.appCoordinator = AppCoordinator(window: window)
-        self.appCoordinator?.start()
-        self.window?.makeKeyAndVisible()
-        
-        deepLinkRouter = DeepLinkRouter(appCoordinator: self.appCoordinator)
+        appCoordinator = AppCoordinator(window: window)
+        appCoordinator?.start()
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         guard let url = URLContexts.first?.url else {
             return
         }
-        deepLinkRouter?.handle(url)
+        
+        appCoordinator?.deepLinkHandler.accept(Deeplink(url: url))
     }
 }

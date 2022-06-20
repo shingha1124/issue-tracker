@@ -7,11 +7,10 @@
 
 import UIKit
 
-final class HomeViewCoordinator: Coordinator {
-    weak var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
-    var navigationController: UINavigationController
-    
+protocol HomeViewCoordinatorDelegate: AnyObject {
+}
+
+final class HomeViewCoordinator: BaseCoordinator {
     private let issueCoordinator: IssueListViewCoordinator = {
         let issueNavigationController = UINavigationController()
         let issueCoordinator = IssueListViewCoordinator(navigation: issueNavigationController)
@@ -26,6 +25,9 @@ final class HomeViewCoordinator: Coordinator {
         return labelListCoordinator
     }()
     
+    var navigationController: UINavigationController
+    weak var delegate: HomeViewCoordinatorDelegate?
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -34,26 +36,23 @@ final class HomeViewCoordinator: Coordinator {
         Log.debug("deinit \(String(describing: type(of: self)))")
     }
     
-    func start() {
+    override func start() {
         Log.debug("start \(String(describing: type(of: self)))")
         initializeHomeTabBar()
     }
     
     private func initializeHomeTabBar() {
         navigationController.setNavigationBarHidden(true, animated: false)
-        
+
         let tabBarViewController = UITabBarController()
         tabBarViewController.viewControllers = [issueCoordinator.navigationController, labelListCoordinator.navigationController]
         
-        issueCoordinator.parentCoordinator = parentCoordinator
-        labelListCoordinator.parentCoordinator = parentCoordinator
-        
-        parentCoordinator?.children.append(issueCoordinator)
-        parentCoordinator?.children.append(labelListCoordinator)
-        
-        navigationController.pushViewController(tabBarViewController, animated: true)
+        store(coordinator: issueCoordinator)
+        store(coordinator: labelListCoordinator)
         
         issueCoordinator.start()
         labelListCoordinator.start()
+        
+        navigationController.setViewControllers([tabBarViewController], animated: false)
     }
 }

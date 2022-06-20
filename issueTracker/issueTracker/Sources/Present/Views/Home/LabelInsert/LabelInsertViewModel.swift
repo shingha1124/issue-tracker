@@ -101,7 +101,7 @@ final class LabelInsertViewModel: ViewModel {
     private func bindStatesToCreatingRequest() {
         let parameters = Observable
             .combineLatest(state.updatedRgbValue, state.updatedDescriptionValue, state.updatedTitleValue) { color, description, title in
-                ["name": title, "description": description, "color": color]
+                ["name": title, "description": description, "color": String(color.dropFirst())]
             }
             .share()
         

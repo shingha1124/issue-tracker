@@ -11,6 +11,8 @@
 		B53D856B286057D9004E49B1 /* MilestoneViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D856A286057D9004E49B1 /* MilestoneViewCoordinator.swift */; };
 		B53D856D286057EF004E49B1 /* MilestoneListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D856C286057EF004E49B1 /* MilestoneListViewController.swift */; };
 		B53D856F286057F9004E49B1 /* MilestoneListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D856E286057F9004E49B1 /* MilestoneListViewModel.swift */; };
+		B53D857328606148004E49B1 /* MilestoneListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D857228606148004E49B1 /* MilestoneListTableViewCell.swift */; };
+		B53D857528606178004E49B1 /* MilestoneTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D857428606178004E49B1 /* MilestoneTableViewCellModel.swift */; };
 		B5E9B6E02859267300BA79A4 /* LabelListViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */; };
 		B5E9B6E12859267300BA79A4 /* LabelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */; };
 		B5E9B6E22859267300BA79A4 /* LabelInsertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */; };
@@ -89,6 +91,8 @@
 		B53D856A286057D9004E49B1 /* MilestoneViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneViewCoordinator.swift; sourceTree = "<group>"; };
 		B53D856C286057EF004E49B1 /* MilestoneListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneListViewController.swift; sourceTree = "<group>"; };
 		B53D856E286057F9004E49B1 /* MilestoneListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneListViewModel.swift; sourceTree = "<group>"; };
+		B53D857228606148004E49B1 /* MilestoneListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneListTableViewCell.swift; sourceTree = "<group>"; };
+		B53D857428606178004E49B1 /* MilestoneTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneTableViewCellModel.swift; sourceTree = "<group>"; };
 		B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewCoordinator.swift; sourceTree = "<group>"; };
 		B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewController.swift; sourceTree = "<group>"; };
 		B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertViewModel.swift; sourceTree = "<group>"; };
@@ -195,11 +199,21 @@
 		B53D8569286057AC004E49B1 /* MilestoneList */ = {
 			isa = PBXGroup;
 			children = (
+				B53D857128606126004E49B1 /* View */,
 				B53D856A286057D9004E49B1 /* MilestoneViewCoordinator.swift */,
 				B53D856C286057EF004E49B1 /* MilestoneListViewController.swift */,
 				B53D856E286057F9004E49B1 /* MilestoneListViewModel.swift */,
 			);
 			path = MilestoneList;
+			sourceTree = "<group>";
+		};
+		B53D857128606126004E49B1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B53D857228606148004E49B1 /* MilestoneListTableViewCell.swift */,
+				B53D857428606178004E49B1 /* MilestoneTableViewCellModel.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B5E9B6D42859267300BA79A4 /* LabelList */ = {
@@ -718,6 +732,7 @@
 				E0F09E51285821AE006B9F87 /* Response.swift in Sources */,
 				B5E9B6E52859267300BA79A4 /* LabelInsertForm.swift in Sources */,
 				B53D856F286057F9004E49B1 /* MilestoneListViewModel.swift in Sources */,
+				B53D857328606148004E49B1 /* MilestoneListTableViewCell.swift in Sources */,
 				E0F09E5A28582205006B9F87 /* Inject.swift in Sources */,
 				B5E9B6F7285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift in Sources */,
 				B5E9B6E62859267300BA79A4 /* LabelInsertViewController.swift in Sources */,
@@ -737,6 +752,7 @@
 				E0F09E612858225A006B9F87 /* GitHubTarget.swift in Sources */,
 				E0F09E0528576E66006B9F87 /* BaseTableViewCell.swift in Sources */,
 				E0F09DE928576CAE006B9F87 /* SceneDelegate.swift in Sources */,
+				B53D857528606178004E49B1 /* MilestoneTableViewCellModel.swift in Sources */,
 				E0F09E5C28582205006B9F87 /* Container.swift in Sources */,
 				E0F09E4D285821AE006B9F87 /* HTTPContentType.swift in Sources */,
 				E0F09E75285868EB006B9F87 /* User.swift in Sources */,

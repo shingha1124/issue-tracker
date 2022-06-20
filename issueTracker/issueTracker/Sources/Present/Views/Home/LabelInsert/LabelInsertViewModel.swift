@@ -102,7 +102,7 @@ final class LabelInsertViewModel: ViewModel {
             }
             .share()
         
-        action.tappedAddingLabelButton
+        let requestCreatingLabel = action.tappedAddingLabelButton
             .withLatestFrom(parameters)
             .map { param in
                 RequestCreatingLabel(owner: Constants.owner, repo: Constants.repo, parameters: param)
@@ -111,8 +111,18 @@ final class LabelInsertViewModel: ViewModel {
             .flatMapLatest { viewModel, parameters in
                 viewModel.gitHubRepository.requestCreatingLabel(parameters: parameters)
             }
+            .share()
+        
+        requestCreatingLabel
             .compactMap { _ in }
             .bind(to: action.dismissView)
+            .disposed(by: disposeBag)
+        
+        requestCreatingLabel
+            .compactMap { $0.error }
+            .bind(onNext: {
+                Log.error("\($0)")
+            })
             .disposed(by: disposeBag)
     }
 }

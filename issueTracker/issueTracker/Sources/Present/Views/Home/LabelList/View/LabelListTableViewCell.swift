@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LabelListTableViewCell: BaseTableViewCell {
+final class LabelListTableViewCell: BaseTableViewCell, View {
     
     private lazy var paddingLabel: PaddingLabel = {
         let label = PaddingLabel()
@@ -26,8 +26,27 @@ final class LabelListTableViewCell: BaseTableViewCell {
         return label
     }()
     
+    func bind(to viewModel: LabelListTableViewCellModel) {
+        
+        viewModel.state.name
+            .bind(to: paddingLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.state.description
+            .bind(to: descriptionLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.state.color
+            .map { $0.hexToColor() }
+            .bind(to: paddingLabel.rx.backgroundColor)
+            .disposed(by: disposeBag)
+        
+        viewModel.action.loadData.accept(())
+    }
+    
     override func layout() {
-
+        super.layout()
+        
         contentView.addSubview(paddingLabel)
         paddingLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)
@@ -41,11 +60,5 @@ final class LabelListTableViewCell: BaseTableViewCell {
             $0.leading.equalToSuperview().offset(10)
             $0.trailing.equalToSuperview().offset(-10)
         }
-    }
-    
-    func updateValues(labelName: String, description: String, color: UIColor) {
-        self.paddingLabel.text = labelName
-        self.descriptionLabel.text = description
-        self.paddingLabel.backgroundColor = color
     }
 }

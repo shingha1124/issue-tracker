@@ -31,15 +31,13 @@ final class LabelListViewController: BaseViewController, View {
     func bind(to viewModel: LabelListViewModel) {
         
         rx.viewDidLoad
-            .bind(to: viewModel.action.enteredLabels)
+            .bind(to: viewModel.action.labelListRequest)
             .disposed(by: disposeBag)
         
-        viewModel.state.updatedLabels
+        viewModel.state.labels
             .bind(to: labelListTableView.rx.items(cellIdentifier: LabelListTableViewCell.identifier,
-                                                  cellType: LabelListTableViewCell.self)) { _, model, cell in
-                cell.updateValues(labelName: model.name,
-                                  description: "description for \(model.name)",
-                                  color: model.color.hexToColor())
+                                                  cellType: LabelListTableViewCell.self)) { _, viewModel, cell in
+                cell.viewModel = viewModel
             }
             .disposed(by: disposeBag)
         
@@ -60,10 +58,6 @@ final class LabelListViewController: BaseViewController, View {
                 vc.navigationController?.navigationBar.prefersLargeTitles = false
             })
             .disposed(by: disposeBag)
-    }
-    
-    deinit {
-        Log.debug("denit LabelListViewController")
     }
     
     override func attribute() {

@@ -48,6 +48,10 @@ final class MilestoneListViewController: BaseViewController, View {
                 cell.viewModel = viewModel
             }
             .disposed(by: disposeBag)
+        
+        addButton.rx.tap
+            .bind(to: viewModel.action.milestoneInsertButtonTapped)
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {

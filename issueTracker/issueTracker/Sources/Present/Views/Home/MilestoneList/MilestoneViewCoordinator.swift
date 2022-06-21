@@ -23,4 +23,13 @@ final class MileStoneViewCoordinator: BaseCoordinator {
     }
 }
 
-extension MileStoneViewCoordinator: MilestoneListNavigation { }
+extension MileStoneViewCoordinator: MilestoneListNavigation {
+    
+    func goToMilestoneInsertion() {
+        let viewModel = MilestoneInsertViewModel()
+        let viewController = MilestoneInsertViewController()
+        viewController.viewModel = viewModel
+        let childNavigation = UINavigationController(rootViewController: viewController)
+        navigationController.present(childNavigation, animated: true)
+    }
+}

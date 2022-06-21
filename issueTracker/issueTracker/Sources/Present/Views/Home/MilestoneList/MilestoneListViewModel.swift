@@ -11,7 +11,7 @@ import RxRelay
 import RxSwift
 
 protocol MilestoneListNavigation: AnyObject {
-    
+    func goToMilestoneInsertion()
 }
 
 final class MilestoneListViewModel: ViewModel {
@@ -23,6 +23,7 @@ final class MilestoneListViewModel: ViewModel {
     
     struct Action {
         let requestMilestones = PublishRelay<Void>()
+        let milestoneInsertButtonTapped = PublishRelay<Void>()
     }
     struct State {
         let milestones = PublishRelay<[MilestoneTableViewCellModel]>()
@@ -59,6 +60,13 @@ final class MilestoneListViewModel: ViewModel {
             .compactMap { $0.error }
             .bind(onNext: {
                 Log.error("\($0)")
+            })
+            .disposed(by: disposeBag)
+        
+        action.milestoneInsertButtonTapped
+            .withUnretained(self)
+            .bind(onNext: { viewModel, _ in
+                viewModel.navigation?.goToMilestoneInsertion()
             })
             .disposed(by: disposeBag)
     }

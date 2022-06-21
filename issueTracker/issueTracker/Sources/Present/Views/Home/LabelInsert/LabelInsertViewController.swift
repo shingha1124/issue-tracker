@@ -52,12 +52,12 @@ final class LabelInsertViewController: BaseViewController, View {
             .bind(to: viewModel.action.viewDidLoad)
             .disposed(by: disposeBag)
         
-        insertForm.titleForm.didChange
+        insertForm.titleField.didChange
             .compactMap { $0 }
             .bind(to: viewModel.action.enteredTitleValue)
             .disposed(by: disposeBag)
         
-        insertForm.descriptionForm.didChange
+        insertForm.descriptionField.didChange
             .compactMap { $0 }
             .bind(to: viewModel.action.enteredDescriptionValue)
             .disposed(by: disposeBag)
@@ -79,7 +79,7 @@ final class LabelInsertViewController: BaseViewController, View {
             .disposed(by: disposeBag)
         
         viewModel.state.updatedRgbValue
-            .bind(to: insertForm.colorForm.rx.text)
+            .bind(to: insertForm.colorField.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.state.updatedRgbValue

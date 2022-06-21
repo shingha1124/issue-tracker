@@ -11,24 +11,24 @@ import UIKit
 
 final class MilestoneInsertForm: BaseView {
     
-    let titleForm: LabelInsertField = {
-        let form = LabelInsertField()
+    let titleField: InsertField = {
+        let form = InsertField()
         form.title = "제목"
         form.placeHolder = "필수 입력"
         form.backgroundColor = .white
         return form
     }()
     
-    let descriptionForm: LabelInsertField = {
-        let form = LabelInsertField()
+    let descriptionField: InsertField = {
+        let form = InsertField()
         form.title = "설명"
         form.placeHolder = "선택사항"
         form.backgroundColor = .white
         return form
     }()
     
-    let deadlineForm: LabelInsertField = {
-        let form = LabelInsertField()
+    let deadlineField: InsertField = {
+        let form = InsertField()
         form.title = "완료일"
         form.placeHolder = "선택사항(YYYY-MM-DD)"
         form.backgroundColor = .white
@@ -51,9 +51,9 @@ final class MilestoneInsertForm: BaseView {
     override func layout() {
         super.layout()
         self.addSubview(formStackView)
-        formStackView.addArrangedSubview(titleForm)
-        formStackView.addArrangedSubview(descriptionForm)
-        formStackView.addArrangedSubview(deadlineForm)
+        formStackView.addArrangedSubview(titleField)
+        formStackView.addArrangedSubview(descriptionField)
+        formStackView.addArrangedSubview(deadlineField)
         
         formStackView.snp.makeConstraints {
             $0.top.bottom.width.equalToSuperview()

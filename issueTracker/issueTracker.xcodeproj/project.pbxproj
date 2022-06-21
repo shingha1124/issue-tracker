@@ -19,7 +19,7 @@
 		B5E9B6E02859267300BA79A4 /* LabelListViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */; };
 		B5E9B6E12859267300BA79A4 /* LabelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */; };
 		B5E9B6E22859267300BA79A4 /* LabelInsertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */; };
-		B5E9B6E32859267300BA79A4 /* LabelInsertField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DA2859267300BA79A4 /* LabelInsertField.swift */; };
+		B5E9B6E32859267300BA79A4 /* InsertField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DA2859267300BA79A4 /* InsertField.swift */; };
 		B5E9B6E42859267300BA79A4 /* LabelListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DB2859267300BA79A4 /* LabelListTableViewCell.swift */; };
 		B5E9B6E52859267300BA79A4 /* LabelInsertForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DC2859267300BA79A4 /* LabelInsertForm.swift */; };
 		B5E9B6E62859267300BA79A4 /* LabelInsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6DD2859267300BA79A4 /* LabelInsertViewController.swift */; };
@@ -102,7 +102,7 @@
 		B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewCoordinator.swift; sourceTree = "<group>"; };
 		B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewController.swift; sourceTree = "<group>"; };
 		B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertViewModel.swift; sourceTree = "<group>"; };
-		B5E9B6DA2859267300BA79A4 /* LabelInsertField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertField.swift; sourceTree = "<group>"; };
+		B5E9B6DA2859267300BA79A4 /* InsertField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertField.swift; sourceTree = "<group>"; };
 		B5E9B6DB2859267300BA79A4 /* LabelListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListTableViewCell.swift; sourceTree = "<group>"; };
 		B5E9B6DC2859267300BA79A4 /* LabelInsertForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertForm.swift; sourceTree = "<group>"; };
 		B5E9B6DD2859267300BA79A4 /* LabelInsertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertViewController.swift; sourceTree = "<group>"; };
@@ -274,7 +274,6 @@
 			isa = PBXGroup;
 			children = (
 				B5E9B6DC2859267300BA79A4 /* LabelInsertForm.swift */,
-				B5E9B6DA2859267300BA79A4 /* LabelInsertField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -564,6 +563,7 @@
 			children = (
 				E0F09E7228585EE7006B9F87 /* PaddingLabel.swift */,
 				E09CB92628588F59002255FE /* TagListView.swift */,
+				B5E9B6DA2859267300BA79A4 /* InsertField.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -747,7 +747,7 @@
 				E096F465285A070400778265 /* CoreDataRepository.swift in Sources */,
 				B5E9B6F9285A615B00BA79A4 /* LabelListTableViewCellModel.swift in Sources */,
 				E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */,
-				B5E9B6E32859267300BA79A4 /* LabelInsertField.swift in Sources */,
+				B5E9B6E32859267300BA79A4 /* InsertField.swift in Sources */,
 				E0F09E50285821AE006B9F87 /* HTTPMethod.swift in Sources */,
 				B56B4FA2286186B000E1D6F4 /* MilestoneInsertForm.swift in Sources */,
 				B56B4F9E2861823800E1D6F4 /* MilestoneInsertViewModel.swift in Sources */,

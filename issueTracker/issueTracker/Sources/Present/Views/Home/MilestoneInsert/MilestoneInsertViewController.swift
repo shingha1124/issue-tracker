@@ -42,17 +42,17 @@ final class MilestoneInsertViewController: BaseViewController, View {
             .bind(to: viewModel.action.cancelButtonTapped)
             .disposed(by: disposeBag)
         
-        insertForm.titleForm.didChange
+        insertForm.titleField.didChange
             .compactMap { $0 }
             .bind(to: viewModel.action.enteredTitleValue)
             .disposed(by: disposeBag)
         
-        insertForm.descriptionForm.didChange
+        insertForm.descriptionField.didChange
             .compactMap { $0 }
             .bind(to: viewModel.action.enteredDescriptionValue)
             .disposed(by: disposeBag)
         
-        insertForm.deadlineForm.didChange
+        insertForm.deadlineField.didChange
             .compactMap { $0 }
             .bind(to: viewModel.action.enteredDeadlineValue)
             .disposed(by: disposeBag)

@@ -13,6 +13,9 @@
 		B53D856F286057F9004E49B1 /* MilestoneListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D856E286057F9004E49B1 /* MilestoneListViewModel.swift */; };
 		B53D857328606148004E49B1 /* MilestoneListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D857228606148004E49B1 /* MilestoneListTableViewCell.swift */; };
 		B53D857528606178004E49B1 /* MilestoneTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D857428606178004E49B1 /* MilestoneTableViewCellModel.swift */; };
+		B56B4F9C286181E800E1D6F4 /* MilestoneInsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4F9B286181E800E1D6F4 /* MilestoneInsertViewController.swift */; };
+		B56B4F9E2861823800E1D6F4 /* MilestoneInsertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4F9D2861823800E1D6F4 /* MilestoneInsertViewModel.swift */; };
+		B56B4FA2286186B000E1D6F4 /* MilestoneInsertForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4FA1286186B000E1D6F4 /* MilestoneInsertForm.swift */; };
 		B5E9B6E02859267300BA79A4 /* LabelListViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */; };
 		B5E9B6E12859267300BA79A4 /* LabelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */; };
 		B5E9B6E22859267300BA79A4 /* LabelInsertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */; };
@@ -93,6 +96,9 @@
 		B53D856E286057F9004E49B1 /* MilestoneListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneListViewModel.swift; sourceTree = "<group>"; };
 		B53D857228606148004E49B1 /* MilestoneListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneListTableViewCell.swift; sourceTree = "<group>"; };
 		B53D857428606178004E49B1 /* MilestoneTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneTableViewCellModel.swift; sourceTree = "<group>"; };
+		B56B4F9B286181E800E1D6F4 /* MilestoneInsertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneInsertViewController.swift; sourceTree = "<group>"; };
+		B56B4F9D2861823800E1D6F4 /* MilestoneInsertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneInsertViewModel.swift; sourceTree = "<group>"; };
+		B56B4FA1286186B000E1D6F4 /* MilestoneInsertForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneInsertForm.swift; sourceTree = "<group>"; };
 		B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewCoordinator.swift; sourceTree = "<group>"; };
 		B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewController.swift; sourceTree = "<group>"; };
 		B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertViewModel.swift; sourceTree = "<group>"; };
@@ -212,6 +218,24 @@
 			children = (
 				B53D857228606148004E49B1 /* MilestoneListTableViewCell.swift */,
 				B53D857428606178004E49B1 /* MilestoneTableViewCellModel.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B56B4F9A286181CE00E1D6F4 /* MilestoneInsert */ = {
+			isa = PBXGroup;
+			children = (
+				B56B4FA0286186A300E1D6F4 /* View */,
+				B56B4F9B286181E800E1D6F4 /* MilestoneInsertViewController.swift */,
+				B56B4F9D2861823800E1D6F4 /* MilestoneInsertViewModel.swift */,
+			);
+			path = MilestoneInsert;
+			sourceTree = "<group>";
+		};
+		B56B4FA0286186A300E1D6F4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B56B4FA1286186B000E1D6F4 /* MilestoneInsertForm.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -427,6 +451,7 @@
 		E0F09E2C28579495006B9F87 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B56B4F9A286181CE00E1D6F4 /* MilestoneInsert */,
 				B53D8569286057AC004E49B1 /* MilestoneList */,
 				E0F09E2D285794AB006B9F87 /* HomeViewCoordinator.swift */,
 				B5E9B6E828596E6E00BA79A4 /* LabelInsert */,
@@ -724,6 +749,8 @@
 				E0F09E1D28577D97006B9F87 /* LoginViewController.swift in Sources */,
 				B5E9B6E32859267300BA79A4 /* LabelInsertField.swift in Sources */,
 				E0F09E50285821AE006B9F87 /* HTTPMethod.swift in Sources */,
+				B56B4FA2286186B000E1D6F4 /* MilestoneInsertForm.swift in Sources */,
+				B56B4F9E2861823800E1D6F4 /* MilestoneInsertViewModel.swift in Sources */,
 				E0F09E63285822C7006B9F87 /* Token.swift in Sources */,
 				E0F09E0628576E66006B9F87 /* BaseViewController.swift in Sources */,
 				E0F09E0828576E66006B9F87 /* BaseView.swift in Sources */,
@@ -734,6 +761,7 @@
 				B53D856F286057F9004E49B1 /* MilestoneListViewModel.swift in Sources */,
 				B53D857328606148004E49B1 /* MilestoneListTableViewCell.swift in Sources */,
 				E0F09E5A28582205006B9F87 /* Inject.swift in Sources */,
+				B56B4F9C286181E800E1D6F4 /* MilestoneInsertViewController.swift in Sources */,
 				B5E9B6F7285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift in Sources */,
 				B5E9B6E62859267300BA79A4 /* LabelInsertViewController.swift in Sources */,
 				E0F09E7028583EFC006B9F87 /* Result+Extension.swift in Sources */,

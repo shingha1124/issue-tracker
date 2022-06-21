@@ -33,15 +33,7 @@ final class LabelInsertViewModel: ViewModel {
     let state = State()
     private let disposeBag = DisposeBag()
     private weak var navigation: LabelListNavigation?
-    
-    var randomColor: String {
-        var hexString = ""
-        for _ in 0..<3 {
-            hexString += String(format: "%02X", Int.random(in: 0...255))
-        }
-        return "#\(hexString)"
-    }
-    
+
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
     
     init(navigation: LabelListNavigation) {
@@ -60,12 +52,10 @@ final class LabelInsertViewModel: ViewModel {
             .map { "" }
             .bind(to: state.updatedTitleValue)
             .disposed(by: disposeBag)
-        
-        action.viewDidLoad
-            .withUnretained(self)
-            .map { viewModel, _ in
-                viewModel.randomColor
-            }
+
+        Observable
+            .merge(action.viewDidLoad.asObservable(), action.tappedColorChangeButton.asObservable())
+            .map { (0..<3).map { _ in String(format: "%02X", Int.random(in: 0...255)) }.joined() }
             .bind(to: state.updatedRgbValue)
             .disposed(by: disposeBag)
         
@@ -90,12 +80,6 @@ final class LabelInsertViewModel: ViewModel {
         action.enteredDescriptionValue
             .bind(to: state.updatedDescriptionValue)
             .disposed(by: disposeBag)
-        
-        action.tappedColorChangeButton
-            .withUnretained(self)
-            .map { viewModel, _ in viewModel.randomColor }
-            .bind(to: state.updatedRgbValue)
-            .disposed(by: disposeBag)
     }
     
     private func bindStatesToCreatingRequest() {
@@ -108,7 +92,7 @@ final class LabelInsertViewModel: ViewModel {
         let requestCreatingLabel = action.tappedAddingLabelButton
             .withLatestFrom(parameters)
             .map { param in
-                RequestCreatingLabel(owner: Constants.owner, repo: Constants.repo, parameters: param)
+                RequestCreatingLabelParameters(owner: Constants.owner, repo: Constants.repo, parameters: param)
             }
             .withUnretained(self)
             .flatMapLatest { viewModel, parameters in

@@ -132,7 +132,7 @@ final class MilestoneListTableViewCell: BaseTableViewCell, View {
             .disposed(by: disposeBag)
         
         viewModel.state.progress
-            .map { "\($0)%" }
+            .map { "\(String(format: "%.1f", $0))%" }
             .bind(to: progressLabel.rx.text)
             .disposed(by: disposeBag)
         

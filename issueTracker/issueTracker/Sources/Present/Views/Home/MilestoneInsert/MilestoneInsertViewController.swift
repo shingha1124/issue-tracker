@@ -33,6 +33,29 @@ final class MilestoneInsertViewController: BaseViewController, View {
     var disposeBag = DisposeBag()
     
     func bind(to viewModel: MilestoneInsertViewModel) {
+        
+        addButton.rx.tap
+            .bind(to: viewModel.action.addButtonTapped)
+            .disposed(by: disposeBag)
+        
+        cancelButton.rx.tap
+            .bind(to: viewModel.action.cancelButtonTapped)
+            .disposed(by: disposeBag)
+        
+        insertForm.titleForm.didChange
+            .compactMap { $0 }
+            .bind(to: viewModel.action.enteredTitleValue)
+            .disposed(by: disposeBag)
+        
+        insertForm.descriptionForm.didChange
+            .compactMap { $0 }
+            .bind(to: viewModel.action.enteredDescriptionValue)
+            .disposed(by: disposeBag)
+        
+        insertForm.deadlineForm.didChange
+            .compactMap { $0 }
+            .bind(to: viewModel.action.enteredDeadlineValue)
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {
@@ -48,7 +71,7 @@ final class MilestoneInsertViewController: BaseViewController, View {
         
         view.addSubview(insertForm)
         insertForm.snp.makeConstraints {
-            $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.width.equalToSuperview()
         }
     }

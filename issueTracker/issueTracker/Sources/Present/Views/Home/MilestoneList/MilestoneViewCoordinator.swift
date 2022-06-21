@@ -26,10 +26,17 @@ final class MileStoneViewCoordinator: BaseCoordinator {
 extension MileStoneViewCoordinator: MilestoneListNavigation {
     
     func goToMilestoneInsertion() {
-        let viewModel = MilestoneInsertViewModel()
+        let viewModel = MilestoneInsertViewModel(navigation: self)
         let viewController = MilestoneInsertViewController()
         viewController.viewModel = viewModel
         let childNavigation = UINavigationController(rootViewController: viewController)
         navigationController.present(childNavigation, animated: true)
+    }
+}
+
+extension MileStoneViewCoordinator: MilestoneInsertNavigation {
+    
+    func goBackToMilestoneList() {
+        navigationController.presentedViewController?.dismiss(animated: true)
     }
 }

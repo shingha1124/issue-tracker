@@ -38,6 +38,8 @@ final class MilestoneInsertViewModel: ViewModel {
     private let disposeBag = DisposeBag()
     private weak var navigation: MilestoneInsertNavigation?
     
+    @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
+    
     init(navigation: MilestoneInsertNavigation) {
         self.navigation = navigation
         
@@ -58,6 +60,35 @@ final class MilestoneInsertViewModel: ViewModel {
         
         action.enteredDeadlineValue
             .bind(to: state.updatedDeadlineValue)
+            .disposed(by: disposeBag)
+        
+        let parameters = Observable
+            .combineLatest(state.updatedTitleValue, state.updatedDescriptionValue, state.updatedDeadlineValue) { title, description, deadline in
+                ["title": title, "description": description, "due_on": deadline]
+            }
+            .share()
+        
+        let requestCreatingMilestone = action.addButtonTapped
+            .withLatestFrom(parameters)
+            .map { param in
+                RequestCreatingMilestoneParameters(owner: Constants.owner, repo: Constants.repo, parameters: param)
+            }
+            .withUnretained(self)
+            .flatMapLatest { viewModel, parameters in
+                viewModel.gitHubRepository.requestCreatingMilestone(parameters: parameters)
+            }
+            .share()
+        
+        requestCreatingMilestone
+            .compactMap { _ in }
+            .bind(to: action.cancelButtonTapped)
+            .disposed(by: disposeBag)
+        
+        requestCreatingMilestone
+            .compactMap { $0.error }
+            .bind(onNext: {
+                Log.error("\($0)")
+            })
             .disposed(by: disposeBag)
     }
 }

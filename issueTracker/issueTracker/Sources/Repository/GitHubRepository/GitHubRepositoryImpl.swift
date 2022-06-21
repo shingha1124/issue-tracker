@@ -73,4 +73,11 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .do { $0.value?.printJson() }
             .map([Milestone].self)
     }
+    
+    func requestCreatingMilestone(parameters: RequestCreatingMilestoneParameters) -> Single<Result<[Milestone], APIError>> {
+        provider
+            .request(.requestCreatingMilestone(parameters: parameters))
+            .do { $0.value?.printJson() }
+            .map([Milestone].self)
+    }
 }

@@ -24,6 +24,7 @@ enum GithubTarget {
     case requestCreatingLabel(parameters: RequestCreatingLabelParameters)
     
     case requestMilestones(parameters: RequestMilestoneParameters)
+    case requestCreatingMilestone(parameters: RequestCreatingMilestoneParameters)
 }
 
 extension GithubTarget: BaseTarget {
@@ -60,6 +61,8 @@ extension GithubTarget: BaseTarget {
             return "/repos/\(param.owner)/\(param.repo)/labels"
         case .requestMilestones(let param):
             return "/repos/\(param.owner)/\(param.repo)/milestones"
+        case .requestCreatingMilestone(let param):
+            return "/repos/\(param.owner)/\(param.repo)/milestones"
         }
     }
     
@@ -71,7 +74,9 @@ extension GithubTarget: BaseTarget {
             return param.parameters
         case .requestUpdateIssue(let param):
             return param.parameters
-        case .requestCreatingLabel(let param) :
+        case .requestCreatingLabel(let param):
+            return param.parameters
+        case .requestCreatingMilestone(let param):
             return param.parameters
         default:
             return nil
@@ -85,6 +90,8 @@ extension GithubTarget: BaseTarget {
         case .requestUpdateIssue:
             return .patch
         case .requestCreatingLabel(parameters: _):
+            return .post
+        case .requestCreatingMilestone(parameters: _):
             return .post
         default:
             return .get

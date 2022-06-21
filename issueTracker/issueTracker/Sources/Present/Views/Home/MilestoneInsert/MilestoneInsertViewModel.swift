@@ -9,10 +9,6 @@ import Foundation
 import RxRelay
 import RxSwift
 
-protocol MilestoneInsertNavigation: AnyObject {
-    func goBackToMilestoneList()
-}
-
 final class MilestoneInsertViewModel: ViewModel {
     private enum Constants {
         static let owner = "shingha1124"
@@ -36,11 +32,11 @@ final class MilestoneInsertViewModel: ViewModel {
     let action = Action()
     let state = State()
     private let disposeBag = DisposeBag()
-    private weak var navigation: MilestoneInsertNavigation?
+    private weak var navigation: MilestoneListNavigation?
     
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
     
-    init(navigation: MilestoneInsertNavigation) {
+    init(navigation: MilestoneListNavigation) {
         self.navigation = navigation
         
         action.cancelButtonTapped
@@ -81,7 +77,10 @@ final class MilestoneInsertViewModel: ViewModel {
         
         requestCreatingMilestone
             .compactMap { _ in }
-            .bind(to: action.cancelButtonTapped)
+            .withUnretained(self)
+            .bind(onNext: { viewModel, _ in
+                viewModel.navigation?.goBackToMilestoneList()
+            })
             .disposed(by: disposeBag)
         
         requestCreatingMilestone

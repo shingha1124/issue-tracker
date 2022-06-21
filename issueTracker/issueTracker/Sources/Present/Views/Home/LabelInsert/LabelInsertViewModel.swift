@@ -19,8 +19,8 @@ final class LabelInsertViewModel: ViewModel {
         let enteredDescriptionValue = PublishRelay<String>()
         let tappedColorChangeButton = PublishRelay<Void>()
         let tappedAddingLabelButton = PublishRelay<Void>()
+        let tappedCancelButton = PublishRelay<Void>()
         let viewDidLoad = PublishRelay<Void>()
-        let dismissView = PublishRelay<Void>()
     }
     
     struct State {
@@ -63,13 +63,6 @@ final class LabelInsertViewModel: ViewModel {
             .map { "" }
             .bind(to: state.updatedDescriptionValue)
             .disposed(by: disposeBag)
-        
-        action.dismissView
-            .withUnretained(self)
-            .bind(onNext: { viewModel, _ in
-                viewModel.navigation?.goBackToLabelList()
-            })
-            .disposed(by: disposeBag)
     }
     
     private func bindActionsToStates() {
@@ -79,6 +72,13 @@ final class LabelInsertViewModel: ViewModel {
         
         action.enteredDescriptionValue
             .bind(to: state.updatedDescriptionValue)
+            .disposed(by: disposeBag)
+        
+        action.tappedCancelButton
+            .withUnretained(self)
+            .bind(onNext: { viewModel, _ in
+                viewModel.navigation?.goBackToLabelList()
+            })
             .disposed(by: disposeBag)
     }
     
@@ -102,7 +102,10 @@ final class LabelInsertViewModel: ViewModel {
         
         requestCreatingLabel
             .compactMap { _ in }
-            .bind(to: action.dismissView)
+            .withUnretained(self)
+            .bind(onNext: { viewModel, _ in
+                viewModel.navigation?.goBackToLabelList()
+            })
             .disposed(by: disposeBag)
         
         requestCreatingLabel

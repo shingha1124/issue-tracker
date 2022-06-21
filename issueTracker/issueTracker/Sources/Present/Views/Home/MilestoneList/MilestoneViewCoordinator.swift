@@ -32,9 +32,6 @@ extension MileStoneViewCoordinator: MilestoneListNavigation {
         let childNavigation = UINavigationController(rootViewController: viewController)
         navigationController.present(childNavigation, animated: true)
     }
-}
-
-extension MileStoneViewCoordinator: MilestoneInsertNavigation {
     
     func goBackToMilestoneList() {
         navigationController.presentedViewController?.dismiss(animated: true)

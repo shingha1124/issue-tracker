@@ -12,6 +12,7 @@ import RxSwift
 
 protocol MilestoneListNavigation: AnyObject {
     func goToMilestoneInsertion()
+    func goBackToMilestoneList()
 }
 
 final class MilestoneListViewModel: ViewModel {

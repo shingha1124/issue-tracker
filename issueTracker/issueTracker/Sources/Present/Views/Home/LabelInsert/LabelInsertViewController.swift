@@ -41,13 +41,18 @@ final class LabelInsertViewController: BaseViewController, View {
         button.style = .plain
         return button
     }()
+    
+    private let cancelButton: UIBarButtonItem = {
+       let button = UIBarButtonItem()
+        button.title = "취소"
+        button.style = .done
+        return button
+    }()
 
     var disposeBag = DisposeBag()
     
     func bind(to viewModel: LabelInsertViewModel) {
-        /*
-            - 사용자 입력값을 뷰모델의 속성과 바인딩
-         */
+     
         rx.viewDidLoad
             .bind(to: viewModel.action.viewDidLoad)
             .disposed(by: disposeBag)
@@ -70,10 +75,10 @@ final class LabelInsertViewController: BaseViewController, View {
             .bind(to: viewModel.action.tappedAddingLabelButton)
             .disposed(by: disposeBag)
         
-        /*
-            - 뷰모델의 속성변화를 감지
-            - 뷰모델의 변화된 속성값을 읽어들여 뷰에 출력
-         */
+        cancelButton.rx.tap
+            .bind(to: viewModel.action.tappedCancelButton)
+            .disposed(by: disposeBag)
+        
         viewModel.state.updatedTitleValue
             .bind(to: previewLabel.rx.text)
             .disposed(by: disposeBag)
@@ -98,6 +103,7 @@ final class LabelInsertViewController: BaseViewController, View {
         view.backgroundColor = .systemGray6
         navigationItem.title = "새로운 레이블"
         navigationItem.rightBarButtonItem = addButton
+        navigationItem.leftBarButtonItem = cancelButton
     }
     
     override func layout() {

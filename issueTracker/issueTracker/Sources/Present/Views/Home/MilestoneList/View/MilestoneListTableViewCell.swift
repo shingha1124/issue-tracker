@@ -112,12 +112,7 @@ final class MilestoneListTableViewCell: BaseTableViewCell, View {
             .disposed(by: disposeBag)
         
         viewModel.state.deadline
-            .map { deadline in
-                guard let deadline = deadline else { return "" }
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                return dateFormatter.string(from: deadline)
-            }
+            .map { $0?.string("yyyy-MM-dd") ?? "" }
             .bind(to: deadlineLabel.rx.text)
             .disposed(by: disposeBag)
         

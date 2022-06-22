@@ -44,7 +44,6 @@ final class MilestoneListViewController: BaseViewController, View {
         
         viewModel.state.milestones
             .bind(to: milestoneListTableView.rx.items(cellIdentifier: MilestoneListTableViewCell.identifier, cellType: MilestoneListTableViewCell.self)) { _, viewModel, cell in
-
                 cell.viewModel = viewModel
             }
             .disposed(by: disposeBag)

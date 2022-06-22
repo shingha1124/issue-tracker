@@ -70,5 +70,5 @@ struct RequestMilestoneParameters {
 struct RequestCreatingMilestoneParameters {
     let owner: String
     let repo: String
-    let parameters: [String: Any]?
+    let parameters: [String: Any?]
 }

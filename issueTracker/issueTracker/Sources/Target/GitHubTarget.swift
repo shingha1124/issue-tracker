@@ -78,6 +78,8 @@ extension GithubTarget: BaseTarget {
             return param.parameters
         case .requestCreatingMilestone(let param):
             return param.parameters
+                .filter { $0.value != nil }
+                .reduce(into: [String: Any]()) { $0[$1.key] = $1.value }
         default:
             return nil
         }

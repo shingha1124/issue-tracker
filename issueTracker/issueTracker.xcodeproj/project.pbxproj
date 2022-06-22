@@ -40,6 +40,7 @@
 		E09CB92C2858A146002255FE /* DecodedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92B2858A146002255FE /* DecodedBy.swift */; };
 		E09CB92E2858CAD1002255FE /* Rx+TableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92D2858CAD1002255FE /* Rx+TableView+Extension.swift */; };
 		E09CB9452859FD00002255FE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E09CB9432859FD00002255FE /* Model.xcdatamodeld */; };
+		E0E662222862E51F0084FD56 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E662212862E51F0084FD56 /* Date+Extension.swift */; };
 		E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09DE628576CAE006B9F87 /* AppDelegate.swift */; };
 		E0F09DE928576CAE006B9F87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */; };
 		E0F09DF028576CAF006B9F87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0F09DEF28576CAF006B9F87 /* Assets.xcassets */; };
@@ -124,6 +125,7 @@
 		E09CB92B2858A146002255FE /* DecodedBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodedBy.swift; sourceTree = "<group>"; };
 		E09CB92D2858CAD1002255FE /* Rx+TableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+TableView+Extension.swift"; sourceTree = "<group>"; };
 		E09CB9442859FD00002255FE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		E0E662212862E51F0084FD56 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		E0F09DE328576CAE006B9F87 /* issueTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = issueTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0F09DE628576CAE006B9F87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0F09DE828576CAE006B9F87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 				E09CB92D2858CAD1002255FE /* Rx+TableView+Extension.swift */,
 				E096F466285A14DB00778265 /* String+Extension.swift */,
 				E096F481285CB0B900778265 /* Rx+URLSession+Extension.swift */,
+				E0E662212862E51F0084FD56 /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				E0F09E5B28582205006B9F87 /* Constants.swift in Sources */,
 				E096F482285CB0B900778265 /* Rx+URLSession+Extension.swift in Sources */,
 				E096F467285A14DB00778265 /* String+Extension.swift in Sources */,
+				E0E662222862E51F0084FD56 /* Date+Extension.swift in Sources */,
 				E096F471285A2F6900778265 /* CoreDatable.swift in Sources */,
 				E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */,
 				B5E9B6E42859267300BA79A4 /* LabelListTableViewCell.swift in Sources */,

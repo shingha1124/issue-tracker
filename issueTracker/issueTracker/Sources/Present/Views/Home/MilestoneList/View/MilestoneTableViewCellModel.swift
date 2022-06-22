@@ -16,7 +16,6 @@ final class MilestoneTableViewCellModel: ViewModel {
     }
     
     struct State {
-        let milestone: Milestone
         let title = PublishRelay<String>()
         let description = PublishRelay<String>()
         let deadline = PublishRelay<Date?>()
@@ -26,12 +25,10 @@ final class MilestoneTableViewCellModel: ViewModel {
     }
     
     let action = Action()
-    let state: State
+    let state = State()
     private let disposeBag = DisposeBag()
     
     init(milestone: Milestone) {
-        state = State(milestone: milestone)
-        
         action.loadData
             .map { milestone.title }
             .bind(to: state.title)
@@ -60,12 +57,9 @@ final class MilestoneTableViewCellModel: ViewModel {
         Observable
             .combineLatest(state.openedIssueCount.asObservable(), state.closedIssueCount.asObservable())
             .map { opendCount, closedCount in
-                let sum = Float(opendCount) + Float(closedCount)
-                if sum == 0 {
-                    return 0.0
-                } else {
-                    return Float(closedCount) / sum * 100
-                }
+                let totalCount = opendCount + closedCount
+                let progress = Float(closedCount) / Float(totalCount)
+                return progress.isNaN ? 0 : progress * 100
             }
             .bind(to: state.progress)
             .disposed(by: disposeBag)

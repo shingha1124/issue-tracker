@@ -59,8 +59,13 @@ final class MilestoneInsertViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         let parameters = Observable
-            .combineLatest(state.updatedTitleValue, state.updatedDescriptionValue, state.updatedDeadlineValue) { title, description, deadline in
-                ["title": title, "description": description, "due_on": "\(deadline)T07:00:00Z"]
+            .combineLatest(
+                state.updatedTitleValue.compactMap { $0 },
+                state.updatedDescriptionValue,
+                state.updatedDeadlineValue.map { $0.toDate(format: "yyyy-MM-dd")?.ISO8601Format() ?? "" }
+            )
+            .map { title, description, deadline in
+                ["title": title, "description": description, "due_on": "\(deadline)"]
             }
             .share()
         
@@ -74,7 +79,7 @@ final class MilestoneInsertViewModel: ViewModel {
                 viewModel.gitHubRepository.requestCreatingMilestone(parameters: parameters)
             }
             .share()
-        
+
         requestCreatingMilestone
             .compactMap { _ in }
             .withUnretained(self)
@@ -82,7 +87,7 @@ final class MilestoneInsertViewModel: ViewModel {
                 viewModel.navigation?.goBackToMilestoneList()
             })
             .disposed(by: disposeBag)
-        
+
         requestCreatingMilestone
             .compactMap { $0.error }
             .bind(onNext: {

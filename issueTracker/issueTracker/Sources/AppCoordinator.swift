@@ -12,11 +12,9 @@ final class AppCoordinator: BaseCoordinator {
         UINavigationController()
     }()
     
-    private let window: UIWindow
     @Inject(\.tokenStore) private var tokenStore: TokenStore
     
-    init(window: UIWindow) {
-        self.window = window
+    override init() {
         super.init()
         bind()
     }
@@ -47,10 +45,6 @@ final class AppCoordinator: BaseCoordinator {
     
     override func start() {
         Log.debug("start \(String(describing: type(of: self)))")
-        window.overrideUserInterfaceStyle = .light
-        window.rootViewController = rootViewController
-        window.makeKeyAndVisible()
-
         if tokenStore.hasToken() {
             homeFlow()
         } else {

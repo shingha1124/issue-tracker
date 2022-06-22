@@ -18,8 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         self.window = window
         
-        appCoordinator = AppCoordinator(window: window)
+        appCoordinator = AppCoordinator()
         appCoordinator?.start()
+        
+        self.window?.overrideUserInterfaceStyle = .light
+        self.window?.rootViewController = appCoordinator?.rootViewController
+        self.window?.makeKeyAndVisible()
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

@@ -60,7 +60,7 @@ final class MilestoneInsertViewModel: ViewModel {
         
         let parameters = Observable
             .combineLatest(state.updatedTitleValue, state.updatedDescriptionValue, state.updatedDeadlineValue) { title, description, deadline in
-                ["title": title, "description": description, "due_on": deadline]
+                ["title": title, "description": description, "due_on": "\(deadline)T07:00:00Z"]
             }
             .share()
         

@@ -9,7 +9,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class LabelInsertField: BaseView {
+final class InsertField: BaseView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()

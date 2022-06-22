@@ -60,10 +60,24 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .map([User].self)
     }
     
-    func requestCreatingLabel(parameters: RequestCreatingLabel) -> Single<Swift.Result<[Label], APIError>> {
+    func requestCreatingLabel(parameters: RequestCreatingLabelParameters) -> Single<Swift.Result<[Label], APIError>> {
         provider
             .request(.requestCreatingLabel(parameters: parameters))
             .do { $0.value?.printJson() }
             .map([Label].self)
+    }
+    
+    func requestMilestones(parameters: RequestMilestoneParameters) -> Single<Result<[Milestone], APIError>> {
+        provider
+            .request(.requestMilestones(parameters: parameters))
+            .do { $0.value?.printJson() }
+            .map([Milestone].self)
+    }
+    
+    func requestCreatingMilestone(parameters: RequestCreatingMilestoneParameters) -> Single<Result<[Milestone], APIError>> {
+        provider
+            .request(.requestCreatingMilestone(parameters: parameters))
+            .do { $0.value?.printJson() }
+            .map([Milestone].self)
     }
 }

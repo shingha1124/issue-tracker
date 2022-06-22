@@ -21,7 +21,11 @@ protocol GitHubRepository {
     func requestLabels(parameters: RequestLabelsParameters) -> Single<Swift.Result<[Label], APIError>>
     func requestAssignees(parameters: RequestAssigneesParameters) -> Single<Swift.Result<[User], APIError>>
     
-    func requestCreatingLabel(parameters: RequestCreatingLabel) -> Single<Swift.Result<[Label], APIError>>
+    func requestCreatingLabel(parameters: RequestCreatingLabelParameters) -> Single<Swift.Result<[Label], APIError>>
+    
+    func requestMilestones(parameters: RequestMilestoneParameters) -> Single<Swift.Result<[Milestone], APIError>>
+    
+    func requestCreatingMilestone(parameters: RequestCreatingMilestoneParameters) -> Single<Swift.Result<[Milestone], APIError>>
 }
 
 struct RequestAssigneesParameters {
@@ -52,7 +56,18 @@ struct RequestUpdateIssueParameters {
     let parameters: [String: Any]?
 }
 
-struct RequestCreatingLabel {
+struct RequestCreatingLabelParameters {
+    let owner: String
+    let repo: String
+    let parameters: [String: Any]?
+}
+
+struct RequestMilestoneParameters {
+    let owner: String
+    let repo: String
+}
+
+struct RequestCreatingMilestoneParameters {
     let owner: String
     let repo: String
     let parameters: [String: Any]?

@@ -19,8 +19,8 @@ final class LabelInsertViewModel: ViewModel {
         let enteredDescriptionValue = PublishRelay<String>()
         let tappedColorChangeButton = PublishRelay<Void>()
         let tappedAddingLabelButton = PublishRelay<Void>()
+        let tappedCancelButton = PublishRelay<Void>()
         let viewDidLoad = PublishRelay<Void>()
-        let dismissView = PublishRelay<Void>()
     }
     
     struct State {
@@ -33,15 +33,7 @@ final class LabelInsertViewModel: ViewModel {
     let state = State()
     private let disposeBag = DisposeBag()
     private weak var navigation: LabelListNavigation?
-    
-    var randomColor: String {
-        var hexString = ""
-        for _ in 0..<3 {
-            hexString += String(format: "%02X", Int.random(in: 0...255))
-        }
-        return "#\(hexString)"
-    }
-    
+
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
     
     init(navigation: LabelListNavigation) {
@@ -60,25 +52,16 @@ final class LabelInsertViewModel: ViewModel {
             .map { "" }
             .bind(to: state.updatedTitleValue)
             .disposed(by: disposeBag)
-        
-        action.viewDidLoad
-            .withUnretained(self)
-            .map { viewModel, _ in
-                viewModel.randomColor
-            }
+
+        Observable
+            .merge(action.viewDidLoad.asObservable(), action.tappedColorChangeButton.asObservable())
+            .map { (0..<3).map { _ in String(format: "%02X", Int.random(in: 0...255)) }.joined() }
             .bind(to: state.updatedRgbValue)
             .disposed(by: disposeBag)
         
         action.viewDidLoad
             .map { "" }
             .bind(to: state.updatedDescriptionValue)
-            .disposed(by: disposeBag)
-        
-        action.dismissView
-            .withUnretained(self)
-            .bind(onNext: { viewModel, _ in
-                viewModel.navigation?.goBackToLabelList()
-            })
             .disposed(by: disposeBag)
     }
     
@@ -91,10 +74,11 @@ final class LabelInsertViewModel: ViewModel {
             .bind(to: state.updatedDescriptionValue)
             .disposed(by: disposeBag)
         
-        action.tappedColorChangeButton
+        action.tappedCancelButton
             .withUnretained(self)
-            .map { viewModel, _ in viewModel.randomColor }
-            .bind(to: state.updatedRgbValue)
+            .bind(onNext: { viewModel, _ in
+                viewModel.navigation?.goBackToLabelList()
+            })
             .disposed(by: disposeBag)
     }
     
@@ -108,7 +92,7 @@ final class LabelInsertViewModel: ViewModel {
         let requestCreatingLabel = action.tappedAddingLabelButton
             .withLatestFrom(parameters)
             .map { param in
-                RequestCreatingLabel(owner: Constants.owner, repo: Constants.repo, parameters: param)
+                RequestCreatingLabelParameters(owner: Constants.owner, repo: Constants.repo, parameters: param)
             }
             .withUnretained(self)
             .flatMapLatest { viewModel, parameters in
@@ -118,7 +102,10 @@ final class LabelInsertViewModel: ViewModel {
         
         requestCreatingLabel
             .compactMap { _ in }
-            .bind(to: action.dismissView)
+            .withUnretained(self)
+            .bind(onNext: { viewModel, _ in
+                viewModel.navigation?.goBackToLabelList()
+            })
             .disposed(by: disposeBag)
         
         requestCreatingLabel

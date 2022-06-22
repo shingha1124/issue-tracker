@@ -1,12 +1,14 @@
 //
-//  LabelInsertForm.swift
+//  MilestoneInsertForm.swift
 //  issueTracker
 //
-//  Created by 이준우 on 2022/06/15.
+//  Created by 이준우 on 2022/06/21.
 //
+
+import Foundation
 import UIKit
 
-final class LabelInsertForm: BaseView {
+final class MilestoneInsertForm: BaseView {
     
     let titleField: InsertField = {
         let form = InsertField()
@@ -24,20 +26,14 @@ final class LabelInsertForm: BaseView {
         return form
     }()
     
-    let colorField: InsertField = {
+    let deadlineField: InsertField = {
         let form = InsertField()
-        form.title = "배경색"
+        form.title = "완료일"
+        form.placeHolder = "선택사항(YYYY-MM-DD)"
         form.backgroundColor = .white
         return form
     }()
-    
-    let colorChangeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
-        button.sizeToFit()
-        return button
-    }()
-    
+     
     private let formStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -49,7 +45,6 @@ final class LabelInsertForm: BaseView {
     override func attribute() {
         super.attribute()
         self.backgroundColor = .white
-        self.colorField.rightButton = self.colorChangeButton
     }
     
     override func layout() {
@@ -57,7 +52,7 @@ final class LabelInsertForm: BaseView {
         self.addSubview(formStackView)
         formStackView.addArrangedSubview(titleField)
         formStackView.addArrangedSubview(descriptionField)
-        formStackView.addArrangedSubview(colorField)
+        formStackView.addArrangedSubview(deadlineField)
         
         formStackView.snp.makeConstraints {
             $0.top.bottom.width.equalToSuperview()

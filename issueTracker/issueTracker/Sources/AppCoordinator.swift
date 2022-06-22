@@ -31,15 +31,7 @@ final class AppCoordinator: BaseCoordinator {
     override func bind() {
         deepLinkHandler
             .filter { $0.path.contains(.auth) }
-            .withUnretained(self)
-            .bind(onNext: { coord, deeplink in
-                if let coordinator = coord.find(type: AuthViewCoordinator.self) {
-                    coordinator.deepLinkHandler.accept(deeplink)
-                } else {
-                    coord.clear()
-                    coord.loginFlow().deepLinkHandler.accept(deeplink)
-                }
-            })
+            .bind(to: loginFlow().deepLinkHandler)
             .disposed(by: disposeBag)
     }
     
@@ -60,6 +52,7 @@ final class AppCoordinator: BaseCoordinator {
         
         let coordinator = AuthViewCoordinator(navigationController: rootViewController)
         coordinator.delegate = self
+        clear()
         store(coordinator: coordinator)
         coordinator.start()
         return coordinator
@@ -73,6 +66,7 @@ final class AppCoordinator: BaseCoordinator {
         
         let coordinator = HomeViewCoordinator(navigationController: rootViewController)
         coordinator.delegate = self
+        clear()
         store(coordinator: coordinator)
         coordinator.start()
         return coordinator

@@ -25,14 +25,7 @@ final class LabelListTableViewCell: BaseTableViewCell, View {
         label.numberOfLines = 1
         return label
     }()
-    
-    var paddingLabelColor: UIColor? {
-        didSet {
-            paddingLabel.backgroundColor = paddingLabelColor
-            paddingLabel.textColor = paddingLabelColor?.contrast ?? .black
-        }
-    }
-    
+
     func bind(to viewModel: LabelListTableViewCellModel) {
         
         viewModel.state.name
@@ -47,7 +40,8 @@ final class LabelListTableViewCell: BaseTableViewCell, View {
             .map { $0.hexToColor() }
             .withUnretained(self)
             .bind(onNext: { cell, color in
-                cell.paddingLabelColor = color
+                cell.paddingLabel.backgroundColor = color
+                cell.paddingLabel.textColor = color.contrast
             })
             .disposed(by: disposeBag)
         

@@ -14,7 +14,7 @@ final class MilestoneListViewController: BaseViewController, View {
     
     private let addButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = "추가 +"
+        button.title = "Add".localized()
         button.style = .plain
         return button
     }()
@@ -54,7 +54,7 @@ final class MilestoneListViewController: BaseViewController, View {
     }
     
     override func attribute() {
-        title = "마일스톤"
+        title = "Milestone".localized()
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = addButton
     }

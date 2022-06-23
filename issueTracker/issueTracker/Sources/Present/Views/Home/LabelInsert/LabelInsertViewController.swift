@@ -24,7 +24,7 @@ final class LabelInsertViewController: BaseViewController, View {
     
     private let previewLabel: PaddingLabel = {
         let label = PaddingLabel()
-        label.text = "레이블"
+        label.text = "Labels".localized()
         label.padding = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         label.backgroundColor = .systemCyan
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -37,14 +37,14 @@ final class LabelInsertViewController: BaseViewController, View {
     
     private let addButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = "저장"
+        button.title = "Save".localized()
         button.style = .plain
         return button
     }()
     
     private let cancelButton: UIBarButtonItem = {
        let button = UIBarButtonItem()
-        button.title = "취소"
+        button.title = "Cancel".localized()
         button.style = .done
         return button
     }()
@@ -101,7 +101,7 @@ final class LabelInsertViewController: BaseViewController, View {
     override func attribute() {
         super.attribute()
         view.backgroundColor = .systemGray6
-        navigationItem.title = "새로운 레이블"
+        navigationItem.title = "New Labels".localized()
         navigationItem.rightBarButtonItem = addButton
         navigationItem.leftBarButtonItem = cancelButton
     }

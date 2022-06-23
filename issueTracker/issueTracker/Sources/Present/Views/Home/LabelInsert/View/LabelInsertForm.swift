@@ -10,23 +10,23 @@ final class LabelInsertForm: BaseView {
     
     let titleField: InsertField = {
         let form = InsertField()
-        form.title = "제목"
-        form.placeHolder = "필수 입력"
+        form.title = "Title".localized()
+        form.placeHolder = "Require".localized()
         form.backgroundColor = .white
         return form
     }()
     
     let descriptionField: InsertField = {
         let form = InsertField()
-        form.title = "설명"
-        form.placeHolder = "선택사항"
+        form.title = "Description".localized()
+        form.placeHolder = "Option".localized()
         form.backgroundColor = .white
         return form
     }()
     
     let colorField: InsertField = {
         let form = InsertField()
-        form.title = "배경색"
+        form.title = "Color".localized()
         form.backgroundColor = .white
         return form
     }()

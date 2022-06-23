@@ -1,0 +1,34 @@
+/* 
+  Localizable.strings
+  issueTracker
+
+  Created by seongha shin on 2022/06/23.
+  
+*/
+
+"Sign in with Github" = "Sign in with Github";
+
+"Issue" = "Issue";
+"Labels" = "Labels";
+"Milestone" = "Milestone";
+
+"New Labels" = "New Labels";
+"New Milestone" = "New Milestone";
+
+"Filter" = "Filter";
+"Select" = "Select";
+"Close" = "Close";
+"Add" = "Add";
+"Save" = "Save";
+"Cancel" = "Cancel";
+
+"Title" = "Title";
+"Description" = "Description";
+"Color" = "Color";
+"Require" = "Require";
+"Option" = "Option";
+"DueDate" = "DueDate";
+
+"Open Issue %0" = "Open Issue %0";
+"Close Issue %0" = "Close Issue %0";
+

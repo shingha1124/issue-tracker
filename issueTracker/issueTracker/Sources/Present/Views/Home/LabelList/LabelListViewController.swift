@@ -13,7 +13,7 @@ final class LabelListViewController: BaseViewController, View {
     
     private let addButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = "추가 +"
+        button.title = "Add".localized()
         button.style = .plain
         return button
     }()
@@ -61,7 +61,7 @@ final class LabelListViewController: BaseViewController, View {
     }
     
     override func attribute() {
-        title = "레이블"
+        title = "Labels".localized()
         navigationItem.rightBarButtonItem = addButton
         view.backgroundColor = .white
     }

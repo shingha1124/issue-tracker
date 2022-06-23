@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  issueTracker
+
+  Created by seongha shin on 2022/06/23.
+  
+*/
+"Sign in with Github" = "Sign in with Github";
+
+"Issue" = "이슈";
+"Labels" = "레이블";
+"Milestone" = "마일스톤";
+
+"New Labels" = "새로운 레이블";
+"New Milestone" = "새로운 마일스톤";
+
+"Filter" = "필터";
+"Select" = "선택";
+"Close" = "닫기";
+"Add" = "추가";
+"Save" = "저장";
+"Cancel" = "취소";
+
+"Title" = "제목";
+"Description" = "설명";
+"Color" = "색상";
+"Require" = "필수사항";
+"Option" = "선택사항";
+"DueDate" = "완료일";
+
+"Open Issue %d" = "열린 이슈 %d개";
+"Close Issue %d" = "닫힌 이슈 %d개";

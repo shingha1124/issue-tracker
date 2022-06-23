@@ -33,7 +33,6 @@ final class MilestoneListTableViewCell: BaseTableViewCell, View {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textColor = "#34C759".hexToColor()
-        label.text = "진행"
         return label
     }()
     
@@ -117,12 +116,12 @@ final class MilestoneListTableViewCell: BaseTableViewCell, View {
             .disposed(by: disposeBag)
         
         viewModel.state.openedIssueCount
-            .map { "열린 이슈 \($0)개" }
+            .map { "Open Issue %d".localized(with: $0, comment: "") }
             .bind(to: openedIssueCountLabel.rx.text)
             .disposed(by: disposeBag)
 
         viewModel.state.closedIssueCount
-            .map { "닫힌 이슈 \($0)개" }
+            .map { "Close Issue %d".localized(with: $0, comment: "") }
             .bind(to: closedIssueCountLabel.rx.text)
             .disposed(by: disposeBag)
         

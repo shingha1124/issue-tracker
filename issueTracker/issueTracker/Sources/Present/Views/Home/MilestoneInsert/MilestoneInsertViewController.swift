@@ -13,14 +13,14 @@ final class MilestoneInsertViewController: BaseViewController, View {
     
     private let cancelButton: UIBarButtonItem = {
        let button = UIBarButtonItem()
-        button.title = "취소"
+        button.title = "Cancel".localized()
         button.style = .done
         return button
     }()
     
     private let addButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = "저장"
+        button.title = "Save".localized()
         button.style = .plain
         return button
     }()
@@ -61,7 +61,7 @@ final class MilestoneInsertViewController: BaseViewController, View {
     override func attribute() {
         super.attribute()
         view.backgroundColor = .systemGray6
-        navigationItem.title = "새로운 마일스톤"
+        navigationItem.title = "New Milestone".localized()
         navigationItem.rightBarButtonItem = addButton
         navigationItem.leftBarButtonItem = cancelButton
     }

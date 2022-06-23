@@ -27,7 +27,7 @@ final class IssueListViewController: BaseViewController, View {
         config.image = image
         config.imagePlacement = .leading
         config.imagePadding = 4
-        config.title = "필터"
+        config.title = "Filter".localized()
         config.contentInsets = .zero
         
         let button = UIButton(configuration: config)
@@ -42,7 +42,7 @@ final class IssueListViewController: BaseViewController, View {
         config.image = image
         config.imagePlacement = .trailing
         config.imagePadding = 4
-        config.title = "선택"
+        config.title = "Select".localized()
         config.contentInsets = .zero
         
         let button = UIButton(configuration: config)
@@ -116,7 +116,7 @@ final class IssueListViewController: BaseViewController, View {
     }
     
     override func attribute() {
-        title = "이슈"
+        title = "Issue".localized()
         view.backgroundColor = .white
     }
     
@@ -138,7 +138,7 @@ final class IssueListViewController: BaseViewController, View {
 
 extension IssueListViewController {
     func makeTrailingSwipeActions(_ index: Int) -> UISwipeActionsConfiguration {
-        let closeAction = UIContextualAction(style: .normal, title: "닫기") { [weak self] _, _, completionHandler in
+        let closeAction = UIContextualAction(style: .normal, title: "Close".localized()) { [weak self] _, _, completionHandler in
             self?.viewModel?.action.closeIssue.accept(index)
             completionHandler(true)
         }

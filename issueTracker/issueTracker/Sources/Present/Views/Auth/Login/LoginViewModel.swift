@@ -10,11 +10,6 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
-protocol LoginViewModelCoordinatorDelegate: AnyObject {
-    func didGithubLogin()
-    func loginDidSuccess()
-}
-
 final class LoginViewModel: ViewModel {
     struct Action {
         let tappedGitLogin = PublishRelay<Void>()
@@ -26,19 +21,18 @@ final class LoginViewModel: ViewModel {
     
     let action = Action()
     let state = State()
-    weak var coordinatorDelegate: LoginViewModelCoordinatorDelegate?
+    private weak var coordinator: AuthViewCoordinator?
     
     private var disposeBag = DisposeBag()
     
     @Inject(\.tokenStore) private var tokenStore: TokenStore
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
     
-    init() {
+    init(coordinator: AuthViewCoordinator) {
+        self.coordinator = coordinator
+        
         action.tappedGitLogin
-            .withUnretained(self)
-            .bind(onNext: { vm, _ in
-                vm.coordinatorDelegate?.didGithubLogin()
-            })
+            .bind(to: coordinator.openGithubUrl)
             .disposed(by: disposeBag)
         
         let requestAccessToken = action.inputDeeplinkQuery
@@ -55,9 +49,8 @@ final class LoginViewModel: ViewModel {
             .do { vm, token in
                 vm.tokenStore.store(token)
             }
-            .bind(onNext: { vc, _ in
-                vc.coordinatorDelegate?.loginDidSuccess()
-            })
+            .map { _ in }
+            .bind(to: coordinator.loginSuccess)
             .disposed(by: disposeBag)
     }
 }

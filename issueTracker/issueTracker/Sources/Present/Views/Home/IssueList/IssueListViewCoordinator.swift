@@ -12,17 +12,22 @@ final class IssueListViewCoordinator: BaseCoordinator {
     
     init(navigation: UINavigationController) {
         self.navigationController = navigation
+        super.init()
+        bind()
     }
     
-    override func start() {
-        let viewController = IssueListViewController()
-        let viewModel = IssueListViewModel(navigation: self)
-        viewController.viewModel = viewModel
-        navigationController.pushViewController(viewController, animated: true)
+    override func bind() {
+        startView
+            .bind(onNext: presentIssueListView)
+            .disposed(by: disposeBag)
     }
 }
 
-extension IssueListViewCoordinator: IssueListNavigation {
-    func goToIssueList() {
+extension IssueListViewCoordinator {
+    private func presentIssueListView() {
+        let viewController = IssueListViewController()
+        let viewModel = IssueListViewModel(coordinator: self)
+        viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

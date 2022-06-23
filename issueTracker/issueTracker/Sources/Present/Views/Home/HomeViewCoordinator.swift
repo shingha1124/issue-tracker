@@ -7,9 +7,6 @@
 
 import UIKit
 
-protocol HomeViewCoordinatorDelegate: AnyObject {
-}
-
 final class HomeViewCoordinator: BaseCoordinator {
     private let issueCoordinator: IssueListViewCoordinator = {
         let issueNavigationController = UINavigationController()
@@ -33,21 +30,25 @@ final class HomeViewCoordinator: BaseCoordinator {
     }()
     
     var navigationController: UINavigationController
-    weak var delegate: HomeViewCoordinatorDelegate?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        super.init()
+        bind()
     }
     
     deinit {
         Log.debug("deinit \(String(describing: type(of: self)))")
     }
     
-    override func start() {
-        Log.debug("start \(String(describing: type(of: self)))")
-        initializeHomeTabBar()
+    override func bind() {
+        startView
+            .bind(onNext: initializeHomeTabBar)
+            .disposed(by: disposeBag)
     }
-    
+}
+
+extension HomeViewCoordinator {
     private func initializeHomeTabBar() {
         navigationController.setNavigationBarHidden(true, animated: false)
 
@@ -58,9 +59,9 @@ final class HomeViewCoordinator: BaseCoordinator {
         store(coordinator: labelListCoordinator)
         store(coordinator: milestoneCoordinator)
         
-        issueCoordinator.start()
-        labelListCoordinator.start()
-        milestoneCoordinator.start()
+        issueCoordinator.startView.accept(())
+        labelListCoordinator.startView.accept(())
+        milestoneCoordinator.startView.accept(())
         
         navigationController.setViewControllers([tabBarViewController], animated: false)
     }

@@ -5,23 +5,14 @@
 //  Created by seongha shin on 2022/06/13.
 //
 
+import RxRelay
 import UIKit
-
-protocol AuthViewCoordinatorDelegate: AnyObject {
-    func didFinishAuthCoordinator(coordinator: Coordinator)
-}
 
 final class AuthViewCoordinator: BaseCoordinator {
     private let navigationController: UINavigationController
-    weak var delegate: AuthViewCoordinatorDelegate?
     
-    lazy var loginViewController: LoginViewController = {
-        let loginViewModel = LoginViewModel()
-        loginViewModel.coordinatorDelegate = self
-        let loginViewController = LoginViewController()
-        loginViewController.viewModel = loginViewModel
-        return loginViewController
-    }()
+    let openGithubUrl = PublishRelay<Void>()
+    let loginSuccess = PublishRelay<Void>()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -34,35 +25,45 @@ final class AuthViewCoordinator: BaseCoordinator {
     }
     
     override func bind() {
+        startView
+            .bind(onNext: presentLoginView)
+            .disposed(by: disposeBag)
+        
         deepLinkHandler
             .filter { $0.path.contains(.login) }
             .withUnretained(self)
-            .bind(onNext: { coord, deeplink in
-                let viewModel = coord.loginViewController.viewModel
+            .compactMap { coordinator, deeplink -> (LoginViewController, Deeplink)? in
+                guard let loginViewController = coordinator.navigationController.visibleViewController as? LoginViewController else {
+                    return nil
+                }
+                return (loginViewController, deeplink)
+            }
+            .bind(onNext: { loginView, deeplink in
+                let viewModel = loginView.viewModel
                 viewModel?.action.inputDeeplinkQuery.accept(deeplink.queryItems)
             })
             .disposed(by: disposeBag)
-    }
-    
-    override func start() {
-        Log.debug("start \(String(describing: type(of: self)))")
-        navigationController.setViewControllers([loginViewController], animated: false)
+        
+        openGithubUrl
+            .compactMap { _ -> URL? in
+                var urlComponets = URLComponents(string: Constants.Github.authorizeUrl)
+                urlComponets?.queryItems = Constants.Github.authorizeQuery.map {
+                    URLQueryItem(name: $0.key, value: $0.value)
+                }
+                return urlComponets?.url
+            }
+            .bind(onNext: {
+                UIApplication.shared.open($0)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
-extension AuthViewCoordinator: LoginViewModelCoordinatorDelegate {
-    func didGithubLogin() {
-        var urlComponets = URLComponents(string: Constants.Github.authorizeUrl)
-        urlComponets?.queryItems = Constants.Github.authorizeQuery.map {
-            URLQueryItem(name: $0.key, value: $0.value)
-        }
-        guard let openUrl = urlComponets?.url else {
-            return
-        }
-        UIApplication.shared.open(openUrl)
-    }
-    
-    func loginDidSuccess() {
-        delegate?.didFinishAuthCoordinator(coordinator: self)
+extension AuthViewCoordinator {
+    private func presentLoginView() {
+        let loginViewModel = LoginViewModel(coordinator: self)
+        let loginViewController = LoginViewController()
+        loginViewController.viewModel = loginViewModel
+        navigationController.setViewControllers([loginViewController], animated: false)
     }
 }

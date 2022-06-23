@@ -32,22 +32,13 @@ final class LabelInsertViewModel: ViewModel {
     let action = Action()
     let state = State()
     private let disposeBag = DisposeBag()
-    private weak var navigation: LabelListNavigation?
+    private weak var coordinator: LabelListViewCoordinator?
 
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
     
-    init(navigation: LabelListNavigation) {
-        self.navigation = navigation
+    init(coordinator: LabelListViewCoordinator) {
+        self.coordinator = coordinator
         
-        //State 속성 초기값 지정
-        setInitialStates()
-        //Action 속성과 State 속성 바인딩
-        bindActionsToStates()
-        //State 속성과 라벨 생성 요청 바인딩
-        bindStatesToCreatingRequest()
-    }
-    
-    private func setInitialStates() {
         action.viewDidLoad
             .map { "" }
             .bind(to: state.updatedTitleValue)
@@ -63,9 +54,7 @@ final class LabelInsertViewModel: ViewModel {
             .map { "" }
             .bind(to: state.updatedDescriptionValue)
             .disposed(by: disposeBag)
-    }
-    
-    private func bindActionsToStates() {
+        
         action.enteredTitleValue
             .bind(to: state.updatedTitleValue)
             .disposed(by: disposeBag)
@@ -75,14 +64,9 @@ final class LabelInsertViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         action.tappedCancelButton
-            .withUnretained(self)
-            .bind(onNext: { viewModel, _ in
-                viewModel.navigation?.goBackToLabelList()
-            })
+            .bind(to: coordinator.dismiss)
             .disposed(by: disposeBag)
-    }
-    
-    private func bindStatesToCreatingRequest() {
+        
         let parameters = Observable
             .combineLatest(state.updatedRgbValue, state.updatedDescriptionValue, state.updatedTitleValue) { color, description, title in
                 ["name": title, "description": description, "color": String(color.dropFirst())]
@@ -92,7 +76,7 @@ final class LabelInsertViewModel: ViewModel {
         let requestCreatingLabel = action.tappedAddingLabelButton
             .withLatestFrom(parameters)
             .map { param in
-                RequestCreatingLabelParameters(owner: Constants.owner, repo: Constants.repo, parameters: param)
+                RequestRepositoryParameters(parameters: param)
             }
             .withUnretained(self)
             .flatMapLatest { viewModel, parameters in
@@ -102,10 +86,7 @@ final class LabelInsertViewModel: ViewModel {
         
         requestCreatingLabel
             .compactMap { _ in }
-            .withUnretained(self)
-            .bind(onNext: { viewModel, _ in
-                viewModel.navigation?.goBackToLabelList()
-            })
+            .bind(to: coordinator.dismiss)
             .disposed(by: disposeBag)
         
         requestCreatingLabel

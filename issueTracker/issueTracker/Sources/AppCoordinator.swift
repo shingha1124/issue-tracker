@@ -12,6 +12,18 @@ final class AppCoordinator: BaseCoordinator {
         UINavigationController()
     }()
     
+    private lazy var authCoordinator: AuthViewCoordinator = {
+        let coordinator = AuthViewCoordinator(navigationController: rootViewController)
+        store(coordinator: coordinator)
+        return coordinator
+    }()
+    
+    private lazy var homeCoordinator: HomeViewCoordinator = {
+        let coordinator = HomeViewCoordinator(navigationController: rootViewController)
+        store(coordinator: coordinator)
+        return coordinator
+    }()
+    
     @Inject(\.tokenStore) private var tokenStore: TokenStore
     
     override init() {
@@ -29,56 +41,29 @@ final class AppCoordinator: BaseCoordinator {
     }
     
     override func bind() {
+        let hasToken = startView
+            .withUnretained(self)
+            .map { $0.0.tokenStore.hasToken() }
+        
+        hasToken
+            .filter { !$0 }
+            .map { _ in }
+            .bind(to: authCoordinator.startView)
+            .disposed(by: disposeBag)
+        
+        hasToken
+            .filter { $0 }
+            .map { _ in }
+            .bind(to: homeCoordinator.startView)
+            .disposed(by: disposeBag)
+         
         deepLinkHandler
             .filter { $0.path.contains(.auth) }
-            .bind(to: loginFlow().deepLinkHandler)
+            .bind(to: authCoordinator.deepLinkHandler)
+            .disposed(by: disposeBag)
+        
+        authCoordinator.loginSuccess
+            .bind(to: homeCoordinator.startView)
             .disposed(by: disposeBag)
     }
-    
-    override func start() {
-        Log.debug("start \(String(describing: type(of: self)))")
-        if tokenStore.hasToken() {
-            homeFlow()
-        } else {
-            loginFlow()
-        }
-    }
-    
-    @discardableResult
-    private func loginFlow() -> BaseCoordinator {
-        if let coordinator = self.find(type: AuthViewCoordinator.self) {
-            return coordinator
-        }
-        
-        let coordinator = AuthViewCoordinator(navigationController: rootViewController)
-        coordinator.delegate = self
-        clear()
-        store(coordinator: coordinator)
-        coordinator.start()
-        return coordinator
-    }
-    
-    @discardableResult
-    private func homeFlow() -> BaseCoordinator {
-        if let coordinator = self.find(type: HomeViewCoordinator.self) {
-            return coordinator
-        }
-        
-        let coordinator = HomeViewCoordinator(navigationController: rootViewController)
-        coordinator.delegate = self
-        clear()
-        store(coordinator: coordinator)
-        coordinator.start()
-        return coordinator
-    }
-}
-
-extension AppCoordinator: AuthViewCoordinatorDelegate {
-    func didFinishAuthCoordinator(coordinator: Coordinator) {
-        free(coordinator: coordinator)
-        homeFlow()
-    }
-}
-
-extension AppCoordinator: HomeViewCoordinatorDelegate {
 }

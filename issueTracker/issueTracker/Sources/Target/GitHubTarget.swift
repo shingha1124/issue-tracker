@@ -15,16 +15,16 @@ enum GithubTarget {
     case requestRepository(parameters: RequestRepositoryParameters)
     
     case requestAllIssueList
-    case requestRepoIssueList(parameters: RequestIssueListParameters)
+    case requestRepoIssueList(parameters: RequestRepositoryParameters)
     case requestUpdateIssue(parameters: RequestUpdateIssueParameters)
     
-    case requestLabels(parameters: RequestLabelsParameters)
+    case requestLabels(parameters: RequestRepositoryParameters)
     
-    case requestAssignees(parameters: RequestAssigneesParameters)
-    case requestCreatingLabel(parameters: RequestCreatingLabelParameters)
+    case requestAssignees(parameters: RequestRepositoryParameters)
+    case requestCreatingLabel(parameters: RequestRepositoryParameters)
     
-    case requestMilestones(parameters: RequestMilestoneParameters)
-    case requestCreatingMilestone(parameters: RequestCreatingMilestoneParameters)
+    case requestMilestones(parameters: RequestRepositoryParameters)
+    case requestCreatingMilestone(parameters: RequestRepositoryParameters)
 }
 
 extension GithubTarget: BaseTarget {
@@ -78,8 +78,6 @@ extension GithubTarget: BaseTarget {
             return param.parameters
         case .requestCreatingMilestone(let param):
             return param.parameters
-                .filter { $0.value != nil }
-                .reduce(into: [String: Any]()) { $0[$1.key] = $1.value }
         default:
             return nil
         }
@@ -87,14 +85,10 @@ extension GithubTarget: BaseTarget {
     
     var method: HTTPMethod {
         switch self {
-        case .requestAccessToken:
+        case .requestAccessToken, .requestCreatingMilestone, .requestCreatingLabel:
             return .post
         case .requestUpdateIssue:
             return .patch
-        case .requestCreatingLabel(parameters: _):
-            return .post
-        case .requestCreatingMilestone(parameters: _):
-            return .post
         default:
             return .get
         }

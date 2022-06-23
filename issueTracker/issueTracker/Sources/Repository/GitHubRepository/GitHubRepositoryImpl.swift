@@ -34,7 +34,7 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .map(Repository.self)
     }
     
-    func requestRepoIssueList(parameters: RequestIssueListParameters) -> Single<Swift.Result<[Issue], APIError>> {
+    func requestRepoIssueList(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Issue], APIError>> {
         provider
             .request(.requestRepoIssueList(parameters: parameters))
             .do { $0.value?.printJson() }
@@ -48,33 +48,33 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .map(Issue.self)
     }
     
-    func requestLabels(parameters: RequestLabelsParameters) -> Single<Swift.Result<[Label], APIError>> {
+    func requestLabels(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Label], APIError>> {
         provider
             .request(.requestLabels(parameters: parameters))
             .map([Label].self)
     }
     
-    func requestAssignees(parameters: RequestAssigneesParameters) -> Single<Swift.Result<[User], APIError>> {
+    func requestAssignees(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[User], APIError>> {
         provider
             .request(.requestAssignees(parameters: parameters))
             .map([User].self)
     }
     
-    func requestCreatingLabel(parameters: RequestCreatingLabelParameters) -> Single<Swift.Result<[Label], APIError>> {
+    func requestCreatingLabel(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Label], APIError>> {
         provider
             .request(.requestCreatingLabel(parameters: parameters))
             .do { $0.value?.printJson() }
             .map([Label].self)
     }
     
-    func requestMilestones(parameters: RequestMilestoneParameters) -> Single<Result<[Milestone], APIError>> {
+    func requestMilestones(parameters: RequestRepositoryParameters) -> Single<Result<[Milestone], APIError>> {
         provider
             .request(.requestMilestones(parameters: parameters))
             .do { $0.value?.printJson() }
             .map([Milestone].self)
     }
     
-    func requestCreatingMilestone(parameters: RequestCreatingMilestoneParameters) -> Single<Result<[Milestone], APIError>> {
+    func requestCreatingMilestone(parameters: RequestRepositoryParameters) -> Single<Result<[Milestone], APIError>> {
         provider
             .request(.requestCreatingMilestone(parameters: parameters))
             .do { $0.value?.printJson() }

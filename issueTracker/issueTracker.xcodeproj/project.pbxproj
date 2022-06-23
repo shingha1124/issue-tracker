@@ -452,9 +452,9 @@
 		E0F09E2C28579495006B9F87 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E0F09E2D285794AB006B9F87 /* HomeViewCoordinator.swift */,
 				B56B4F9A286181CE00E1D6F4 /* MilestoneInsert */,
 				B53D8569286057AC004E49B1 /* MilestoneList */,
-				E0F09E2D285794AB006B9F87 /* HomeViewCoordinator.swift */,
 				B5E9B6E828596E6E00BA79A4 /* LabelInsert */,
 				B5E9B6D42859267300BA79A4 /* LabelList */,
 				E0F09E1428577503006B9F87 /* IssueList */,

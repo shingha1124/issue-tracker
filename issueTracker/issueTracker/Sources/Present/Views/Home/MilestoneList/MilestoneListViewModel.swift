@@ -15,13 +15,7 @@ protocol MilestoneListNavigation: AnyObject {
     func goBackToMilestoneList()
 }
 
-final class MilestoneListViewModel: ViewModel {
-    
-    private enum Constants {
-        static let owner = "shingha1124"
-        static let repo = "issue-tracker"
-    }
-    
+final class MilestoneListViewModel: ViewModel {    
     struct Action {
         let requestMilestones = PublishRelay<Void>()
         let milestoneInsertButtonTapped = PublishRelay<Void>()
@@ -34,16 +28,16 @@ final class MilestoneListViewModel: ViewModel {
     let state = State()
     
     private let disposeBag = DisposeBag()
-    private weak var navigation: MilestoneListNavigation?
+    private weak var coordinator: MileStoneViewCoordinator?
     
     @Inject(\.gitHubRepository) private var githubRepository: GitHubRepository
     
-    init(navigation: MilestoneListNavigation) {
-        self.navigation = navigation
+    init(coordinator: MileStoneViewCoordinator) {
+        self.coordinator = coordinator
         
         let requestMilestones = action.requestMilestones
             .map {
-                RequestMilestoneParameters(owner: Constants.owner, repo: Constants.repo)
+                RequestRepositoryParameters(parameters: nil)
             }
             .withUnretained(self)
             .flatMapLatest { viewModel, parameters in
@@ -65,10 +59,7 @@ final class MilestoneListViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         action.milestoneInsertButtonTapped
-            .withUnretained(self)
-            .bind(onNext: { viewModel, _ in
-                viewModel.navigation?.goToMilestoneInsertion()
-            })
+            .bind(to: coordinator.goToMilestoneInsertion)
             .disposed(by: disposeBag)
     }
 }

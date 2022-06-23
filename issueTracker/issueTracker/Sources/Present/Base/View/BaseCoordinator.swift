@@ -13,8 +13,8 @@ class BaseCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     let deepLinkHandler = PublishRelay<Deeplink>()
+    let startView = PublishRelay<Void>()
     let disposeBag = DisposeBag()
     
     func bind() { }
-    func start() { }
 }

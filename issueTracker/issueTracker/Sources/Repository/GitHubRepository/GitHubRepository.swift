@@ -15,60 +15,28 @@ protocol GitHubRepository {
     func requestRepositories() -> Single<Swift.Result<[Repository], APIError>>
     func requestRepository(parameters: RequestRepositoryParameters) -> Single<Swift.Result<Repository, APIError>>
     
-    func requestRepoIssueList(parameters: RequestIssueListParameters) -> Single<Swift.Result<[Issue], APIError>>
+    func requestRepoIssueList(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Issue], APIError>>
     func requestUpdateIssue(parameters: RequestUpdateIssueParameters) -> Single<Swift.Result<Issue, APIError>>
     
-    func requestLabels(parameters: RequestLabelsParameters) -> Single<Swift.Result<[Label], APIError>>
-    func requestAssignees(parameters: RequestAssigneesParameters) -> Single<Swift.Result<[User], APIError>>
+    func requestLabels(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Label], APIError>>
+    func requestAssignees(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[User], APIError>>
     
-    func requestCreatingLabel(parameters: RequestCreatingLabelParameters) -> Single<Swift.Result<[Label], APIError>>
+    func requestCreatingLabel(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Label], APIError>>
     
-    func requestMilestones(parameters: RequestMilestoneParameters) -> Single<Swift.Result<[Milestone], APIError>>
+    func requestMilestones(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Milestone], APIError>>
     
-    func requestCreatingMilestone(parameters: RequestCreatingMilestoneParameters) -> Single<Swift.Result<[Milestone], APIError>>
-}
-
-struct RequestAssigneesParameters {
-    let owner: String
-    let repo: String
-}
-
-struct RequestLabelsParameters {
-    let owner: String
-    let repo: String
+    func requestCreatingMilestone(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Milestone], APIError>>
 }
 
 struct RequestRepositoryParameters {
-    let owner: String
-    let repo: String
-}
-
-struct RequestIssueListParameters {
-    let owner: String
-    let repo: String
+    let owner = Constants.Github.repositoryOwner
+    let repo = Constants.Github.repositoryName
     let parameters: [String: Any]?
 }
 
 struct RequestUpdateIssueParameters {
-    let owner: String
-    let repo: String
+    let owner = Constants.Github.repositoryOwner
+    let repo = Constants.Github.repositoryName
     let number: Int
     let parameters: [String: Any]?
-}
-
-struct RequestCreatingLabelParameters {
-    let owner: String
-    let repo: String
-    let parameters: [String: Any]?
-}
-
-struct RequestMilestoneParameters {
-    let owner: String
-    let repo: String
-}
-
-struct RequestCreatingMilestoneParameters {
-    let owner: String
-    let repo: String
-    let parameters: [String: Any?]
 }

@@ -9,16 +9,7 @@ import Foundation
 import RxRelay
 import RxSwift
 
-protocol IssueListNavigation: AnyObject {
-}
-
 final class IssueListViewModel: ViewModel {
-    
-    private enum Constants {
-        static let owner = "shingha1124"
-        static let repo = "issue-tracker"
-    }
-    
     struct Action {
         let requestIssue = PublishRelay<Void>()
         let closeIssue = PublishRelay<Int>()
@@ -33,16 +24,16 @@ final class IssueListViewModel: ViewModel {
     let state = State()
     
     private let disposeBag = DisposeBag()
-    private weak var navigation: IssueListNavigation?
+    private weak var coordinator: IssueListViewCoordinator?
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
     @Inject(\.coreDataRepository) private var coreDataRepository: CoreDataRepository
     
-    init(navigation: IssueListNavigation) {
-        self.navigation = navigation
+    init(coordinator: IssueListViewCoordinator) {
+        self.coordinator = coordinator
         
         let requestIssueList = action.requestIssue
             .map {
-                RequestIssueListParameters(owner: Constants.owner, repo: Constants.repo, parameters: nil)
+                RequestRepositoryParameters(parameters: nil)
             }
             .do(onNext: { [weak self] _ in
                 self?.state.enableLoadingIndactorView.accept(true)
@@ -75,7 +66,7 @@ final class IssueListViewModel: ViewModel {
                 viewModels[index].state.issue.number
             }
             .map {
-                RequestUpdateIssueParameters(owner: Constants.owner, repo: Constants.repo, number: $0, parameters: ["state": Issue.State.closed.value])
+                RequestUpdateIssueParameters(number: $0, parameters: ["state": Issue.State.closed.value])
             }
             .do(onNext: { [weak self] _ in
                 self?.state.enableLoadingIndactorView.accept(true)

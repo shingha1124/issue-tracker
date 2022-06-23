@@ -9,12 +9,7 @@ import Foundation
 import RxRelay
 import RxSwift
 
-final class MilestoneInsertViewModel: ViewModel {
-    private enum Constants {
-        static let owner = "shingha1124"
-        static let repo = "issue-tracker"
-    }
-    
+final class MilestoneInsertViewModel: ViewModel {    
     struct Action {
         let cancelButtonTapped = PublishRelay<Void>()
         let addButtonTapped = PublishRelay<Void>()
@@ -32,18 +27,15 @@ final class MilestoneInsertViewModel: ViewModel {
     let action = Action()
     let state = State()
     private let disposeBag = DisposeBag()
-    private weak var navigation: MilestoneListNavigation?
+    private weak var coordinator: MileStoneViewCoordinator?
     
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
     
-    init(navigation: MilestoneListNavigation) {
-        self.navigation = navigation
+    init(coordinator: MileStoneViewCoordinator) {
+        self.coordinator = coordinator
         
         action.cancelButtonTapped
-            .withUnretained(self)
-            .bind(onNext: { viewModel, _ in
-                viewModel.navigation?.goBackToMilestoneList()
-            })
+            .bind(to: coordinator.dismiss)
             .disposed(by: disposeBag)
         
         action.enteredTitleValue
@@ -72,7 +64,7 @@ final class MilestoneInsertViewModel: ViewModel {
         let requestCreatingMilestone = action.addButtonTapped
             .withLatestFrom(parameters)
             .map { param in
-                RequestCreatingMilestoneParameters(owner: Constants.owner, repo: Constants.repo, parameters: param)
+                RequestRepositoryParameters(parameters: param)
             }
             .withUnretained(self)
             .flatMapLatest { viewModel, parameters in
@@ -82,10 +74,7 @@ final class MilestoneInsertViewModel: ViewModel {
 
         requestCreatingMilestone
             .compactMap { _ in }
-            .withUnretained(self)
-            .bind(onNext: { viewModel, _ in
-                viewModel.navigation?.goBackToMilestoneList()
-            })
+            .bind(to: coordinator.dismiss)
             .disposed(by: disposeBag)
 
         requestCreatingMilestone

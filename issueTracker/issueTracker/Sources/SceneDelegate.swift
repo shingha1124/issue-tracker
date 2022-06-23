@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         
         appCoordinator = AppCoordinator()
-        appCoordinator?.start()
+        appCoordinator?.startView.accept(())
         
         self.window?.overrideUserInterfaceStyle = .light
         self.window?.rootViewController = appCoordinator?.rootViewController
@@ -30,7 +30,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else {
             return
         }
-        
         appCoordinator?.deepLinkHandler.accept(Deeplink(url: url))
     }
 }

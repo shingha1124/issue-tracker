@@ -14,5 +14,8 @@ enum Constants {
         static let clientId = Bundle.main.object(forInfoDictionaryKey: "GithubClientId") as? String ?? ""
         static let secrets = Bundle.main.object(forInfoDictionaryKey: "GithubSecret") as? String ?? ""
         static let scheme = "team14-issuetracker"
+        
+        static let repositoryOwner = "shingha1124"
+        static let repositoryName = "issue-tracker"
     }
 }

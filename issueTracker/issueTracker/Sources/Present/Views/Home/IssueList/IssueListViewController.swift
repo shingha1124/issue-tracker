@@ -59,6 +59,14 @@ final class IssueListViewController: BaseViewController, View {
         return searchController
     }()
     
+    private let addIssueButton: UIButton = {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.backgroundColor = .primary1
+        button.layer.cornerRadius = 32
+        return button
+    }()
+    
     var disposeBag = DisposeBag()
     
     func bind(to viewModel: IssueListViewModel) {
@@ -123,6 +131,7 @@ final class IssueListViewController: BaseViewController, View {
     override func layout() {
         view.addSubview(issueTableView)
         view.addSubview(loadingIndicatorView)
+        view.addSubview(addIssueButton)
         
         issueTableView.snp.makeConstraints {
             $0.top.equalToSuperview()
@@ -132,6 +141,11 @@ final class IssueListViewController: BaseViewController, View {
         
         loadingIndicatorView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        addIssueButton.snp.makeConstraints {
+            $0.bottom.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.width.height.equalTo(64)
         }
     }
 }

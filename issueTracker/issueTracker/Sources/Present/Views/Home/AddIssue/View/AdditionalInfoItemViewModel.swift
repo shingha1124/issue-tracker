@@ -18,6 +18,7 @@ final class AdditionalInfoItemViewModel: ViewModel {
     
     struct State {
         let title = PublishRelay<String>()
+        let target = PublishRelay<String>()
     }
     
     let action = Action()

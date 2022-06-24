@@ -16,6 +16,13 @@ final class AdditionalInfoItemView: BaseView, View {
         return label
     }()
     
+    private let targetLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 17, weight: .regular)
+        label.textColor = .grey1
+        return label
+    }()
+    
     private let selectButton: UIButton = {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .light, scale: .small)
         var image = UIImage(systemName: "chevron.right", withConfiguration: imageConfig)
@@ -37,6 +44,10 @@ final class AdditionalInfoItemView: BaseView, View {
             .bind(to: viewModel.action.tappedItem)
             .disposed(by: disposeBag)
         
+        viewModel.state.target
+            .bind(to: targetLabel.rx.text)
+            .disposed(by: disposeBag)
+        
         viewModel.action.loadData.accept(())
     }
     
@@ -46,6 +57,7 @@ final class AdditionalInfoItemView: BaseView, View {
     
     override func layout() {
         addSubview(titleLabel)
+        addSubview(targetLabel)
         addSubview(selectButton)
         
         titleLabel.snp.makeConstraints {
@@ -57,6 +69,11 @@ final class AdditionalInfoItemView: BaseView, View {
             $0.trailing.equalToSuperview().offset(-16)
             $0.centerY.equalTo(titleLabel)
             $0.width.height.equalTo(30)
+        }
+        
+        targetLabel.snp.makeConstraints {
+            $0.trailing.equalTo(selectButton.snp.leading).offset(4)
+            $0.centerY.equalTo(titleLabel)
         }
         
         snp.makeConstraints {

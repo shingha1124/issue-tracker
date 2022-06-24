@@ -13,6 +13,7 @@ final class IssueListViewModel: ViewModel {
     struct Action {
         let requestIssue = PublishRelay<Void>()
         let closeIssue = PublishRelay<Int>()
+        let tappedAddissue = PublishRelay<Void>()
     }
     
     struct State {
@@ -88,6 +89,10 @@ final class IssueListViewModel: ViewModel {
             }
             .map { _ in }
             .bind(to: action.requestIssue)
+            .disposed(by: disposeBag)
+        
+        action.tappedAddissue
+            .bind(to: coordinator.goToAddIssue)
             .disposed(by: disposeBag)
     }
 }

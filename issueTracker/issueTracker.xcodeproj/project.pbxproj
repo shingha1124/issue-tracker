@@ -33,6 +33,8 @@
 		E096F479285C4CC200778265 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F478285C4CC200778265 /* BaseCoordinator.swift */; };
 		E096F480285CAB1A00778265 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F47F285CAB1900778265 /* Deeplink.swift */; };
 		E096F482285CB0B900778265 /* Rx+URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F481285CB0B900778265 /* Rx+URLSession+Extension.swift */; };
+		E09C77972865492900A263AD /* AddIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C77962865492900A263AD /* AddIssueViewController.swift */; };
+		E09C77992865493500A263AD /* AddIssueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C77982865493500A263AD /* AddIssueViewModel.swift */; };
 		E09CB92328587E29002255FE /* IssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92228587E29002255FE /* IssueTableViewCell.swift */; };
 		E09CB92528587E4B002255FE /* IssueTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */; };
 		E09CB92728588F59002255FE /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09CB92628588F59002255FE /* TagListView.swift */; };
@@ -119,6 +121,8 @@
 		E096F47A285C62B500778265 /* IssueTracker-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "IssueTracker-Dev.xcconfig"; sourceTree = "<group>"; };
 		E096F47F285CAB1900778265 /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
 		E096F481285CB0B900778265 /* Rx+URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+URLSession+Extension.swift"; sourceTree = "<group>"; };
+		E09C77962865492900A263AD /* AddIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIssueViewController.swift; sourceTree = "<group>"; };
+		E09C77982865493500A263AD /* AddIssueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIssueViewModel.swift; sourceTree = "<group>"; };
 		E09CB92228587E29002255FE /* IssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCell.swift; sourceTree = "<group>"; };
 		E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableViewCellModel.swift; sourceTree = "<group>"; };
 		E09CB92628588F59002255FE /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
@@ -281,6 +285,15 @@
 				B5E9B6DC2859267300BA79A4 /* LabelInsertForm.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E09C77942865491500A263AD /* AddIssue */ = {
+			isa = PBXGroup;
+			children = (
+				E09C77962865492900A263AD /* AddIssueViewController.swift */,
+				E09C77982865493500A263AD /* AddIssueViewModel.swift */,
+			);
+			path = AddIssue;
 			sourceTree = "<group>";
 		};
 		E09CB92A2858A13F002255FE /* DecodedBy */ = {
@@ -462,6 +475,7 @@
 				B5E9B6E828596E6E00BA79A4 /* LabelInsert */,
 				B5E9B6D42859267300BA79A4 /* LabelList */,
 				E0F09E1428577503006B9F87 /* IssueList */,
+				E09C77942865491500A263AD /* AddIssue */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -730,9 +744,11 @@
 				E0F09E23285784DC006B9F87 /* AuthViewCoordinator.swift in Sources */,
 				E0F09E0E28576E9D006B9F87 /* Coordinator.swift in Sources */,
 				E0F09E4C285821AE006B9F87 /* APIError.swift in Sources */,
+				E09C77992865493500A263AD /* AddIssueViewModel.swift in Sources */,
 				E09CB92C2858A146002255FE /* DecodedBy.swift in Sources */,
 				B5E9B6E12859267300BA79A4 /* LabelListViewController.swift in Sources */,
 				E0F09E5B28582205006B9F87 /* Constants.swift in Sources */,
+				E09C77972865492900A263AD /* AddIssueViewController.swift in Sources */,
 				E096F482285CB0B900778265 /* Rx+URLSession+Extension.swift in Sources */,
 				E096F467285A14DB00778265 /* String+Extension.swift in Sources */,
 				E0E662222862E51F0084FD56 /* Date+Extension.swift in Sources */,

@@ -5,6 +5,7 @@
 //  Created by seongha shin on 2022/06/13.
 //
 
+import RxCocoa
 import RxSwift
 import UIKit
 
@@ -90,6 +91,13 @@ final class IssueListViewController: BaseViewController, View {
             })
             .disposed(by: disposeBag)
         
+        rx.viewWillDisappear
+            .withUnretained(self)
+            .bind(onNext: { vc, _ in
+                vc.navigationController?.navigationBar.prefersLargeTitles = false
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.state.issues
             .bind(to: issueTableView.rx.items(cellIdentifier: IssueTableViewCell.identifier, cellType: IssueTableViewCell.self)) { _, model, cell in
                 cell.viewModel = model
@@ -120,6 +128,10 @@ final class IssueListViewController: BaseViewController, View {
             .bind(onNext: { vc, enable in
                 enable ? vc.loadingIndicatorView.startAnimating() : vc.loadingIndicatorView.stopAnimating()
             })
+            .disposed(by: disposeBag)
+                
+        addIssueButton.rx.tap
+            .bind(to: viewModel.action.tappedAddissue)
             .disposed(by: disposeBag)
     }
     

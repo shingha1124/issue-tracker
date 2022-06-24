@@ -5,10 +5,13 @@
 //  Created by seongha shin on 2022/06/14.
 //
 
+import RxRelay
 import UIKit
 
 final class IssueListViewCoordinator: BaseCoordinator {
     var navigationController: UINavigationController
+    
+    let goToAddIssue = PublishRelay<Void>()
     
     init(navigation: UINavigationController) {
         self.navigationController = navigation
@@ -20,6 +23,10 @@ final class IssueListViewCoordinator: BaseCoordinator {
         startView
             .bind(onNext: presentIssueListView)
             .disposed(by: disposeBag)
+        
+        goToAddIssue
+            .bind(onNext: presentAddIssue)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -27,6 +34,13 @@ extension IssueListViewCoordinator {
     private func presentIssueListView() {
         let viewController = IssueListViewController()
         let viewModel = IssueListViewModel(coordinator: self)
+        viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func presentAddIssue() {
+        let viewController = AddIssueViewController()
+        let viewModel = AddIssueViewModel(coordinator: self)
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }

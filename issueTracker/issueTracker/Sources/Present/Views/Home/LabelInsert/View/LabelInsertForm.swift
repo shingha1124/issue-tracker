@@ -8,26 +8,25 @@ import UIKit
 
 final class LabelInsertForm: BaseView {
     
-    let titleForm: LabelInsertField = {
-        let form = LabelInsertField()
-        form.title = "제목"
-        form.placeHolder = "필수 입력"
+    let titleField: InsertField = {
+        let form = InsertField()
+        form.title = "Title".localized()
+        form.placeHolder = "Require".localized()
         form.backgroundColor = .white
         return form
     }()
     
-    let descriptionForm: LabelInsertField = {
-        let form = LabelInsertField()
-        form.title = "설명"
-        form.placeHolder = "선택사항"
+    let descriptionField: InsertField = {
+        let form = InsertField()
+        form.title = "Description".localized()
+        form.placeHolder = "Option".localized()
         form.backgroundColor = .white
         return form
     }()
     
-    let colorForm: LabelInsertField = {
-        let form = LabelInsertField()
-        form.title = "배경색"
-        form.placeHolder = "#c5def5"
+    let colorField: InsertField = {
+        let form = InsertField()
+        form.title = "Color".localized()
         form.backgroundColor = .white
         return form
     }()
@@ -50,15 +49,15 @@ final class LabelInsertForm: BaseView {
     override func attribute() {
         super.attribute()
         self.backgroundColor = .white
-        self.colorForm.rightButton = self.colorChangeButton
+        self.colorField.rightButton = self.colorChangeButton
     }
     
     override func layout() {
         super.layout()
         self.addSubview(formStackView)
-        formStackView.addArrangedSubview(titleForm)
-        formStackView.addArrangedSubview(descriptionForm)
-        formStackView.addArrangedSubview(colorForm)
+        formStackView.addArrangedSubview(titleField)
+        formStackView.addArrangedSubview(descriptionField)
+        formStackView.addArrangedSubview(colorField)
         
         formStackView.snp.makeConstraints {
             $0.top.bottom.width.equalToSuperview()

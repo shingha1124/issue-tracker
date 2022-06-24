@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 
 class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
+    
     func requestAccessToken(code: String) -> Single<Swift.Result<Token, APIError>> {
         provider
             .request(.requestAccessToken(code: code))
@@ -21,7 +22,7 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .map(User.self)
     }
     
-    func requestRepositorys() -> Single<Swift.Result<[Repository], APIError>> {
+    func requestRepositories() -> Single<Swift.Result<[Repository], APIError>> {
         provider
             .request(.requestRepositorys)
             .map([Repository].self)
@@ -33,7 +34,7 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .map(Repository.self)
     }
     
-    func requestRepoIssueList(parameters: RequestIssueListParameters) -> Single<Swift.Result<[Issue], APIError>> {
+    func requestRepoIssueList(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Issue], APIError>> {
         provider
             .request(.requestRepoIssueList(parameters: parameters))
             .do { $0.value?.printJson() }
@@ -47,15 +48,36 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .map(Issue.self)
     }
     
-    func requestLabels(parameters: RequestLabelsParameters) -> Single<Swift.Result<[Label], APIError>> {
+    func requestLabels(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Label], APIError>> {
         provider
             .request(.requestLabels(parameters: parameters))
             .map([Label].self)
     }
     
-    func requestAssignees(parameters: RequestAssigneesParameters) -> Single<Swift.Result<[User], APIError>> {
+    func requestAssignees(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[User], APIError>> {
         provider
             .request(.requestAssignees(parameters: parameters))
             .map([User].self)
+    }
+    
+    func requestCreatingLabel(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Label], APIError>> {
+        provider
+            .request(.requestCreatingLabel(parameters: parameters))
+            .do { $0.value?.printJson() }
+            .map([Label].self)
+    }
+    
+    func requestMilestones(parameters: RequestRepositoryParameters) -> Single<Result<[Milestone], APIError>> {
+        provider
+            .request(.requestMilestones(parameters: parameters))
+            .do { $0.value?.printJson() }
+            .map([Milestone].self)
+    }
+    
+    func requestCreatingMilestone(parameters: RequestRepositoryParameters) -> Single<Result<[Milestone], APIError>> {
+        provider
+            .request(.requestCreatingMilestone(parameters: parameters))
+            .do { $0.value?.printJson() }
+            .map([Milestone].self)
     }
 }

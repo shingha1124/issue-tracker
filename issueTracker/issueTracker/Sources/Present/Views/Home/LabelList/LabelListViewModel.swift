@@ -9,52 +9,53 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
-protocol LabelListNavigation: AnyObject {
-    func goToLabelList()
-    func goToLabelInsertion()
-}
-
 final class LabelListViewModel: ViewModel {
-
-    private weak var navigation: LabelListNavigation?
-
     struct Action {
-        let enteredLabels = PublishRelay<Void>()
         let labelInsertButtonTapped = PublishRelay<Void>()
+        let labelListRequest = PublishRelay<Void>()
     }
     
     struct State {
-        let updatedLabels = PublishRelay<[Label]>()
+        let labels = PublishRelay<[LabelListTableViewCellModel]>()
     }
     
-    private let disposeBag = DisposeBag()
     let action = Action()
     let state = State()
     
-    init(navigation: LabelListNavigation) {
-        self.navigation = navigation
-        let labelList = self.loadTemporaryData()
+    private let disposeBag = DisposeBag()
+    private weak var coordinator: LabelListViewCoordinator?
+    
+    @Inject(\.gitHubRepository) private var githubRepository: GitHubRepository
+    
+    init(coordinator: LabelListViewCoordinator) {
+        self.coordinator = coordinator
         
-        self.action.labelInsertButtonTapped
+        action.labelInsertButtonTapped
+            .bind(to: coordinator.goToLabelInserticon)
+            .disposed(by: disposeBag)
+        
+        let requestLabelList = action.labelListRequest
+            .map {
+                RequestRepositoryParameters(parameters: nil)
+            }
             .withUnretained(self)
-            .bind(onNext: { _ in
-                self.navigation?.goToLabelInsertion()
+            .flatMapLatest { viewModel, parameters in
+                viewModel.githubRepository.requestLabels(parameters: parameters)
+            }
+            .share()
+        
+        requestLabelList
+            .compactMap { $0.value }
+            .map { $0.map { LabelListTableViewCellModel(label: $0) } }
+            .bind(to: state.labels)
+            .disposed(by: disposeBag)
+        
+        requestLabelList
+            .compactMap { $0.error }
+            .bind(onNext: {
+                //TODO: error 처리
+                Log.error("\($0)")
             })
             .disposed(by: disposeBag)
-        
-        self.action.enteredLabels
-            .map { labelList }
-            .bind(to: state.updatedLabels)
-            .disposed(by: disposeBag)
-    }
-    
-    private func loadTemporaryData() -> [Label] {
-        var labelList: [Label] = []
-        for num in 1...10 {
-            let title = "label\(num)"
-            let label = Label(name: title, description: "", color: "ff00ff")
-            labelList.append(label)
-        }
-        return labelList
     }
 }

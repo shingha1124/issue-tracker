@@ -28,4 +28,18 @@ extension String {
             return UIColor(red: 255, green: 0, blue: 255, alpha: 1)
         }
     }
+    
+    func toDate(format: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.date(from: self)
+    }
+    
+    func localized(comment: String = "") -> String {
+        NSLocalizedString(self, comment: comment)
+    }
+    
+    func localized(with argument: CVarArg = [], comment: String = "") -> String {
+        String(format: self.localized(comment: comment), argument)
+    }
 }

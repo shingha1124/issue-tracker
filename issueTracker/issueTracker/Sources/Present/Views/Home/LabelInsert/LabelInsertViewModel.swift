@@ -9,13 +9,18 @@ import RxRelay
 import RxSwift
 
 final class LabelInsertViewModel: ViewModel {
-  
-    private weak var navigation: LabelListNavigation?
-
+    private enum Constants {
+        static let owner = "shingha1124"
+        static let repo = "issue-tracker"
+    }
+    
     struct Action {
         let enteredTitleValue = PublishRelay<String>()
         let enteredDescriptionValue = PublishRelay<String>()
         let tappedColorChangeButton = PublishRelay<Void>()
+        let tappedAddingLabelButton = PublishRelay<Void>()
+        let tappedCancelButton = PublishRelay<Void>()
+        let viewDidLoad = PublishRelay<Void>()
     }
     
     struct State {
@@ -27,13 +32,28 @@ final class LabelInsertViewModel: ViewModel {
     let action = Action()
     let state = State()
     private let disposeBag = DisposeBag()
-    var randomColor: String {
-        let randomList = ["#c5def5", "#7FAD7D", "#320F8D", "#F6CBD5"]
-        return randomList.randomElement() ?? ""
-    }
+    private weak var coordinator: LabelListViewCoordinator?
 
-    init(navigation: LabelListNavigation) {
-        self.navigation = navigation
+    @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
+    
+    init(coordinator: LabelListViewCoordinator) {
+        self.coordinator = coordinator
+        
+        action.viewDidLoad
+            .map { "" }
+            .bind(to: state.updatedTitleValue)
+            .disposed(by: disposeBag)
+
+        Observable
+            .merge(action.viewDidLoad.asObservable(), action.tappedColorChangeButton.asObservable())
+            .map { (0..<3).map { _ in String(format: "%02X", Int.random(in: 0...255)) }.joined() }
+            .bind(to: state.updatedRgbValue)
+            .disposed(by: disposeBag)
+        
+        action.viewDidLoad
+            .map { "" }
+            .bind(to: state.updatedDescriptionValue)
+            .disposed(by: disposeBag)
         
         action.enteredTitleValue
             .bind(to: state.updatedTitleValue)
@@ -43,10 +63,37 @@ final class LabelInsertViewModel: ViewModel {
             .bind(to: state.updatedDescriptionValue)
             .disposed(by: disposeBag)
         
-        action.tappedColorChangeButton
+        action.tappedCancelButton
+            .bind(to: coordinator.dismiss)
+            .disposed(by: disposeBag)
+        
+        let parameters = Observable
+            .combineLatest(state.updatedRgbValue, state.updatedDescriptionValue, state.updatedTitleValue) { color, description, title in
+                ["name": title, "description": description, "color": String(color.dropFirst())]
+            }
+            .share()
+        
+        let requestCreatingLabel = action.tappedAddingLabelButton
+            .withLatestFrom(parameters)
+            .map { param in
+                RequestRepositoryParameters(parameters: param)
+            }
             .withUnretained(self)
-            .map { vm, _ in String(vm.randomColor.dropFirst()) }
-            .bind(to: state.updatedRgbValue)
+            .flatMapLatest { viewModel, parameters in
+                viewModel.gitHubRepository.requestCreatingLabel(parameters: parameters)
+            }
+            .share()
+        
+        requestCreatingLabel
+            .compactMap { _ in }
+            .bind(to: coordinator.dismiss)
+            .disposed(by: disposeBag)
+        
+        requestCreatingLabel
+            .compactMap { $0.error }
+            .bind(onNext: {
+                Log.error("\($0)")
+            })
             .disposed(by: disposeBag)
     }
 }

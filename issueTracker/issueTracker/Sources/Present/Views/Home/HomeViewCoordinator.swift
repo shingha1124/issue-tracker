@@ -7,45 +7,62 @@
 
 import UIKit
 
-final class HomeViewCoordinator: Coordinator {
-    weak var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
+final class HomeViewCoordinator: BaseCoordinator {
+    private let issueCoordinator: IssueListViewCoordinator = {
+        let issueNavigationController = UINavigationController()
+        let issueCoordinator = IssueListViewCoordinator(navigation: issueNavigationController)
+        issueNavigationController.tabBarItem = UITabBarItem(title: "Issue".localized(), image: UIImage(named: "ic_issue"), tag: 0)
+        return issueCoordinator
+    }()
+    
+    private let labelListCoordinator: LabelListViewCoordinator = {
+        let labelListNavigationController = UINavigationController()
+        let labelListCoordinator = LabelListViewCoordinator(navigation: labelListNavigationController)
+        labelListNavigationController.tabBarItem = UITabBarItem(title: "Labels".localized(), image: UIImage(named: "ic_label"), tag: 1)
+        return labelListCoordinator
+    }()
+
+    private let milestoneCoordinator: MileStoneViewCoordinator = {
+        let milestoneNavigationController = UINavigationController()
+        let milestoneCoordinator = MileStoneViewCoordinator(navigation: milestoneNavigationController)
+        milestoneNavigationController.tabBarItem = UITabBarItem(title: "Milestone".localized(), image: UIImage(named: "ic_milestone"), tag: 2)
+        return milestoneCoordinator
+    }()
+    
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        super.init()
+        bind()
     }
     
     deinit {
         Log.debug("deinit \(String(describing: type(of: self)))")
     }
     
-    func start() {
-        Log.debug("start \(String(describing: type(of: self)))")
-        initializeHomeTabBar()
+    override func bind() {
+        startView
+            .bind(onNext: initializeHomeTabBar)
+            .disposed(by: disposeBag)
     }
-    
+}
+
+extension HomeViewCoordinator {
     private func initializeHomeTabBar() {
-        let tabBarViewController = UITabBarController()
-        
-        let issueNavigationController = UINavigationController()
-        let issueCoordinator = IssueListViewCoordinator(navigation: issueNavigationController)
-        issueCoordinator.parentCoordinator = parentCoordinator
-        issueNavigationController.tabBarItem = UITabBarItem(title: "이슈", image: UIImage(named: "ic_issue"), tag: 0)
-        
-        let labelListNavigationController = UINavigationController()
-        let labelListCoordinator = LabelListViewCoordinator(navigation: labelListNavigationController)
-        labelListCoordinator.parentCoordinator = parentCoordinator
-        labelListNavigationController.tabBarItem = UITabBarItem(title: "레이블", image: UIImage(named: "ic_issue"), tag: 1)
-        
         navigationController.setNavigationBarHidden(true, animated: false)
-        tabBarViewController.viewControllers = [issueNavigationController, labelListNavigationController]
+
+        let tabBarViewController = UITabBarController()
+        tabBarViewController.viewControllers = [issueCoordinator.navigationController, labelListCoordinator.navigationController, milestoneCoordinator.navigationController]
         
-        navigationController.pushViewController(tabBarViewController, animated: true)
-        parentCoordinator?.children.append(issueCoordinator)
-        parentCoordinator?.children.append(labelListCoordinator)
+        store(coordinator: issueCoordinator)
+        store(coordinator: labelListCoordinator)
+        store(coordinator: milestoneCoordinator)
         
-        issueCoordinator.start()
-        labelListCoordinator.start()
+        issueCoordinator.startView.accept(())
+        labelListCoordinator.startView.accept(())
+        milestoneCoordinator.startView.accept(())
+        
+        navigationController.setViewControllers([tabBarViewController], animated: false)
     }
 }

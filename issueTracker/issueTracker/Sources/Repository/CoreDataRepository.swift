@@ -18,7 +18,7 @@ class CoreDataRepository {
      */
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")
-        container.loadPersistentStores(completionHandler: { storeDescription, error in
+        container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -38,40 +38,64 @@ class CoreDataRepository {
         }
     }
     
-    func update<T: BaseCoreData, Entity: CoreDatable>(_ type: Entity.Type, values: [T] ) -> [T] {
+    func fetch<T: BaseCoreData, Entity: CoreDatable>(_ type: Entity.Type, values: [T] ) -> [T] {
         let context = persistentContainer.viewContext
     
-        let fetchRequest = Entity.fetchRequest()
-        fetchRequest.fetchLimit = 1
-        print("---------------------------------------------------------")
-        print(values[0])
-        
         let updateValues = values.map { value -> T in
-            fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                NSPredicate(format: "id = %@", "\(value.id)")
-            ])
+
+            let predicate = NSPredicate(format: "id = %@", "\(value.id)")
             
-            var updateValue = value
-            
-            if let findObject = try? context.fetch(fetchRequest).first,
-               let coreData = findObject as? CoreDatable {
-                updateValue = coreData.update(value) ?? value
+            var fetchValue = value
+            if let coreData = searchObject(type, predicates: [predicate]) {
+                fetchValue = coreData.fetch(value) ?? value
                 context.delete(coreData)
+                
+                let object = Entity(context: context)
+                object.setData(fetchValue)
             }
-            
-            let object = Entity(context: context)
-            object.setData(updateValue)
-            
-            return updateValue
+            return fetchValue
         }
-        print(updateValues[0])
         
-        print("---------------------------------------------------------")
         do {
             try context.save()
         } catch {
+            Log.error(error.localizedDescription)
         }
         return updateValues
+    }
+    
+    func update<T: BaseCoreData, Entity: CoreDatable>(_ type: Entity.Type, value: T) {
+        let context = persistentContainer.viewContext
+    
+        let predicate = NSPredicate(format: "id = %@", "\(value.id)")
+        
+        if let coreData = searchObject(type, predicates: [predicate]) {
+             context.delete(coreData)
+        }
+        
+        let object = Entity(context: context)
+        object.setData(value)
+        
+        do {
+            try context.save()
+        } catch {
+            Log.error(error.localizedDescription)
+        }
+    }
+    
+    private func searchObject<Entity: CoreDatable>(_ type: Entity.Type, predicates: [NSPredicate]) -> CoreDatable? {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest = Entity.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        
+        if let findObject = try? context.fetch(fetchRequest).first,
+           let coreData = findObject as? CoreDatable {
+            return coreData
+        }
+        return nil
     }
 }
 

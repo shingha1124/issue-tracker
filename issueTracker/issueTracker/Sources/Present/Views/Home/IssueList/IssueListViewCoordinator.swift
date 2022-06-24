@@ -7,24 +7,26 @@
 
 import UIKit
 
-final class IssueListViewCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
+final class IssueListViewCoordinator: BaseCoordinator {
     var navigationController: UINavigationController
     
     init(navigation: UINavigationController) {
         self.navigationController = navigation
+        super.init()
+        bind()
     }
     
-    func start() {
-        goToIssueList()
+    override func bind() {
+        startView
+            .bind(onNext: presentIssueListView)
+            .disposed(by: disposeBag)
     }
 }
 
-extension IssueListViewCoordinator: IssueListNavigation {
-    func goToIssueList() {
+extension IssueListViewCoordinator {
+    private func presentIssueListView() {
         let viewController = IssueListViewController()
-        let viewModel = IssueListViewModel(navigation: self)
+        let viewModel = IssueListViewModel(coordinator: self)
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }

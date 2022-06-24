@@ -4,12 +4,12 @@
 //
 //  Created by 이준우 on 2022/06/15.
 //
+import RxCocoa
+import RxSwift
 import SnapKit
 import UIKit
-import RxSwift
-import RxCocoa
 
-final class LabelInsertField: BaseView {
+final class InsertField: BaseView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()

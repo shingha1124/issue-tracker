@@ -13,14 +13,14 @@ final class LabelListViewController: BaseViewController, View {
     
     private let addButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = "추가 +"
+        button.title = "Add".localized()
         button.style = .plain
         return button
     }()
     
     private let labelListTableView: UITableView = {
         let tableView = UITableView()
-        tableView.separatorStyle = .none
+        tableView.separatorColor = .separator1
         tableView.register(LabelListTableViewCell.self,
                            forCellReuseIdentifier: LabelListTableViewCell.identifier)
         return tableView
@@ -31,15 +31,13 @@ final class LabelListViewController: BaseViewController, View {
     func bind(to viewModel: LabelListViewModel) {
         
         rx.viewDidLoad
-            .bind(to: viewModel.action.enteredLabels)
+            .bind(to: viewModel.action.labelListRequest)
             .disposed(by: disposeBag)
         
-        viewModel.state.updatedLabels
+        viewModel.state.labels
             .bind(to: labelListTableView.rx.items(cellIdentifier: LabelListTableViewCell.identifier,
-                                                  cellType: LabelListTableViewCell.self)) { _, model, cell in
-                cell.updateValues(labelName: model.name,
-                                  description: "description for \(model.name)",
-                                  color: model.color.hexToColor())
+                                                  cellType: LabelListTableViewCell.self)) { _, viewModel, cell in
+                cell.viewModel = viewModel
             }
             .disposed(by: disposeBag)
         
@@ -62,20 +60,17 @@ final class LabelListViewController: BaseViewController, View {
             .disposed(by: disposeBag)
     }
     
-    deinit {
-        Log.debug("denit LabelListViewController")
-    }
-    
     override func attribute() {
-        self.title = "레이블"
-        self.navigationItem.rightBarButtonItem = addButton
-        self.view.backgroundColor = .white
+        title = "Labels".localized()
+        navigationItem.rightBarButtonItem = addButton
+        view.backgroundColor = .white
     }
     
     override func layout() {
-        self.view.addSubview(labelListTableView)
+        view.addSubview(labelListTableView)
         labelListTableView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 }

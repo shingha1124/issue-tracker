@@ -15,12 +15,16 @@ enum GithubTarget {
     case requestRepository(parameters: RequestRepositoryParameters)
     
     case requestAllIssueList
-    case requestRepoIssueList(parameters: RequestIssueListParameters)
+    case requestRepoIssueList(parameters: RequestRepositoryParameters)
     case requestUpdateIssue(parameters: RequestUpdateIssueParameters)
     
-    case requestLabels(parameters: RequestLabelsParameters)
+    case requestLabels(parameters: RequestRepositoryParameters)
     
-    case requestAssignees(parameters: RequestAssigneesParameters)
+    case requestAssignees(parameters: RequestRepositoryParameters)
+    case requestCreatingLabel(parameters: RequestRepositoryParameters)
+    
+    case requestMilestones(parameters: RequestRepositoryParameters)
+    case requestCreatingMilestone(parameters: RequestRepositoryParameters)
 }
 
 extension GithubTarget: BaseTarget {
@@ -53,16 +57,26 @@ extension GithubTarget: BaseTarget {
             return "/repos/\(param.owner)/\(param.repo)/labels"
         case .requestAssignees(let param):
             return "/repos/\(param.owner)/\(param.repo)/assignees"
+        case .requestCreatingLabel(parameters: let param):
+            return "/repos/\(param.owner)/\(param.repo)/labels"
+        case .requestMilestones(let param):
+            return "/repos/\(param.owner)/\(param.repo)/milestones"
+        case .requestCreatingMilestone(let param):
+            return "/repos/\(param.owner)/\(param.repo)/milestones"
         }
     }
     
     var parameter: [String: Any]? {
         switch self {
         case .requestAccessToken(let code):
-            return ["client_id": Constants.Login.gitHubClientId, "client_secret": Constants.Login.gitHubSecrets, "code": code, "scope": "repo,user" ]
+            return ["client_id": Constants.Github.clientId, "client_secret": Constants.Github.secrets, "code": code, "scope": "repo,user" ]
         case .requestRepoIssueList(let param):
             return param.parameters
         case .requestUpdateIssue(let param):
+            return param.parameters
+        case .requestCreatingLabel(let param):
+            return param.parameters
+        case .requestCreatingMilestone(let param):
             return param.parameters
         default:
             return nil
@@ -71,7 +85,7 @@ extension GithubTarget: BaseTarget {
     
     var method: HTTPMethod {
         switch self {
-        case .requestAccessToken:
+        case .requestAccessToken, .requestCreatingMilestone, .requestCreatingLabel:
             return .post
         case .requestUpdateIssue:
             return .patch

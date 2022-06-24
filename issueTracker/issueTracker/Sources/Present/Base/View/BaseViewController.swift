@@ -8,7 +8,6 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    
     init() {
         Log.debug("init \(String(describing: type(of: self)))")
         super.init(nibName: nil, bundle: nil)

@@ -10,14 +10,10 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
-protocol LoginNavigation: AnyObject {
-    func goToHome()
-    func goToRegisterPage()
-}
-
 final class LoginViewModel: ViewModel {
     struct Action {
         let tappedGitLogin = PublishRelay<Void>()
+        let inputDeeplinkQuery = PublishRelay<[URLQueryItem]?>()
     }
     
     struct State {
@@ -25,26 +21,36 @@ final class LoginViewModel: ViewModel {
     
     let action = Action()
     let state = State()
-    private weak var loginNavigation: LoginNavigation?
+    private weak var coordinator: AuthViewCoordinator?
     
     private var disposeBag = DisposeBag()
     
-    init(loginNavigation: LoginNavigation) {
-        self.loginNavigation = loginNavigation
+    @Inject(\.tokenStore) private var tokenStore: TokenStore
+    @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
+    
+    init(coordinator: AuthViewCoordinator) {
+        self.coordinator = coordinator
         
         action.tappedGitLogin
-            .compactMap { _ -> URL? in
-                let clientId = Constants.Login.gitHubClientId
-                var urlComponets = URLComponents(string: Constants.Login.gitHubUrl)
-                urlComponets?.queryItems = [
-                    URLQueryItem(name: "client_id", value: clientId),
-                    URLQueryItem(name: "scope", value: "repo,user")
-                ]
-                return urlComponets?.url
+            .bind(to: coordinator.openGithubUrl)
+            .disposed(by: disposeBag)
+        
+        let requestAccessToken = action.inputDeeplinkQuery
+            .compactMap { $0?.filter { $0.name == "code" }.first?.value }
+            .withUnretained(self)
+            .flatMapLatest { router, code in
+                router.gitHubRepository.requestAccessToken(code: code)
             }
-            .bind(onNext: {
-                UIApplication.shared.open($0)
-            })
+            .share()
+        
+        requestAccessToken
+            .compactMap { $0.value }
+            .withUnretained(self)
+            .do { vm, token in
+                vm.tokenStore.store(token)
+            }
+            .map { _ in }
+            .bind(to: coordinator.loginSuccess)
             .disposed(by: disposeBag)
     }
 }

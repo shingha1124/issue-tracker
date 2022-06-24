@@ -18,7 +18,7 @@ final class LoginViewController: BaseViewController, View {
         config.image = UIImage(named: "ic_github")
         config.imagePadding = 8
         config.imagePlacement = .leading
-        config.title = "GitHub 계정으로 로그인"
+        config.title = "Sign in with Github".localized()
         config.cornerStyle = .medium
         let button = UIButton(configuration: config)
         return button

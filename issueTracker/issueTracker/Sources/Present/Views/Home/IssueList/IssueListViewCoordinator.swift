@@ -39,6 +39,7 @@ extension IssueListViewCoordinator {
     }
     
     private func presentAddIssue() {
+        navigationController.topViewController?.navigationItem.backButtonTitle = "Cancel".localized()
         let viewController = AddIssueViewController()
         let viewModel = AddIssueViewModel(coordinator: self)
         viewController.viewModel = viewModel

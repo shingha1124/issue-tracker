@@ -55,13 +55,41 @@ final class AddIssueViewController: BaseViewController, View {
         return textView
     }()
     
+    private let bodySegment: UISegmentedControl = {
+        let segment = UISegmentedControl(items: ["마크다운", "미리보기"])
+        segment.selectedSegmentIndex = 0
+        return segment
+    }()
+    
+    private let additionalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
     var disposeBag = DisposeBag()
     
     func bind(to viewModel: AddIssueViewModel) {
+        rx.viewDidLoad
+            .bind(to: viewModel.action.viewDidLoad)
+            .disposed(by: disposeBag)
+        
         rx.viewDidAppear
             .withUnretained(self)
             .bind(onNext: { vc, _ in
                 vc.navigationController?.navigationBar.prefersLargeTitles = false
+                vc.navigationItem.titleView = vc.bodySegment
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.state.additionalInfoViewModels
+            .withUnretained(self)
+            .bind(onNext: { vc, models in
+                models.forEach {
+                    let itemView = AdditionalInfoItemView()
+                    itemView.viewModel = $0
+                    vc.additionalStackView.addArrangedSubview(itemView)
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -76,6 +104,7 @@ final class AddIssueViewController: BaseViewController, View {
         view.addSubview(titleTextField)
         view.addSubview(separator)
         view.addSubview(bodyTextView)
+        view.addSubview(additionalStackView)
         
         titleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(16)
@@ -98,7 +127,18 @@ final class AddIssueViewController: BaseViewController, View {
         bodyTextView.snp.makeConstraints {
             $0.top.equalTo(separator.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(additionalStackView.snp.top)
+        }
+        
+        additionalStackView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        view.layoutIfNeeded()
+        
+        bodySegment.snp.makeConstraints {
+            $0.width.equalTo(view.frame.width - 200)
         }
     }
 }

@@ -10,6 +10,7 @@
 "Issue" = "이슈";
 "Labels" = "레이블";
 "Milestone" = "마일스톤";
+"Assignees" = "담당자";
 
 "New Labels" = "새로운 레이블";
 "New Milestone" = "새로운 마일스톤";

@@ -27,6 +27,8 @@
 		B5E9B6F6285A5FBA00BA79A4 /* CDInssue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6F4285A5FBA00BA79A4 /* CDInssue+CoreDataClass.swift */; };
 		B5E9B6F7285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6F5285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift */; };
 		B5E9B6F9285A615B00BA79A4 /* LabelListTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6F8285A615B00BA79A4 /* LabelListTableViewCellModel.swift */; };
+		E013B1212865574900BF1662 /* AdditionalInfoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E013B1202865574900BF1662 /* AdditionalInfoItemView.swift */; };
+		E013B12328655ACC00BF1662 /* AdditionalInfoItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E013B12228655ACC00BF1662 /* AdditionalInfoItemViewModel.swift */; };
 		E096F465285A070400778265 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F464285A070400778265 /* CoreDataRepository.swift */; };
 		E096F467285A14DB00778265 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F466285A14DB00778265 /* String+Extension.swift */; };
 		E096F471285A2F6900778265 /* CoreDatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096F470285A2F6900778265 /* CoreDatable.swift */; };
@@ -114,6 +116,8 @@
 		B5E9B6F4285A5FBA00BA79A4 /* CDInssue+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDInssue+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B5E9B6F5285A5FBA00BA79A4 /* CDInssue+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDInssue+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B5E9B6F8285A615B00BA79A4 /* LabelListTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelListTableViewCellModel.swift; sourceTree = "<group>"; };
+		E013B1202865574900BF1662 /* AdditionalInfoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoItemView.swift; sourceTree = "<group>"; };
+		E013B12228655ACC00BF1662 /* AdditionalInfoItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoItemViewModel.swift; sourceTree = "<group>"; };
 		E096F464285A070400778265 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		E096F466285A14DB00778265 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E096F470285A2F6900778265 /* CoreDatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDatable.swift; sourceTree = "<group>"; };
@@ -287,9 +291,19 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E013B11F2865572000BF1662 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E013B1202865574900BF1662 /* AdditionalInfoItemView.swift */,
+				E013B12228655ACC00BF1662 /* AdditionalInfoItemViewModel.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E09C77942865491500A263AD /* AddIssue */ = {
 			isa = PBXGroup;
 			children = (
+				E013B11F2865572000BF1662 /* View */,
 				E09C77962865492900A263AD /* AddIssueViewController.swift */,
 				E09C77982865493500A263AD /* AddIssueViewModel.swift */,
 			);
@@ -768,6 +782,7 @@
 				E0F09E69285826F9006B9F87 /* LoginButtonView.swift in Sources */,
 				E09CB92928589C9D002255FE /* HexToColor.swift in Sources */,
 				B53D856D286057EF004E49B1 /* MilestoneListViewController.swift in Sources */,
+				E013B12328655ACC00BF1662 /* AdditionalInfoItemViewModel.swift in Sources */,
 				E096F479285C4CC200778265 /* BaseCoordinator.swift in Sources */,
 				E0F09E3A285815BF006B9F87 /* Log.swift in Sources */,
 				E096F465285A070400778265 /* CoreDataRepository.swift in Sources */,
@@ -801,6 +816,7 @@
 				E09CB9452859FD00002255FE /* Model.xcdatamodeld in Sources */,
 				E0F09E79285870E9006B9F87 /* Issue.swift in Sources */,
 				E0F09E442858216C006B9F87 /* GitHubRepositoryImpl.swift in Sources */,
+				E013B1212865574900BF1662 /* AdditionalInfoItemView.swift in Sources */,
 				E0F09E4E285821AE006B9F87 /* Provider.swift in Sources */,
 				E0F09E7328585EE7006B9F87 /* PaddingLabel.swift in Sources */,
 				E0F09E612858225A006B9F87 /* GitHubTarget.swift in Sources */,

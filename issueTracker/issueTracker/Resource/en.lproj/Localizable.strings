@@ -11,6 +11,7 @@
 "Issue" = "Issue";
 "Labels" = "Labels";
 "Milestone" = "Milestone";
+"Assignees" = "Assignees";
 
 "New Labels" = "New Labels";
 "New Milestone" = "New Milestone";

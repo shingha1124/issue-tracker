@@ -6,6 +6,7 @@
 //
 
 import RxSwift
+import SwiftyMarkdown
 import UIKit
 
 final class AddIssueViewController: BaseViewController, View {
@@ -52,6 +53,15 @@ final class AddIssueViewController: BaseViewController, View {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 17, weight: .regular)
         textView.textColor = .black
+        textView.isHidden = false
+        return textView
+    }()
+    
+    private let previewTextView: UITextView = {
+        let textView = UITextView()
+        textView.textColor = .black
+        textView.isHidden = true
+        textView.isEditable = false
         return textView
     }()
     
@@ -100,7 +110,6 @@ final class AddIssueViewController: BaseViewController, View {
                         viewModel.action.selectAlertItem.accept((type, index))
                     }
                 }
-                
                 return (type, actions)
             }
             .withUnretained(self)
@@ -121,11 +130,34 @@ final class AddIssueViewController: BaseViewController, View {
         
         bodyTextView.rx.text
             .compactMap { $0 }
+            .map { SwiftyMarkdown(string: $0).attributedString() }
+            .bind(to: previewTextView.rx.attributedText)
+            .disposed(by: disposeBag)
+        
+        bodyTextView.rx.text
+            .compactMap { $0 }
+            .map { SwiftyMarkdown(string: $0).attributedString() }
+            .bind(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        bodyTextView.rx.text
+            .compactMap { $0 }
             .bind(to: viewModel.action.inputBody)
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
             .bind(to: viewModel.action.tappedSaveButton)
+            .disposed(by: disposeBag)
+        
+        bodySegment.rx.value
+            .map { $0 == 0 }
+            .withUnretained(self)
+            .bind(onNext: { vc, isMarkDown in
+                vc.bodyTextView.isHidden = !isMarkDown
+                vc.previewTextView.isHidden = isMarkDown
+            })
             .disposed(by: disposeBag)
     }
     
@@ -139,6 +171,7 @@ final class AddIssueViewController: BaseViewController, View {
         view.addSubview(titleTextField)
         view.addSubview(separator)
         view.addSubview(bodyTextView)
+        view.addSubview(previewTextView)
         view.addSubview(additionalStackView)
         
         titleLabel.snp.makeConstraints {
@@ -160,6 +193,12 @@ final class AddIssueViewController: BaseViewController, View {
         }
         
         bodyTextView.snp.makeConstraints {
+            $0.top.equalTo(separator.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(additionalStackView.snp.top)
+        }
+        
+        previewTextView.snp.makeConstraints {
             $0.top.equalTo(separator.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(additionalStackView.snp.top)

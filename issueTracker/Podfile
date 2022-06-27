@@ -12,4 +12,5 @@ target 'issueTracker' do
   pod 'RxDataSources'
 
   pod 'WeakMapTable'
+  pod 'SwiftyMarkdown'
 end

@@ -32,6 +32,7 @@ final class IssueListViewController: BaseViewController, View {
         config.contentInsets = .zero
         
         let button = UIButton(configuration: config)
+        button.configuration = config
         return button
     }()
     

@@ -17,6 +17,7 @@ enum GithubTarget {
     case requestAllIssueList
     case requestRepoIssueList(parameters: RequestRepositoryParameters)
     case requestUpdateIssue(parameters: RequestUpdateIssueParameters)
+    case requestCreateIssue(parameters: RequestRepositoryParameters)
     
     case requestLabels(parameters: RequestRepositoryParameters)
     
@@ -63,6 +64,8 @@ extension GithubTarget: BaseTarget {
             return "/repos/\(param.owner)/\(param.repo)/milestones"
         case .requestCreatingMilestone(let param):
             return "/repos/\(param.owner)/\(param.repo)/milestones"
+        case .requestCreateIssue(let param):
+            return "/repos/\(param.owner)/\(param.repo)/issues"
         }
     }
     
@@ -78,6 +81,8 @@ extension GithubTarget: BaseTarget {
             return param.parameters
         case .requestCreatingMilestone(let param):
             return param.parameters
+        case .requestCreateIssue(let param):
+            return param.parameters
         default:
             return nil
         }
@@ -85,7 +90,7 @@ extension GithubTarget: BaseTarget {
     
     var method: HTTPMethod {
         switch self {
-        case .requestAccessToken, .requestCreatingMilestone, .requestCreatingLabel:
+        case .requestAccessToken, .requestCreatingMilestone, .requestCreatingLabel, .requestCreateIssue:
             return .post
         case .requestUpdateIssue:
             return .patch

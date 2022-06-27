@@ -113,6 +113,20 @@ final class AddIssueViewController: BaseViewController, View {
                 vc.present(alert, animated: true)
             })
             .disposed(by: disposeBag)
+        
+        titleTextField.rx.text
+            .compactMap { $0 }
+            .bind(to: viewModel.action.inputTitle)
+            .disposed(by: disposeBag)
+        
+        bodyTextView.rx.text
+            .compactMap { $0 }
+            .bind(to: viewModel.action.inputBody)
+            .disposed(by: disposeBag)
+        
+        saveButton.rx.tap
+            .bind(to: viewModel.action.tappedSaveButton)
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {

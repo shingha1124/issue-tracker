@@ -30,6 +30,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else {
             return
         }
+        //issue-tracker://
+        //host:  github
+        //path: /auth/login
+        //query: ?code=12312312465342
         appCoordinator?.deepLinkHandler.accept(Deeplink(url: url))
     }
 }

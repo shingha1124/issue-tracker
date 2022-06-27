@@ -26,6 +26,8 @@ protocol GitHubRepository {
     func requestMilestones(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Milestone], APIError>>
     
     func requestCreatingMilestone(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Milestone], APIError>>
+    
+    func requestCreateIssue(parameters: RequestRepositoryParameters) -> Single<Swift.Result<Issue, APIError>>
 }
 
 struct RequestRepositoryParameters {

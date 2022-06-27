@@ -13,6 +13,9 @@ final class AddIssueViewModel: ViewModel {
     struct Action {
         let viewDidLoad = PublishRelay<Void>()
         let selectAlertItem = PublishRelay<(AdditionalType, Int)>()
+        let inputTitle = PublishRelay<String>()
+        let inputBody = PublishRelay<String>()
+        let tappedSaveButton = PublishRelay<Void>()
     }
     
     struct State {
@@ -23,11 +26,12 @@ final class AddIssueViewModel: ViewModel {
     let action = Action()
     let state = State()
     let disposeBag = DisposeBag()
+        
+    private var repositoryOptions = [AdditionalType: [(String, Any)]]()
+    private var selectedOptions = [AdditionalType: (String, Any)]()
     private var additionalModels = [AdditionalType: AdditionalInfoItemViewModel]()
-    private var additionalData = [AdditionalType: [String]]()
     
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
-    
     
     init(coordinator: IssueListViewCoordinator) {
         
@@ -45,7 +49,7 @@ final class AddIssueViewModel: ViewModel {
             .compactMap { $0.value }
             .withUnretained(self)
             .bind(onNext: { model, labels in
-                model.additionalData[.labels] = labels.map { $0.name }
+                model.repositoryOptions[.labels] = labels.map { ($0.name, $0.name) }
             })
             .disposed(by: disposeBag)
         
@@ -63,7 +67,7 @@ final class AddIssueViewModel: ViewModel {
             .compactMap { $0.value }
             .withUnretained(self)
             .bind(onNext: { model, milestone in
-                model.additionalData[.milestone] = milestone.map { $0.title }
+                model.repositoryOptions[.milestone] = milestone.map { ($0.title, $0.number) }
             })
             .disposed(by: disposeBag)
         
@@ -81,7 +85,7 @@ final class AddIssueViewModel: ViewModel {
             .compactMap { $0.value }
             .withUnretained(self)
             .bind(onNext: { model, assignees in
-                model.additionalData[.assignees] = assignees.map { $0.login }
+                model.repositoryOptions[.assignees] = assignees.map { ($0.login, $0.login) }
             })
             .disposed(by: disposeBag)
         
@@ -118,20 +122,24 @@ final class AddIssueViewModel: ViewModel {
         tappedItems
             .withUnretained(self)
             .compactMap { model, type -> (AdditionalType, [String])? in
-                guard let titles = model.additionalData[type] else {
+                guard let titles = model.repositoryOptions[type] else {
                     return nil
                 }
-                return (type, titles)
+                return (type, titles.map { $0.0 })
             }
             .bind(to: state.presentAlert)
             .disposed(by: disposeBag)
         
         action.selectAlertItem
             .withUnretained(self)
+            .do { model, select in
+                let (type, index) = select
+                model.selectedOptions[type] = model.repositoryOptions[type]?[index]
+            }
             .compactMap { model, select -> (AdditionalInfoItemViewModel, String)? in
                 let (type, index) = select
                 guard let itemModel = model.additionalModels[type],
-                    let selectData = model.additionalData[type]?[index] else {
+                      let selectData = model.repositoryOptions[type]?[index].0 else {
                     return nil
                 }
                 return (itemModel, selectData)
@@ -140,11 +148,46 @@ final class AddIssueViewModel: ViewModel {
                 itemModel.state.target.accept(target)
             })
             .disposed(by: disposeBag)
+        
+        let param = Observable
+            .combineLatest(action.inputTitle, action.inputBody)
+        
+        let requestCreateIssue = action.tappedSaveButton
+            .withLatestFrom(param)
+            .withUnretained(self)
+            .map { model, param -> RequestRepositoryParameters in
+                let (title, body) = param
+                let query = model.selectedOptions.reduce(into: [String: Any]()) {
+                    let paramValue = $1.value.1
+                    if $1.key == .labels {
+                        $0[$1.key.queryKey] = [paramValue]
+                    } else {
+                        $0[$1.key.queryKey] = paramValue
+                    }
+                }
+
+                var dicParam = query
+                dicParam["title"] = title
+                dicParam["body"] = body
+
+                return RequestRepositoryParameters(parameters: dicParam)
+            }
+            .withUnretained(self)
+            .flatMapLatest { model, param in
+                model.gitHubRepository.requestCreateIssue(parameters: param)
+            }
+            .share()
+
+        requestCreateIssue
+            .compactMap { $0.value }
+            .bind(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
-
-enum AdditionalType: CaseIterable {
+enum AdditionalType: String, CaseIterable {
     case labels
     case milestone
     case assignees
@@ -158,5 +201,9 @@ enum AdditionalType: CaseIterable {
         case .assignees:
             return "Assignees".localized()
         }
+    }
+    
+    var queryKey: String {
+        self.rawValue
     }
 }

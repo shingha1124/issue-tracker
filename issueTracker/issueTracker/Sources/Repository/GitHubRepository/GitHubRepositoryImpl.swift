@@ -80,4 +80,11 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .do { $0.value?.printJson() }
             .map([Milestone].self)
     }
+    
+    func requestCreateIssue(parameters: RequestRepositoryParameters) -> Single<Result<Issue, APIError>> {
+        provider
+            .request(.requestCreateIssue(parameters: parameters))
+            .do { $0.value?.printJson() }
+            .map(Issue.self)
+    }
 }

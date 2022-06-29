@@ -12,6 +12,7 @@ final class IssueListViewCoordinator: BaseCoordinator {
     var navigationController: UINavigationController
     
     let goToAddIssue = PublishRelay<Void>()
+    let goToIssueDetail = PublishRelay<Issue>()
     
     init(navigation: UINavigationController) {
         self.navigationController = navigation
@@ -26,6 +27,13 @@ final class IssueListViewCoordinator: BaseCoordinator {
         
         goToAddIssue
             .bind(onNext: presentAddIssue)
+            .disposed(by: disposeBag)
+        
+        goToIssueDetail
+            .withUnretained(self)
+            .bind(onNext: { coordinator, issue in
+                coordinator.presentIssueDetailView(issue: issue)
+            })
             .disposed(by: disposeBag)
     }
 }
@@ -42,6 +50,13 @@ extension IssueListViewCoordinator {
         navigationController.topViewController?.navigationItem.backButtonTitle = "Cancel".localized()
         let viewController = AddIssueViewController()
         let viewModel = AddIssueViewModel(coordinator: self)
+        viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func presentIssueDetailView(issue: Issue) {
+        let viewController = IssueDetailViewController()
+        let viewModel = IssueDetailViewModel(coordinator: self)
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }

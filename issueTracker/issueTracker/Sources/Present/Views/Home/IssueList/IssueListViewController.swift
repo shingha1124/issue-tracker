@@ -9,7 +9,7 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-final class IssueListViewController: BaseViewController, View {
+final class IssueListViewController: BaseViewController, View, UIScrollViewDelegate {
     
     private let issueTableView: UITableView = {
         let tableView = UITableView()
@@ -75,7 +75,7 @@ final class IssueListViewController: BaseViewController, View {
         rx.viewDidLoad
             .bind(to: viewModel.action.requestIssue)
             .disposed(by: disposeBag)
-        
+
         rx.viewDidAppear
             .withUnretained(self)
             .bind(onNext: { vc, _ in
@@ -86,25 +86,25 @@ final class IssueListViewController: BaseViewController, View {
                 vc.navigationController?.navigationBar.standardAppearance = appearance
                 vc.navigationController?.navigationBar.scrollEdgeAppearance = appearance
                 vc.navigationController?.navigationBar.prefersLargeTitles = true
-                
+
                 vc.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: vc.filterButton)
                 vc.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: vc.selectButton)
             })
             .disposed(by: disposeBag)
-        
+
         rx.viewWillDisappear
             .withUnretained(self)
             .bind(onNext: { vc, _ in
                 vc.navigationController?.navigationBar.prefersLargeTitles = false
             })
             .disposed(by: disposeBag)
-        
+
         viewModel.state.issues
             .bind(to: issueTableView.rx.items(cellIdentifier: IssueTableViewCell.identifier, cellType: IssueTableViewCell.self)) { _, model, cell in
                 cell.viewModel = model
             }
             .disposed(by: disposeBag)
-        
+
         viewModel.state.issues
             .withUnretained(self)
             .map { vc, issues -> [IndexPath: UISwipeActionsConfiguration] in
@@ -115,7 +115,7 @@ final class IssueListViewController: BaseViewController, View {
             }
             .bind(to: issueTableView.rx.trailingSwipeActionsConfigurationForRowAt)
             .disposed(by: disposeBag)
-        
+
         viewModel.state.issues
             .filter { $0.count > 4 }
             .withUnretained(self)
@@ -130,10 +130,10 @@ final class IssueListViewController: BaseViewController, View {
                 enable ? vc.loadingIndicatorView.startAnimating() : vc.loadingIndicatorView.stopAnimating()
             })
             .disposed(by: disposeBag)
-                
+
         addIssueButton.rx.tap
             .bind(to: viewModel.action.tappedAddissue)
-            .disposed(by: disposeBag)
+            .disposed(by: disposeBag)        
     }
     
     override func attribute() {

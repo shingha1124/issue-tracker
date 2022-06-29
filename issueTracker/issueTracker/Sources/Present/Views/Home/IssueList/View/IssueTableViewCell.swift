@@ -62,6 +62,8 @@ final class IssueTableViewCell: BaseTableViewCell, View {
         return tagListView
     }()
     
+    private let button = UIButton()
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         labels.clear()
@@ -113,6 +115,10 @@ final class IssueTableViewCell: BaseTableViewCell, View {
             .bind(to: labels.rx.isHidden)
             .disposed(by: disposeBag)
         
+        button.rx.tap
+            .bind(to: viewModel.action.tappedCell)
+            .disposed(by: disposeBag)
+        
         viewModel.action.loadData.accept(())
     }
     
@@ -121,6 +127,7 @@ final class IssueTableViewCell: BaseTableViewCell, View {
     
     override func layout() {
         contentView.addSubview(stackView)
+        contentView.addSubview(button)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(bodyLabel)
         stackView.addArrangedSubview(milestoneView)
@@ -128,6 +135,7 @@ final class IssueTableViewCell: BaseTableViewCell, View {
         
         milestoneView.addSubview(milestoneIcon)
         milestoneView.addSubview(milestoneLabel)
+        
         
         stackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(24)
@@ -153,6 +161,10 @@ final class IssueTableViewCell: BaseTableViewCell, View {
         contentView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(stackView).offset(24)
+        }
+        
+        button.snp.makeConstraints {
+            $0.edges.equalTo(contentView)
         }
     }
 }

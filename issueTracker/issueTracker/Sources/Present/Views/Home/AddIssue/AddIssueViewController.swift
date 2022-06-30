@@ -103,25 +103,25 @@ final class AddIssueViewController: BaseViewController, View {
             })
             .disposed(by: disposeBag)
         
-        viewModel.state.presentAlert
-            .map { type, titles -> (type: AdditionalType, actions: [UIAlertAction]) in
-                let actions = titles.enumerated().map { index, title in
-                    UIAlertAction(title: title, style: .default) { _ in
-                        viewModel.action.selectAlertItem.accept((type, index))
-                    }
-                }
-                return (type, actions)
-            }
-            .withUnretained(self)
-            .bind(onNext: { vc, alertData in
-                let alert = UIAlertController(title: alertData.type.title, message: nil, preferredStyle: .actionSheet)
-                alertData.actions.forEach {
-                    alert.addAction($0)
-                }
-                alert.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel))
-                vc.present(alert, animated: true)
-            })
-            .disposed(by: disposeBag)
+//        viewModel.state.presentAlert
+//            .map { type, titles -> (type: AdditionalType, actions: [UIAlertAction]) in
+//                let actions = titles.enumerated().map { index, title in
+//                    UIAlertAction(title: title, style: .default) { _ in
+//                        viewModel.action.selectAlertItem.accept((type, index))
+//                    }
+//                }
+//                return (type, actions)
+//            }
+//            .withUnretained(self)
+//            .bind(onNext: { vc, alertData in
+//                let alert = UIAlertController(title: alertData.type.title, message: nil, preferredStyle: .actionSheet)
+//                alertData.actions.forEach {
+//                    alert.addAction($0)
+//                }
+//                alert.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel))
+//                vc.present(alert, animated: true)
+//            })
+//            .disposed(by: disposeBag)
         
         titleTextField.rx.text
             .compactMap { $0 }

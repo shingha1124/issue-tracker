@@ -20,7 +20,7 @@ final class AddIssueViewModel: ViewModel {
     
     struct State {
         let additionalInfoViewModels = PublishRelay<[AdditionalInfoItemViewModel]>()
-        let presentAlert = PublishRelay<(AdditionalType, [String])>()
+//        let presentAlert = PublishRelay<(AdditionalType, [String])>()
     }
     
     let action = Action()
@@ -34,7 +34,6 @@ final class AddIssueViewModel: ViewModel {
     @Inject(\.gitHubRepository) private var gitHubRepository: GitHubRepository
     
     init(coordinator: IssueListViewCoordinator) {
-        
         let requestLabels = action.viewDidLoad
             .map {
                 RequestRepositoryParameters(parameters: nil)
@@ -121,16 +120,16 @@ final class AddIssueViewModel: ViewModel {
                 return .merge(tappedItems)
             }
         
-        tappedItems
-            .withUnretained(self)
-            .compactMap { model, type -> (AdditionalType, [String])? in
-                guard let titles = model.repositoryOptions[type] else {
-                    return nil
-                }
-                return (type, titles.map { $0.0 })
-            }
-            .bind(to: state.presentAlert)
-            .disposed(by: disposeBag)
+//        tappedItems
+//            .withUnretained(self)
+//            .compactMap { model, type -> (AdditionalType, [String])? in
+//                guard let titles = model.repositoryOptions[type] else {
+//                    return nil
+//                }
+//                return (type, titles.map { $0.0 })
+//            }
+//            .bind(to: state.presentAlert)
+//            .disposed(by: disposeBag)
         
         action.selectAlertItem
             .withUnretained(self)

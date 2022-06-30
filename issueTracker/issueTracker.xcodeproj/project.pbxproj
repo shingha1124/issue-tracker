@@ -92,6 +92,8 @@
 		E0F09E79285870E9006B9F87 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E78285870E9006B9F87 /* Issue.swift */; };
 		E0F09E7B285872FE006B9F87 /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E7A285872FE006B9F87 /* Milestone.swift */; };
 		E0F09E7D28587393006B9F87 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F09E7C28587393006B9F87 /* Label.swift */; };
+		E0F1E687286D669600D7EE16 /* IssueDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F1E686286D669600D7EE16 /* IssueDetailController.swift */; };
+		E0F1E689286D66C900D7EE16 /* IssueDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F1E688286D66C900D7EE16 /* IssueDetailModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +200,10 @@
 		E0F09E78285870E9006B9F87 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		E0F09E7A285872FE006B9F87 /* Milestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone.swift; sourceTree = "<group>"; };
 		E0F09E7C28587393006B9F87 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		E0F1E686286D669600D7EE16 /* IssueDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDetailController.swift; sourceTree = "<group>"; };
+		E0F1E688286D66C900D7EE16 /* IssueDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDetailModel.swift; sourceTree = "<group>"; };
+		E0F1E68B286D711E00D7EE16 /* UISheetPresentationControllerDetent+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UISheetPresentationControllerDetent+Private.h"; sourceTree = "<group>"; };
+		E0F1E68C286D715E00D7EE16 /* IssueTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IssueTracker-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,6 +426,7 @@
 		E0F09DFC28576CE7006B9F87 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				E0F1E68C286D715E00D7EE16 /* IssueTracker-Bridging-Header.h */,
 				E0F09DF428576CAF006B9F87 /* Info.plist */,
 				E096F47A285C62B500778265 /* IssueTracker-Dev.xcconfig */,
 			);
@@ -530,6 +537,7 @@
 		E0F09E38285815B0006B9F87 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E0F1E68A286D710000D7EE16 /* SheetControllerDetent */,
 				E0F09E5328582205006B9F87 /* PropertyWrapper */,
 				E0F09E5628582205006B9F87 /* Constants.swift */,
 				E0F09E5728582205006B9F87 /* Container.swift */,
@@ -629,6 +637,7 @@
 		E0F09E7128585EDD006B9F87 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E0F1E685286D665C00D7EE16 /* IssueDetail */,
 				E0F09E7228585EE7006B9F87 /* PaddingLabel.swift */,
 				E09CB92628588F59002255FE /* TagListView.swift */,
 				B5E9B6DA2859267300BA79A4 /* InsertField.swift */,
@@ -643,6 +652,23 @@
 				E09CB92428587E4B002255FE /* IssueTableViewCellModel.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E0F1E685286D665C00D7EE16 /* IssueDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E0F1E686286D669600D7EE16 /* IssueDetailController.swift */,
+				E0F1E688286D66C900D7EE16 /* IssueDetailModel.swift */,
+			);
+			path = IssueDetail;
+			sourceTree = "<group>";
+		};
+		E0F1E68A286D710000D7EE16 /* SheetControllerDetent */ = {
+			isa = PBXGroup;
+			children = (
+				E0F1E68B286D711E00D7EE16 /* UISheetPresentationControllerDetent+Private.h */,
+			);
+			path = SheetControllerDetent;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -820,6 +846,7 @@
 				E0F09E4228582166006B9F87 /* GitHubRepository.swift in Sources */,
 				E0F09E6628582559006B9F87 /* UIColor+Extension.swift in Sources */,
 				E0F09E5D28582205006B9F87 /* ImageManager.swift in Sources */,
+				E0F1E689286D66C900D7EE16 /* IssueDetailModel.swift in Sources */,
 				E0F09E3F28582157006B9F87 /* NetworkRepository.swift in Sources */,
 				E0F09E5928582205006B9F87 /* UserDefault.swift in Sources */,
 				B5E9B6F6285A5FBA00BA79A4 /* CDInssue+CoreDataClass.swift in Sources */,
@@ -841,6 +868,7 @@
 				E0F09DE728576CAE006B9F87 /* AppDelegate.swift in Sources */,
 				B5E9B6E42859267300BA79A4 /* LabelListTableViewCell.swift in Sources */,
 				E0F09E1628577513006B9F87 /* IssueListViewController.swift in Sources */,
+				E0F1E687286D669600D7EE16 /* IssueDetailController.swift in Sources */,
 				E09CB92328587E29002255FE /* IssueTableViewCell.swift in Sources */,
 				E0F09E1F28577DA3006B9F87 /* LoginViewModel.swift in Sources */,
 				E09CB92528587E4B002255FE /* IssueTableViewCellModel.swift in Sources */,
@@ -1009,6 +1037,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.team14.issueTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "issueTracker/Configuration/IssueTracker-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1208,6 +1237,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.team14.issueTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "issueTracker/Configuration/IssueTracker-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1237,6 +1267,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.team14.issueTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "issueTracker/Configuration/IssueTracker-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

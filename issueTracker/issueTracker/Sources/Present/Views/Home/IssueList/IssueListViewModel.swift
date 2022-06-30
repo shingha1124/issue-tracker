@@ -92,7 +92,7 @@ final class IssueListViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         action.tappedAddissue
-            .bind(to: coordinator.goToAddIssue)
+            .bind(to: coordinator.present.addIssue)
             .disposed(by: disposeBag)
     }
 }

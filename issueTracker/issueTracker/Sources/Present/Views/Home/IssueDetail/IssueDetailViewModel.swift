@@ -12,6 +12,7 @@ final class IssueDetailViewModel: ViewModel {
     struct Action {
         let loadData = PublishRelay<Void>()
         let viewDidLoad = PublishRelay<Void>()
+        let tappedMoreButton = PublishRelay<Void>()
     }
     struct State {
         let issue = PublishRelay<Issue>()
@@ -48,6 +49,11 @@ final class IssueDetailViewModel: ViewModel {
         action.loadData
             .map { issue.updatedAt }
             .bind(to: state.issueDate)
+            .disposed(by: disposeBag)
+        
+        action.tappedMoreButton
+            .map { issue }
+            .bind(to: coordinator.present.issueDetailPopover)
             .disposed(by: disposeBag)
     }
 }

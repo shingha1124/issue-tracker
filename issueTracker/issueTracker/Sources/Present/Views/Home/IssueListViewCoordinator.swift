@@ -9,10 +9,15 @@ import RxRelay
 import UIKit
 
 final class IssueListViewCoordinator: BaseCoordinator {
-    var navigationController: UINavigationController
     
-    let goToAddIssue = PublishRelay<Void>()
-    let goToIssueDetail = PublishRelay<Issue>()
+    struct Present {
+        let addIssue = PublishRelay<Void>()
+        let issueDetail = PublishRelay<Issue>()
+        let issueDetailPopover = PublishRelay<Issue>()
+    }
+    
+    var navigationController: UINavigationController
+    let present = Present()
     
     init(navigation: UINavigationController) {
         self.navigationController = navigation
@@ -25,15 +30,19 @@ final class IssueListViewCoordinator: BaseCoordinator {
             .bind(onNext: presentIssueListView)
             .disposed(by: disposeBag)
         
-        goToAddIssue
+        present.addIssue
             .bind(onNext: presentAddIssue)
             .disposed(by: disposeBag)
         
-        goToIssueDetail
+        present.issueDetail
             .withUnretained(self)
             .bind(onNext: { coordinator, issue in
                 coordinator.presentIssueDetailView(issue: issue)
             })
+            .disposed(by: disposeBag)
+        
+        present.issueDetailPopover
+            .bind(onNext: presentIssueDetailPopover)
             .disposed(by: disposeBag)
     }
 }
@@ -59,5 +68,12 @@ extension IssueListViewCoordinator {
         let viewController = IssueDetailViewController()
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func presentIssueDetailPopover(issue: Issue) {
+        let viewModel = IssueDetailPopoverViewModel(issue: issue)
+        let viewController = IssueDetailPopoverViewController()
+        viewController.viewModel = viewModel
+        navigationController.present(viewController, animated: true)
     }
 }

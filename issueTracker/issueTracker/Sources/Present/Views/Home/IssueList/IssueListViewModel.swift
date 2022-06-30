@@ -103,7 +103,7 @@ final class IssueListViewModel: ViewModel {
             .share()
         
         tappedIssues
-            .bind(to: coordinator.goToIssueDetail)
+            .bind(to: coordinator.present.issueDetail)
             .disposed(by: disposeBag)
     }
 }

@@ -25,7 +25,7 @@ extension UIColor {
     static let error = color(r: 255, g: 59, b: 48)
     
     static let backGround1 = UIColor.white
-    static let backGround2 = grey6
+    static let backGround2 = color(r: 242, g: 242, b: 247)
     static let backGround3 = UIColor.black.withAlphaComponent(0.02)
     
     private static func color(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1) -> UIColor {

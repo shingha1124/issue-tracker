@@ -22,6 +22,12 @@ final class IssueDetailViewController: BaseViewController, View {
         return tableView
     }()
     
+    private let moreButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.image = UIImage(systemName: "ellipsis")
+        return button
+    }()
+    
     var disposeBag = DisposeBag()
     
     func bind(to viewModel: IssueDetailViewModel) {
@@ -57,10 +63,15 @@ final class IssueDetailViewController: BaseViewController, View {
                 vc.headerView.history = date.description
             })
             .disposed(by: disposeBag)
+        
+        moreButton.rx.tap
+            .bind(to: viewModel.action.tappedMoreButton)
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {
         view.backgroundColor = .systemBackground
+        navigationItem.rightBarButtonItem = moreButton
         navigationItem.enableMutiLinedTitle()
     }
     

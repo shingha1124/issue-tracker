@@ -31,3 +31,5 @@
 
 "Open Issue %d" = "열린 이슈 %d개";
 "Close Issue %d" = "닫힌 이슈 %d개";
+"Edit Issue" = "이슈 편집";
+"Close Issue" = "이슈 닫기";

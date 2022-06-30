@@ -15,10 +15,25 @@ final class IssueDetailViewController: BaseViewController, View {
 
     func bind(to viewModel: IssueDetailViewModel) {
         
-        rx.viewDidAppear
+        rx.viewWillAppear
             .withUnretained(self)
             .bind(onNext: { vc, _ in
-                vc.view.backgroundColor = .lightGray
+                let appearance = UINavigationBarAppearance()
+                appearance.backgroundColor = .white
+                
+                vc.navigationController?.navigationBar.standardAppearance = appearance
+                vc.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+                vc.navigationController?.navigationBar.prefersLargeTitles = true
+                
+                vc.viewModel?.action.loadData.accept(())
             })
+            .disposed(by: disposeBag)
+    }
+    
+    override func attribute() {
+        view.backgroundColor = .systemBackground
+        navigationItem.enableMutiLinedTitle()
+    }
+    
     }
 }

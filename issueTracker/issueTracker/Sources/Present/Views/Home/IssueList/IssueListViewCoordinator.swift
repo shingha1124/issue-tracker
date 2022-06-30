@@ -55,8 +55,8 @@ extension IssueListViewCoordinator {
     }
     
     private func presentIssueDetailView(issue: Issue) {
+        let viewModel = IssueDetailViewModel(coordinator: self, issue: issue)
         let viewController = IssueDetailViewController()
-        let viewModel = IssueDetailViewModel(coordinator: self)
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }

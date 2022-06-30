@@ -94,4 +94,10 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .do { $0.value?.printJson() }
             .map([Comment].self)
     }
+    
+    func requestAvatarImage(url: URL) -> Single<Result<Data, APIError>> {
+        provider
+            .request(.requestAvatarImage(url: url))
+            .map(Data.self)
+    }
 }

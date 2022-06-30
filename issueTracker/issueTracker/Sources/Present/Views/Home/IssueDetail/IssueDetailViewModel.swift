@@ -58,6 +58,8 @@ final class IssueDetailViewModel: ViewModel {
         action.tappedMoreButton
             .map { issue }
             .bind(to: coordinator.present.issueDetailPopover)
+            .disposed(by: disposeBag)
+        
         let requestComments = action.requestComments
             .map {
                 RequestUpdateIssueParameters(number: issue.number, parameters: nil)

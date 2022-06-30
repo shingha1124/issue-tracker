@@ -70,9 +70,10 @@ final class IssueDetailViewController: BaseViewController, View {
             .disposed(by: disposeBag)
         
         viewModel.state.issueDate
+            .map { "\($0.string("yyyy-MM-dd HH:mm")) 작성" }
             .withUnretained(self)
             .bind(onNext: { vc, date in
-                vc.headerView.history = date.description
+                vc.headerView.history = date
             })
             .disposed(by: disposeBag)
         
@@ -98,7 +99,7 @@ final class IssueDetailViewController: BaseViewController, View {
         
         view.addSubview(commentTableView)
         commentTableView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(10)
+            $0.top.equalTo(headerView.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }

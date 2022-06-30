@@ -17,6 +17,7 @@ final class IssueDetailHeaderView: BaseView {
         return label
     }()
     
+    
     private let stateLabel: PaddingLabel = {
         let label = PaddingLabel()
         label.padding = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)

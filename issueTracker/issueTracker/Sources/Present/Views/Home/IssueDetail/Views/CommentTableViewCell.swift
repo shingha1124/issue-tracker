@@ -51,7 +51,7 @@ final class CommentTableViewCell: BaseTableViewCell, View {
     }()
     
     func bind(to viewModel: CommentTableViewCellModel) {
-        
+
         viewModel.state.body
             .map { SwiftyMarkdown(string: $0).attributedString() }
             .bind(to: bodyLabel.rx.attributedText)
@@ -73,6 +73,11 @@ final class CommentTableViewCell: BaseTableViewCell, View {
             .disposed(by: disposeBag)
         
         viewModel.action.loadData.accept(())
+    }
+    
+    override func attribute() {
+        backgroundColor = .systemBackground
+        selectionStyle = .none
     }
     
     override func layout() {

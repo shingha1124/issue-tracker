@@ -18,6 +18,7 @@ final class IssueDetailViewController: BaseViewController, View {
     
     private let commentTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .systemGray6
         tableView.separatorColor = .separator1
         tableView.register(CommentTableViewCell.self,
                            forCellReuseIdentifier: CommentTableViewCell.identifier)
@@ -28,6 +29,15 @@ final class IssueDetailViewController: BaseViewController, View {
         let button = UIBarButtonItem()
         button.image = UIImage(systemName: "ellipsis")
         return button
+    }()
+        
+    private let commentInsertView: CommentInsertView = {
+       let view = CommentInsertView()
+        view.layer.borderWidth = 1.0
+        view.layer.borderColor = UIColor.systemGray5.cgColor
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 20
+        return view
     }()
     
     var disposeBag = DisposeBag()
@@ -87,7 +97,7 @@ final class IssueDetailViewController: BaseViewController, View {
         navigationItem.rightBarButtonItem = moreButton
         navigationItem.enableMutiLinedTitle()
     }
-    
+
     override func layout() {
         super.layout()
         
@@ -96,12 +106,24 @@ final class IssueDetailViewController: BaseViewController, View {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
+                
+        view.addSubview(commentInsertView)
+        commentInsertView.snp.makeConstraints {
+            $0.height.equalToSuperview().multipliedBy(0.05)
+            $0.width.equalToSuperview().multipliedBy(0.9)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
         
         view.addSubview(commentTableView)
         commentTableView.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(commentInsertView.snp.top).offset(-10)
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }

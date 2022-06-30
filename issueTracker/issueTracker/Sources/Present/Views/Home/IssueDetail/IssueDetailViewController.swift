@@ -11,8 +11,19 @@ import UIKit
 
 final class IssueDetailViewController: BaseViewController, View {
     
-    var disposeBag: DisposeBag = DisposeBag()
-
+    private let headerView: IssueDetailHeaderView = {
+        let view = IssueDetailHeaderView()
+        return view
+    }()
+    
+    private let commentTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorColor = .separator1
+        return tableView
+    }()
+    
+    var disposeBag = DisposeBag()
+    
     func bind(to viewModel: IssueDetailViewModel) {
         
         rx.viewWillAppear
@@ -28,6 +39,24 @@ final class IssueDetailViewController: BaseViewController, View {
                 vc.viewModel?.action.loadData.accept(())
             })
             .disposed(by: disposeBag)
+        
+        viewModel.state.issueTitle
+            .bind(to: rx.title)
+            .disposed(by: disposeBag)
+        
+        viewModel.state.issueNumber
+            .withUnretained(self)
+            .bind(onNext: { vc, num in
+                vc.headerView.issueNumber = num
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.state.issueDate
+            .withUnretained(self)
+            .bind(onNext: { vc, date in
+                vc.headerView.history = date.description
+            })
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {
@@ -35,5 +64,13 @@ final class IssueDetailViewController: BaseViewController, View {
         navigationItem.enableMutiLinedTitle()
     }
     
+    override func layout() {
+        super.layout()
+        
+        view.addSubview(headerView)
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
     }
 }

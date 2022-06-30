@@ -5,6 +5,7 @@
 //  Created by 이준우 on 2022/06/30.
 //
 
+import SwiftyMarkdown
 import UIKit
 
 final class CommentTableViewCell: BaseTableViewCell, View {
@@ -52,7 +53,8 @@ final class CommentTableViewCell: BaseTableViewCell, View {
     func bind(to viewModel: CommentTableViewCellModel) {
         
         viewModel.state.body
-            .bind(to: bodyLabel.rx.text)
+            .map { SwiftyMarkdown(string: $0).attributedString() }
+            .bind(to: bodyLabel.rx.attributedText)
             .disposed(by: disposeBag)
         
         viewModel.state.createdAt

@@ -99,7 +99,7 @@ final class IssueDetailViewModel: ViewModel {
         requestCreatingComment
             .compactMap { $0.value }
             .withUnretained(self)
-            .bind(onNext: { viewModel, comment in
+            .bind(onNext: { _, comment in
                 Log.debug("\(comment)")
             })
             .disposed(by: disposeBag)

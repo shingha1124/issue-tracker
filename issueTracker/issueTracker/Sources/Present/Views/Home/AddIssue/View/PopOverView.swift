@@ -32,7 +32,6 @@ final class PopOverView: UIView {
     }
     
     private func attribute() {
-        
     }
     
     private func layout() {

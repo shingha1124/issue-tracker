@@ -136,14 +136,6 @@ final class AddIssueViewController: BaseViewController, View {
         
         bodyTextView.rx.text
             .compactMap { $0 }
-            .map { SwiftyMarkdown(string: $0).attributedString() }
-            .bind(onNext: {
-                print($0)
-            })
-            .disposed(by: disposeBag)
-        
-        bodyTextView.rx.text
-            .compactMap { $0 }
             .bind(to: viewModel.action.inputBody)
             .disposed(by: disposeBag)
         

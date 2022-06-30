@@ -79,7 +79,7 @@ final class TagListView: UIView {
             label.frame.size = labelSize
             if stackWidth + labelSize.width > maxWidth {
                 stackHeight += labelSize.height + config.vSpacing
-                stackWidth = labelSize.width
+                stackWidth = labelSize.width + config.vSpacing
                 label.frame.origin = CGPoint(x: 0, y: stackHeight)
             } else {
                 label.frame.origin = CGPoint(x: stackWidth, y: stackHeight)

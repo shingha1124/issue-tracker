@@ -13,7 +13,7 @@ struct Deeplink {
     
     init(url: URL) {
         path = Array(url.path.split(separator: "/").compactMap {
-            DeeplinkDestination.init(rawValue: String($0))
+            DeeplinkDestination(rawValue: String($0))
         })
         queryItems = URLComponents(string: url.absoluteString)?.queryItems
     }

@@ -52,7 +52,6 @@ final class AdditionalInfoItemView: BaseView, View {
     }
     
     override func attribute() {
-        
     }
     
     override func layout() {

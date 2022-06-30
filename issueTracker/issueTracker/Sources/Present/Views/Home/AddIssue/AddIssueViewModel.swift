@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import RxSwift
 import RxRelay
+import RxSwift
 
 final class AddIssueViewModel: ViewModel {
     struct Action {
@@ -101,9 +101,11 @@ final class AddIssueViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         viewModels
-            .map { $0.reduce(into: [AdditionalType: AdditionalInfoItemViewModel]()){
-                $0[$1.0] = $1.1
-            } }
+            .map {
+                $0.reduce(into: [AdditionalType: AdditionalInfoItemViewModel]()) {
+                    $0[$1.0] = $1.1
+                }
+            }
             .withUnretained(self)
             .bind(onNext: { model, additionalDataModels in
                 model.additionalModels = additionalDataModels
@@ -177,13 +179,6 @@ final class AddIssueViewModel: ViewModel {
                 model.gitHubRepository.requestCreateIssue(parameters: param)
             }
             .share()
-
-        requestCreateIssue
-            .compactMap { $0.value }
-            .bind(onNext: {
-                print($0)
-            })
-            .disposed(by: disposeBag)
     }
 }
 

@@ -22,6 +22,7 @@ final class IssueDetailViewController: BaseViewController, View {
         tableView.separatorColor = .separator1
         tableView.register(CommentTableViewCell.self,
                            forCellReuseIdentifier: CommentTableViewCell.identifier)
+        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
     
@@ -30,13 +31,15 @@ final class IssueDetailViewController: BaseViewController, View {
         button.image = UIImage(systemName: "ellipsis")
         return button
     }()
-        
+    
+    private var commentInsertViewYValue: CGFloat = 0
     private let commentInsertView: CommentInsertView = {
-       let view = CommentInsertView()
+        let view = CommentInsertView()
         view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.systemGray5.cgColor
         view.clipsToBounds = true
         view.layer.cornerRadius = 20
+        view.backgroundColor = .systemBackground
         return view
     }()
     
@@ -90,14 +93,16 @@ final class IssueDetailViewController: BaseViewController, View {
         moreButton.rx.tap
             .bind(to: viewModel.action.tappedMoreButton)
             .disposed(by: disposeBag)
+        
     }
     
     override func attribute() {
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = moreButton
         navigationItem.enableMutiLinedTitle()
+        setKeyboardObserver()
     }
-
+    
     override func layout() {
         super.layout()
         
@@ -106,7 +111,14 @@ final class IssueDetailViewController: BaseViewController, View {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
-                
+        
+        view.addSubview(commentTableView)
+        commentTableView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(15)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.8)
+        }
+        
         view.addSubview(commentInsertView)
         commentInsertView.snp.makeConstraints {
             $0.height.equalToSuperview().multipliedBy(0.05)
@@ -114,16 +126,39 @@ final class IssueDetailViewController: BaseViewController, View {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-        
-        view.addSubview(commentTableView)
-        commentTableView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(15)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(commentInsertView.snp.top).offset(-10)
-        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+}
+
+extension IssueDetailViewController {
+    
+    func setKeyboardObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeShown), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc
+    func keyboardWillBeShown(_ notification: NSNotification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        if commentInsertViewYValue == 0 {
+            commentInsertViewYValue = commentInsertView.frame.origin.y
+        }
+        
+        if commentInsertView.frame.origin.y == commentInsertViewYValue {
+            let keyboardMinY = keyboardFrame.cgRectValue.minY
+            commentInsertViewYValue = commentInsertView.frame.origin.y
+            commentInsertView.frame.origin.y = keyboardMinY - commentInsertView.frame.height
+        }
+    }
+    
+    @objc
+    func keyboardWillBeHidden(_ notification: NSNotification) {
+        if commentInsertView.frame.origin.y != commentInsertViewYValue {
+            commentInsertView.frame.origin.y = commentInsertViewYValue
+        }
     }
 }

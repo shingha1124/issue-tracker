@@ -66,11 +66,6 @@ final class IssueDetailHeaderView: BaseView {
         }
     }
     
-    override func attribute() {
-        super.attribute()
-        backgroundColor = .lightGray
-    }
-    
     override func layout() {
         super.layout()
         
@@ -89,6 +84,10 @@ final class IssueDetailHeaderView: BaseView {
         historyLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalTo(numberLabel.snp.trailing).offset(10)
+        }
+        
+        self.snp.makeConstraints {
+            $0.height.equalTo(stateLabel)
         }
     }
 }

@@ -136,7 +136,6 @@ final class IssueTableViewCell: BaseTableViewCell, View {
         milestoneView.addSubview(milestoneIcon)
         milestoneView.addSubview(milestoneLabel)
         
-        
         stackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(24)
             $0.leading.trailing.equalToSuperview().inset(16)

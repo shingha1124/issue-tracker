@@ -58,4 +58,3 @@ struct IssueDetailInfo {
     let iconName: String?
     let description: String?
 }
-

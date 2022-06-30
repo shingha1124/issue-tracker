@@ -87,4 +87,23 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .do { $0.value?.printJson() }
             .map(Issue.self)
     }
+    
+    func requestIssueComments(parameters: RequestUpdateIssueParameters) -> Single<Result<[Comment], APIError>> {
+        provider
+            .request(.requestIssueComments(parameters: parameters))
+            .do { $0.value?.printJson() }
+            .map([Comment].self)
+    }
+    
+    func requestAvatarImage(url: URL) -> Single<Result<Data, APIError>> {
+        provider
+            .request(.requestAvatarImage(url: url))
+            .map(Data.self)
+    }
+    
+    func requestCreatingComment(parameters: RequestUpdateIssueParameters) -> Single<Result<Comment, APIError>> {
+        provider
+            .request(.requestCreatingComment(parameters: parameters))
+            .map(Comment.self)
+    }
 }

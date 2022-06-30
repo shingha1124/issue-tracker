@@ -18,7 +18,7 @@ protocol BaseTarget {
 extension BaseTarget {
     var header: [String: String]? {
         var header = [String: String]()
-        header["Accept"] = "application/json"
+        header["Accept"] = "application/vnd.github.v3+json"
         header["Content-Type"] = content.value
         
         guard let accessToken = Container.shared.tokenStore.getToken()?.accessToken else {

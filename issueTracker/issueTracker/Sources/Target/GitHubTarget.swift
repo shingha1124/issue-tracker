@@ -26,6 +26,10 @@ enum GithubTarget {
     
     case requestMilestones(parameters: RequestRepositoryParameters)
     case requestCreatingMilestone(parameters: RequestRepositoryParameters)
+    
+    case requestIssueComments(parameters: RequestUpdateIssueParameters)
+    case requestAvatarImage(url: URL)
+    case requestCreatingComment(parameters: RequestUpdateIssueParameters)
 }
 
 extension GithubTarget: BaseTarget {
@@ -33,6 +37,8 @@ extension GithubTarget: BaseTarget {
         switch self {
         case .requestAccessToken:
             return URL(string: "https://github.com")
+        case .requestAvatarImage(let url):
+            return url
         default:
             return URL(string: "https://api.github.com")
         }
@@ -66,6 +72,12 @@ extension GithubTarget: BaseTarget {
             return "/repos/\(param.owner)/\(param.repo)/milestones"
         case .requestCreateIssue(let param):
             return "/repos/\(param.owner)/\(param.repo)/issues"
+        case .requestIssueComments(let param):
+            return "/repos/\(param.owner)/\(param.repo)/issues/\(param.number)/comments"
+        case .requestCreatingComment(let param):
+            return "/repos/\(param.owner)/\(param.repo)/issues/\(param.number)/comments"
+        default:
+            return ""
         }
     }
     
@@ -83,6 +95,8 @@ extension GithubTarget: BaseTarget {
             return param.parameters
         case .requestCreateIssue(let param):
             return param.parameters
+        case .requestCreatingComment(let param):
+            return param.parameters
         default:
             return nil
         }
@@ -90,7 +104,7 @@ extension GithubTarget: BaseTarget {
     
     var method: HTTPMethod {
         switch self {
-        case .requestAccessToken, .requestCreatingMilestone, .requestCreatingLabel, .requestCreateIssue:
+        case .requestAccessToken, .requestCreatingMilestone, .requestCreatingLabel, .requestCreateIssue, .requestCreatingComment:
             return .post
         case .requestUpdateIssue:
             return .patch

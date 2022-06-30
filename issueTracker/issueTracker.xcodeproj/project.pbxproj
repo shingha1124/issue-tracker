@@ -20,6 +20,10 @@
 		B5DD8760286BDFD700BB8EEB /* IssueDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD875F286BDFD700BB8EEB /* IssueDetailViewModel.swift */; };
 		B5DD8762286C45BC00BB8EEB /* UINavigationItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD8761286C45BC00BB8EEB /* UINavigationItem+Extension.swift */; };
 		B5DD8766286D3FA800BB8EEB /* IssueDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD8765286D3FA800BB8EEB /* IssueDetailHeaderView.swift */; };
+		B5DD8768286D4D6600BB8EEB /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD8767286D4D6600BB8EEB /* CommentTableViewCell.swift */; };
+		B5DD876A286D4D9800BB8EEB /* CommentTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD8769286D4D9800BB8EEB /* CommentTableViewCellModel.swift */; };
+		B5DD876C286D5F7400BB8EEB /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD876B286D5F7400BB8EEB /* Comment.swift */; };
+		B5DD8770286E181100BB8EEB /* CommentInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DD876F286E181100BB8EEB /* CommentInsertView.swift */; };
 		B5E9B6E02859267300BA79A4 /* LabelListViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */; };
 		B5E9B6E12859267300BA79A4 /* LabelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */; };
 		B5E9B6E22859267300BA79A4 /* LabelInsertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */; };
@@ -129,6 +133,10 @@
 		B5DD875F286BDFD700BB8EEB /* IssueDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDetailViewModel.swift; sourceTree = "<group>"; };
 		B5DD8761286C45BC00BB8EEB /* UINavigationItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Extension.swift"; sourceTree = "<group>"; };
 		B5DD8765286D3FA800BB8EEB /* IssueDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDetailHeaderView.swift; sourceTree = "<group>"; };
+		B5DD8767286D4D6600BB8EEB /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		B5DD8769286D4D9800BB8EEB /* CommentTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCellModel.swift; sourceTree = "<group>"; };
+		B5DD876B286D5F7400BB8EEB /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		B5DD876F286E181100BB8EEB /* CommentInsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInsertView.swift; sourceTree = "<group>"; };
 		B5E9B6D62859267300BA79A4 /* LabelListViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewCoordinator.swift; sourceTree = "<group>"; };
 		B5E9B6D72859267300BA79A4 /* LabelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelListViewController.swift; sourceTree = "<group>"; };
 		B5E9B6D82859267300BA79A4 /* LabelInsertViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelInsertViewModel.swift; sourceTree = "<group>"; };
@@ -306,6 +314,9 @@
 			isa = PBXGroup;
 			children = (
 				B5DD8765286D3FA800BB8EEB /* IssueDetailHeaderView.swift */,
+				B5DD8767286D4D6600BB8EEB /* CommentTableViewCell.swift */,
+				B5DD8769286D4D9800BB8EEB /* CommentTableViewCellModel.swift */,
+				B5DD876F286E181100BB8EEB /* CommentInsertView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -590,6 +601,7 @@
 				E0F09E78285870E9006B9F87 /* Issue.swift */,
 				E0F09E7A285872FE006B9F87 /* Milestone.swift */,
 				E0F09E7C28587393006B9F87 /* Label.swift */,
+				B5DD876B286D5F7400BB8EEB /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -956,17 +968,21 @@
 				B5E9B6E02859267300BA79A4 /* LabelListViewCoordinator.swift in Sources */,
 				E0F09E4F285821AE006B9F87 /* BaseTarget.swift in Sources */,
 				E0F09E1A28577559006B9F87 /* IssueListViewModel.swift in Sources */,
+				B5DD8768286D4D6600BB8EEB /* CommentTableViewCell.swift in Sources */,
+				B5DD8770286E181100BB8EEB /* CommentInsertView.swift in Sources */,
 				E0F09E1128576FED006B9F87 /* AppCoordinator.swift in Sources */,
 				E096F480285CAB1A00778265 /* Deeplink.swift in Sources */,
 				E0F09E30285795DA006B9F87 /* IssueListViewCoordinator.swift in Sources */,
 				E09CB9452859FD00002255FE /* Model.xcdatamodeld in Sources */,
 				E0F09E79285870E9006B9F87 /* Issue.swift in Sources */,
 				E0F09E442858216C006B9F87 /* GitHubRepositoryImpl.swift in Sources */,
+				B5DD876C286D5F7400BB8EEB /* Comment.swift in Sources */,
 				E013B1212865574900BF1662 /* AdditionalInfoItemView.swift in Sources */,
 				E0F09E4E285821AE006B9F87 /* Provider.swift in Sources */,
 				E0F09E7328585EE7006B9F87 /* PaddingLabel.swift in Sources */,
 				E0F09E612858225A006B9F87 /* GitHubTarget.swift in Sources */,
 				E0F1E68E286D953700D7EE16 /* IssueDetailPopoverItemView.swift in Sources */,
+				B5DD876A286D4D9800BB8EEB /* CommentTableViewCellModel.swift in Sources */,
 				E0F09E0528576E66006B9F87 /* BaseTableViewCell.swift in Sources */,
 				E0F09DE928576CAE006B9F87 /* SceneDelegate.swift in Sources */,
 				B53D857528606178004E49B1 /* MilestoneTableViewCellModel.swift in Sources */,

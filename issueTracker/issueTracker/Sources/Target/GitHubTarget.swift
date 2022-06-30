@@ -26,6 +26,8 @@ enum GithubTarget {
     
     case requestMilestones(parameters: RequestRepositoryParameters)
     case requestCreatingMilestone(parameters: RequestRepositoryParameters)
+    
+    case requestIssueComments(parameters: RequestUpdateIssueParameters)
 }
 
 extension GithubTarget: BaseTarget {
@@ -66,6 +68,8 @@ extension GithubTarget: BaseTarget {
             return "/repos/\(param.owner)/\(param.repo)/milestones"
         case .requestCreateIssue(let param):
             return "/repos/\(param.owner)/\(param.repo)/issues"
+        case .requestIssueComments(let param):
+            return "/repos/\(param.owner)/\(param.repo)/issues/\(param.number)/comments"
         }
     }
     

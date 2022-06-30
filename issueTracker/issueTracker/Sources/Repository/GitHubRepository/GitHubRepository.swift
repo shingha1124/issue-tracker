@@ -28,6 +28,8 @@ protocol GitHubRepository {
     func requestCreatingMilestone(parameters: RequestRepositoryParameters) -> Single<Swift.Result<[Milestone], APIError>>
     
     func requestCreateIssue(parameters: RequestRepositoryParameters) -> Single<Swift.Result<Issue, APIError>>
+    
+    func requestIssueComments(parameters: RequestUpdateIssueParameters) -> Single<Swift.Result<[Comment], APIError>>
 }
 
 struct RequestRepositoryParameters {

@@ -94,5 +94,16 @@ final class IssueListViewModel: ViewModel {
         action.tappedAddissue
             .bind(to: coordinator.present.addIssue)
             .disposed(by: disposeBag)
+        
+        let tappedIssues = state.issues
+            .flatMapLatest { models -> Observable<Issue> in
+                let tappedIssues = models.map { $0.action.tappedIssue.asObservable() }
+                return .merge(tappedIssues)
+            }
+            .share()
+        
+        tappedIssues
+            .bind(to: coordinator.goToIssueDetail)
+            .disposed(by: disposeBag)
     }
 }

@@ -12,6 +12,8 @@ import RxSwift
 final class IssueTableViewCellModel: ViewModel {
     struct Action {
         let loadData = PublishRelay<Void>()
+        let tappedCell = PublishRelay<Void>()
+        let tappedIssue = PublishRelay<Issue>()
     }
     
     struct State {
@@ -48,6 +50,11 @@ final class IssueTableViewCellModel: ViewModel {
         action.loadData
             .map { issue.labels ?? [] }
             .bind(to: state.labels)
+            .disposed(by: disposeBag)
+        
+        action.tappedCell
+            .map { issue }
+            .bind(to: action.tappedIssue)
             .disposed(by: disposeBag)
     }
 }

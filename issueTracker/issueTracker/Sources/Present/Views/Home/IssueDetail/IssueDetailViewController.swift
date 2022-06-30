@@ -19,6 +19,8 @@ final class IssueDetailViewController: BaseViewController, View {
     private let commentTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorColor = .separator1
+        tableView.register(CommentTableViewCell.self,
+                           forCellReuseIdentifier: CommentTableViewCell.identifier)
         return tableView
     }()
     
@@ -44,6 +46,16 @@ final class IssueDetailViewController: BaseViewController, View {
                 
                 vc.viewModel?.action.loadData.accept(())
             })
+            .disposed(by: disposeBag)
+        
+        rx.viewDidLoad
+            .bind(to: viewModel.action.requestComments)
+            .disposed(by: disposeBag)
+        
+        viewModel.state.comments
+            .bind(to: commentTableView.rx.items(cellIdentifier: CommentTableViewCell.identifier, cellType: CommentTableViewCell.self)) { _, viewModel, cell in
+                cell.viewModel = viewModel
+            }
             .disposed(by: disposeBag)
         
         viewModel.state.issueTitle
@@ -82,6 +94,13 @@ final class IssueDetailViewController: BaseViewController, View {
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
             $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        view.addSubview(commentTableView)
+        commentTableView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }

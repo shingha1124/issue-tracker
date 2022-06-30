@@ -13,6 +13,7 @@ final class IssueDetailViewModel: ViewModel {
         let loadData = PublishRelay<Void>()
         let viewDidLoad = PublishRelay<Void>()
         let tappedMoreButton = PublishRelay<Void>()
+        let requestComments = PublishRelay<Void>()
     }
     struct State {
         let issue = PublishRelay<Issue>()
@@ -20,6 +21,7 @@ final class IssueDetailViewModel: ViewModel {
         let issueState = PublishRelay<Issue.State>()
         let issueNumber = PublishRelay<Int>()
         let issueDate = PublishRelay<Date>()
+        let comments = PublishRelay<[CommentTableViewCellModel]>()
     }
     
     let action = Action()
@@ -27,7 +29,9 @@ final class IssueDetailViewModel: ViewModel {
     
     private let disposeBag = DisposeBag()
     private weak var coordinator: IssueListViewCoordinator?
-
+    
+    @Inject(\.gitHubRepository) private var githubRepository: GitHubRepository
+    
     init(coordinator: IssueListViewCoordinator, issue: Issue) {
         self.coordinator = coordinator
         
@@ -54,6 +58,27 @@ final class IssueDetailViewModel: ViewModel {
         action.tappedMoreButton
             .map { issue }
             .bind(to: coordinator.present.issueDetailPopover)
+        let requestComments = action.requestComments
+            .map {
+                RequestUpdateIssueParameters(number: issue.number, parameters: nil)
+            }
+            .withUnretained(self)
+            .flatMapLatest { viewModel, parameters in
+                viewModel.githubRepository.requestIssueComments(parameters: parameters)
+            }
+            .share()
+        
+        requestComments
+            .compactMap { $0.value }
+            .map { $0.map { CommentTableViewCellModel(comment: $0) } }
+            .bind(to: state.comments)
+            .disposed(by: disposeBag)
+        
+        requestComments
+            .compactMap { $0.error }
+            .bind(onNext: {
+                Log.error("\($0)")
+            })
             .disposed(by: disposeBag)
     }
 }

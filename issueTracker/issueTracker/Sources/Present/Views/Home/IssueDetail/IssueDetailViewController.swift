@@ -94,6 +94,14 @@ final class IssueDetailViewController: BaseViewController, View {
             .bind(to: viewModel.action.tappedMoreButton)
             .disposed(by: disposeBag)
         
+        commentInsertView.textField.rx.text
+            .compactMap { $0 }
+            .bind(to: viewModel.action.inputComment)
+            .disposed(by: disposeBag)
+        
+        commentInsertView.addButton.rx.tap
+            .bind(to: viewModel.action.requestCreatingComment)
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {

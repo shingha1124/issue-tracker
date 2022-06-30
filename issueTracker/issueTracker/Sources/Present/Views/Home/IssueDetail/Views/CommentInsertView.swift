@@ -10,13 +10,13 @@ import UIKit
 
 final class CommentInsertView: BaseView {
     
-    private lazy var textField: UITextField = {
+    let textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "코멘트를 입력하세요"
         return textField
     }()
     
-    private lazy var addButton: UIButton = {
+    let addButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.up"), for: .normal)
         return button

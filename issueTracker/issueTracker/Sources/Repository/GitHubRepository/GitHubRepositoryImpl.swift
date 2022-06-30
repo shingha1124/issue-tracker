@@ -100,4 +100,10 @@ class GitHubRepositoryImpl: NetworkRepository<GithubTarget>, GitHubRepository {
             .request(.requestAvatarImage(url: url))
             .map(Data.self)
     }
+    
+    func requestCreatingComment(parameters: RequestUpdateIssueParameters) -> Single<Result<Comment, APIError>> {
+        provider
+            .request(.requestCreatingComment(parameters: parameters))
+            .map(Comment.self)
+    }
 }

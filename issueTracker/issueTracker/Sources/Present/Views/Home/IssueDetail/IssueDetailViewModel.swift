@@ -9,12 +9,16 @@ import RxRelay
 import RxSwift
 
 final class IssueDetailViewModel: ViewModel {
+    
     struct Action {
         let loadData = PublishRelay<Void>()
         let viewDidLoad = PublishRelay<Void>()
         let tappedMoreButton = PublishRelay<Void>()
         let requestComments = PublishRelay<Void>()
+        let inputComment = PublishRelay<String>()
+        let requestCreatingComment = PublishRelay<Void>()
     }
+    
     struct State {
         let issue = PublishRelay<Issue>()
         let issueTitle = PublishRelay<String>()
@@ -80,6 +84,30 @@ final class IssueDetailViewModel: ViewModel {
             .compactMap { $0.error }
             .bind(onNext: {
                 Log.error("\($0)")
+            })
+            .disposed(by: disposeBag)
+        
+        let requestCreatingComment = action.requestCreatingComment
+            .withLatestFrom(action.inputComment)
+            .map { RequestUpdateIssueParameters(number: issue.number, parameters: ["body": $0]) }
+            .withUnretained(self)
+            .flatMapLatest { viewModel, param in
+                viewModel.githubRepository.requestCreatingComment(parameters: param)
+            }
+            .share()
+        
+        requestCreatingComment
+            .compactMap { $0.value }
+            .withUnretained(self)
+            .bind(onNext: { viewModel, comment in
+                Log.debug("\(comment)")
+            })
+            .disposed(by: disposeBag)
+                
+        requestCreatingComment
+            .compactMap { $0.error }
+            .bind(onNext: {
+                Log.error("\($0.localizedDescription)\($0.statusCode)")
             })
             .disposed(by: disposeBag)
     }

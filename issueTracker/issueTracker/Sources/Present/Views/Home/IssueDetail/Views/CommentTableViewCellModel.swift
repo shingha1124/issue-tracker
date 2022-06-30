@@ -37,17 +37,17 @@ final class CommentTableViewCellModel: ViewModel {
             .disposed(by: disposeBag)
         
         action.loadData
-            .map { comment.createdAt }
+            .compactMap { comment.createdAt }
             .bind(to: state.createdAt)
             .disposed(by: disposeBag)
         
         action.loadData
-            .map { comment.user }
+            .compactMap { comment.user }
             .bind(to: state.user)
             .disposed(by: disposeBag)
         
         action.loadData
-            .map { comment.user.avatarUrl }
+            .compactMap { comment.user?.avatarUrl }
             .bind(to: action.requestAvatarImage)
             .disposed(by: disposeBag)
         

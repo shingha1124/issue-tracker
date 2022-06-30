@@ -11,9 +11,9 @@ struct Comment: Decodable {
     
     let id: Int
     let body: String
-    let createdAt: Date
-    let updatedAt: Date
-    let user: User
+    let createdAt: Date?
+    let updatedAt: Date?
+    let user: User?
     
     enum CodingKeys: String, CodingKey {
         case id, body, user

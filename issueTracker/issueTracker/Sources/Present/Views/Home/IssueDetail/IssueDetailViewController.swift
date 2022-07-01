@@ -32,13 +32,8 @@ final class IssueDetailViewController: BaseViewController, View {
         return button
     }()
     
-    private var commentInsertViewYValue: CGFloat = 0
     private let commentInsertView: CommentInsertView = {
         let view = CommentInsertView()
-        view.layer.borderWidth = 1.0
-        view.layer.borderColor = UIColor.systemGray5.cgColor
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 20
         view.backgroundColor = .systemBackground
         return view
     }()
@@ -101,71 +96,57 @@ final class IssueDetailViewController: BaseViewController, View {
         commentInsertView.addButton.rx.tap
             .bind(to: viewModel.action.requestCreatingComment)
             .disposed(by: disposeBag)
+        
+        Observable
+            .merge(
+                NotificationCenter.keyboardWillHideHeight.map { (true, $0) },
+                NotificationCenter.keyboardWillShowHeight.map { (false, $0) }
+            )
+            .withUnretained(self)
+            .bind(onNext: { vc, keyboardValue in
+                let (isHidden, value) = keyboardValue
+                let offsetHeight = isHidden ? 0 : vc.view.safeAreaInsets.bottom
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+                    vc.commentInsertView.snp.updateConstraints {
+                        $0.bottom.equalTo(vc.view.safeAreaLayoutGuide.snp.bottom).inset(value - offsetHeight)
+                    }
+                    vc.commentInsertView.superview?.layoutIfNeeded()
+                })
+            })
+            .disposed(by: disposeBag)
     }
     
     override func attribute() {
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = moreButton
         navigationItem.enableMutiLinedTitle()
-        setKeyboardObserver()
     }
     
     override func layout() {
         super.layout()
 
         view.addSubview(headerView)
+        view.addSubview(commentInsertView)
+        view.addSubview(commentTableView)
+        
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-        view.addSubview(commentTableView)
         commentTableView.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.8)
+            $0.bottom.equalTo(commentInsertView.snp.top)
         }
         
-        view.addSubview(commentInsertView)
         commentInsertView.snp.makeConstraints {
-            $0.height.equalToSuperview().multipliedBy(0.05)
-            $0.width.equalToSuperview().multipliedBy(0.9)
-            $0.centerX.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
-    }
-}
-
-extension IssueDetailViewController {
-    
-    func setKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeShown), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc
-    func keyboardWillBeShown(_ notification: NSNotification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        
-        if commentInsertViewYValue == 0 {
-            commentInsertViewYValue = commentInsertView.frame.origin.y
-        }
-        
-        if commentInsertView.frame.origin.y == commentInsertViewYValue {
-            let keyboardMinY = keyboardFrame.cgRectValue.minY
-            commentInsertViewYValue = commentInsertView.frame.origin.y
-            commentInsertView.frame.origin.y = keyboardMinY - commentInsertView.frame.height
-        }
-    }
-    
-    @objc
-    func keyboardWillBeHidden(_ notification: NSNotification) {
-        if commentInsertView.frame.origin.y != commentInsertViewYValue {
-            commentInsertView.frame.origin.y = commentInsertViewYValue
-        }
     }
 }

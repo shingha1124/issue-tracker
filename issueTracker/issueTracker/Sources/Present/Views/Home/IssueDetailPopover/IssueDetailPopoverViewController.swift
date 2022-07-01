@@ -57,7 +57,7 @@ final class IssueDetailPopoverViewController: BaseViewController, View {
             .bind(onNext: { vc, _ in
                 vc.view.layoutIfNeeded()
                 let dentent: UISheetPresentationController.Detent = ._detent(withIdentifier: "dentent", constant: vc.contentView.frame.height)
-                vc.sheetPresentationController?.detents = [dentent]
+                vc.sheetPresentationController?.detents = [dentent, .medium(), .large()]
             })
             .disposed(by: disposeBag)
     }

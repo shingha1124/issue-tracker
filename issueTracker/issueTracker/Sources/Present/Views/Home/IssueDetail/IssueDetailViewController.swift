@@ -56,7 +56,6 @@ final class IssueDetailViewController: BaseViewController, View {
                 vc.navigationController?.navigationBar.standardAppearance = appearance
                 vc.navigationController?.navigationBar.scrollEdgeAppearance = appearance
                 vc.navigationController?.navigationBar.prefersLargeTitles = true
-                
                 vc.viewModel?.action.loadData.accept(())
             })
             .disposed(by: disposeBag)
@@ -113,7 +112,7 @@ final class IssueDetailViewController: BaseViewController, View {
     
     override func layout() {
         super.layout()
-        
+
         view.addSubview(headerView)
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)

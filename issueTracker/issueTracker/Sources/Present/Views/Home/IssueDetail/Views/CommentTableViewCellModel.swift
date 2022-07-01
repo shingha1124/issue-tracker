@@ -20,7 +20,6 @@ final class CommentTableViewCellModel: ViewModel {
         let body = PublishRelay<String>()
         let createdAt = PublishRelay<Date>()
         let user = PublishRelay<User>()
-        let avatarImage = PublishRelay<Data>()
     }
     
     let action = Action()
@@ -46,28 +45,23 @@ final class CommentTableViewCellModel: ViewModel {
             .bind(to: state.user)
             .disposed(by: disposeBag)
         
-        action.loadData
-            .compactMap { comment.user?.avatarUrl }
-            .bind(to: action.requestAvatarImage)
-            .disposed(by: disposeBag)
-        
-        let requestImage = action.requestAvatarImage
-            .withUnretained(self)
-            .flatMapLatest { viewModel, url in
-                viewModel.githubRepository.requestAvatarImage(url: url)
-            }
-            .share()
-        
-        requestImage
-            .compactMap { $0.value }
-            .bind(to: state.avatarImage)
-            .disposed(by: disposeBag)
-        
-        requestImage
-            .compactMap { $0.error }
-            .bind(onNext: {
-                Log.error("\($0.statusCode)")
-            })
-            .disposed(by: disposeBag)
+//        let requestImage = action.requestAvatarImage
+//            .withUnretained(self)
+//            .flatMapLatest { viewModel, url in
+//                viewModel.githubRepository.requestAvatarImage(url: url)
+//            }
+//            .share()
+//
+//        requestImage
+//            .compactMap { $0.value }
+//            .bind(to: state.avatarImage)
+//            .disposed(by: disposeBag)
+//
+//        requestImage
+//            .compactMap { $0.error }
+//            .bind(onNext: {
+//                Log.error("\($0.statusCode)")
+//            })
+//            .disposed(by: disposeBag)
     }
 }

@@ -34,20 +34,18 @@ class ImageManager {
                 return Disposables.create { }
             }
             
-            URLSession.shared.rx.download(with: url)
+            return URLSession.shared.rx.download(with: url)
                 .compactMap { result -> UIImage? in
                     guard let url = result.url else {
                         return nil
                     }
                     try? FileManager.default.copyItem(at: url, to: fileUrl)
-                    
+
                     return UIImage(contentsOfFile: fileUrl.path)
                 }
                 .bind(onNext: {
                     observer(.success($0))
                 })
-                .dispose()
-            return Disposables.create { }
         }
     }
     

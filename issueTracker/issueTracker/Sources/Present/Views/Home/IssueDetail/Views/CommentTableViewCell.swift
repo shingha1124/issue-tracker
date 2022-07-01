@@ -50,6 +50,8 @@ final class CommentTableViewCell: BaseTableViewCell, View {
         return imageView
     }()
     
+    @Inject(\.imageManager) private var imageManager: ImageManager
+    
     func bind(to viewModel: CommentTableViewCellModel) {
 
         viewModel.state.body
@@ -67,8 +69,11 @@ final class CommentTableViewCell: BaseTableViewCell, View {
             .bind(to: writerLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.state.avatarImage
-            .map { UIImage(data: $0) }
+        viewModel.state.user
+            .withUnretained(self)
+            .flatMapLatest { vc, user in
+                vc.imageManager.loadImage(url: user.avatarUrl)
+            }
             .bind(to: avatarImage.rx.image)
             .disposed(by: disposeBag)
         

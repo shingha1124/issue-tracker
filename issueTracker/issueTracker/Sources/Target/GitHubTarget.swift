@@ -28,7 +28,6 @@ enum GithubTarget {
     case requestCreatingMilestone(parameters: RequestRepositoryParameters)
     
     case requestIssueComments(parameters: RequestUpdateIssueParameters)
-    case requestAvatarImage(url: URL)
     case requestCreatingComment(parameters: RequestUpdateIssueParameters)
 }
 
@@ -37,8 +36,6 @@ extension GithubTarget: BaseTarget {
         switch self {
         case .requestAccessToken:
             return URL(string: "https://github.com")
-        case .requestAvatarImage(let url):
-            return url
         default:
             return URL(string: "https://api.github.com")
         }
@@ -76,8 +73,6 @@ extension GithubTarget: BaseTarget {
             return "/repos/\(param.owner)/\(param.repo)/issues/\(param.number)/comments"
         case .requestCreatingComment(let param):
             return "/repos/\(param.owner)/\(param.repo)/issues/\(param.number)/comments"
-        default:
-            return ""
         }
     }
     

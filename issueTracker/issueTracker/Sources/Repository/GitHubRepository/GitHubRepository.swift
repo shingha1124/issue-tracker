@@ -30,7 +30,6 @@ protocol GitHubRepository {
     func requestCreateIssue(parameters: RequestRepositoryParameters) -> Single<Swift.Result<Issue, APIError>>
     
     func requestIssueComments(parameters: RequestUpdateIssueParameters) -> Single<Swift.Result<[Comment], APIError>>
-    func requestAvatarImage(url: URL) -> Single<Swift.Result<Data, APIError>>
     
     func requestCreatingComment(parameters: RequestUpdateIssueParameters) -> Single<Swift.Result<Comment, APIError>>
 }

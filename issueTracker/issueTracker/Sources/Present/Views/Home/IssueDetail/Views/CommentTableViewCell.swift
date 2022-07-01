@@ -64,15 +64,14 @@ final class CommentTableViewCell: BaseTableViewCell, View {
             .bind(to: timeLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.state.user
-            .map { $0.login }
+        viewModel.state.loginId
             .bind(to: writerLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.state.user
+        viewModel.state.avatarImageUrl
             .withUnretained(self)
-            .flatMapLatest { vc, user in
-                vc.imageManager.loadImage(url: user.avatarUrl)
+            .flatMapLatest { vc, url in
+                vc.imageManager.loadImage(url: url)
             }
             .bind(to: avatarImage.rx.image)
             .disposed(by: disposeBag)
